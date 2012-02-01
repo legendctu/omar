@@ -27,7 +27,12 @@
 	</div>
 <?php } else { ?>
 	<div id="l_side" class="fl w670">
-		<h1 class="pink m10 p10 border-b font24"><?= ucfirst($type)." Information" ?></h1>
+		<div class="m10 p10 border-b overflow">
+			<h1 class="fl pink font24"><?= ucfirst($type)." Information" ?></h1>
+			<?php if (is_me($item["publisher_id"])) { ?>
+				<a id="info-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
+			<?php } ?>
+		</div>
 		<div>
 			<span class="key">Title of <?= $type ?>:</span>
 			<span class="value"><?= $item["title"] ?></span>
