@@ -116,7 +116,7 @@
 						    $tmp_is_followed = is_followed($follower[$i]["id"]);?>
 							<a name="follow" uid="<?= $follower[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
-						<img class="star fr" src="../image/<?= "star.png" ?>" />
+						<img class="star fr" src="../image/<?= $follower[$i]["inverted"] ? "star.png" : "star-empty.png" ?>" />
 					</div></li>
 				<?php } ?>
 				</ul>
