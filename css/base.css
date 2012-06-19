@@ -21,3 +21,38 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
+
+.georgia{
+    font-family: Georgia, serif;
+}
+
+.arial{
+    font-family: Arial;
+}
+
+.verdana{
+    font-family: Verdana;
+}
+
+#oamr{
+    color: #cd2c24;
+    font-size: 48px;
+}
+
+#hub{
+    color: #4ea2bc;
+    font-size: 48px;
+}
+
+.fl{
+    float: left;
+}
+
+.center{
+    text-align: center;
+}
+
+.avatar{
+    width: 90px;
+    height: 90px;
+}
