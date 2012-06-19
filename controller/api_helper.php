@@ -14,21 +14,20 @@ function callapi($url, $type = "POST", $data){
     
     if($type == "POST"){
         $headers["Content-Type"] = "application/json";
-        
-        curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me/{$url}");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     }else{
         $url .= "?";
         foreach($data as $k => $v){
             $url .= "{$k}={$v}&";
         }
-        curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me/{$url}");
+        
     }
     $headerArr = array();
     foreach( $headers as $n => $v ){
         $headerArr[] = $n .': ' . $v;
     }
-    curl_setopt ($ch, CURLOPT_HTTPHEADERS, $headerArr);
+    curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me/{$url}");
+    curl_setopt ($ch, CURLOPT_HTTPHEADER, $headerArr);
     
     $result = curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE); 
