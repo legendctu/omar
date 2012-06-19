@@ -4,7 +4,7 @@ function callapi($url, $type = "POST", $data){
     
     ob_start();
     $ch = curl_init();
-    curl_setopt ($ch, CURLOPT_URL, "http://coconut.yach.me/{$url}");
+    
     if($type == "POST"){
         $headers["Content-Type"] = "application/json";
         $headers["Authorization"] = "Basic " . base64_encode($_COOKIE["OH_user"] . ":" . $_COOKIE["OH_pwd"]);
@@ -12,11 +12,15 @@ function callapi($url, $type = "POST", $data){
         foreach( $headers as $n => $v ){
             $headerArr[] = $n .': ' . $v;
         }
-
+        curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me/{$url}");
         curl_setopt ($ch, CURLOPT_HTTPHEADERS, $headerArr);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     }else{
-        
+        $url .= "?";
+        foreach($data as $k => $v){
+            $url .= "{$k}={$v}&";
+        }
+        curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me/{$url}");
     }
     
     $result = curl_exec($ch);
