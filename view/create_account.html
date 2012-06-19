@@ -5,8 +5,51 @@
         <link type="text/css" rel="stylesheet" href="../css/base.css" />
         <link type="text/css" rel="stylesheet" href="../css/page.css" />
         <script src="../script/jquery-1.7.2.min.js"></script>
-        <script src="../script/ajax-kit.js"></script>
-        <script src="../script/create_account.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#create").click(function(){
+                    $("#msgbox").removeClass("red").html("");
+                    if($.trim($("#email").val()) == ""){
+                        $("#msgbox").addClass("red").html("* 请输入用户邮箱");
+                        return;
+                    }
+                    if($.trim($("#firstname").val()) == ""){
+                        $("#msgbox").addClass("red").html("* 请输入用户姓氏");
+                        return;
+                    }
+                    if($.trim($("#lastname").val()) == ""){
+                        $("#msgbox").addClass("red").html("* 请输入用户名字");
+                        return;
+                    }
+                
+                    $("#msgbox").removeClass("red").html("正在创建，请稍等…");
+                    
+                    $.post(
+                        "../controller/create_account.php",
+                        {
+                            email: $("#email").val(),
+                            firstname: $("#firstname").val(),
+                            lastname: $("#lastname").val(),
+                            role: $("input:radio[name='role'][checked='checked']").val()
+                        },
+                        function(d){
+                            switch(d.code){
+                                case 409:
+                                    $("#msgbox").addClass("red").html("* 该邮箱已被注册");
+                                    break;
+                                case 401:
+                                    $("#msgbox").addClass("red").html("* 用户身份验证失败");
+                                    break;
+                                case 200:
+                                    $("#msgbox").html("创建成功");
+                                    break;
+                            }
+                        },
+                        "json"
+                    );
+                });
+            });
+        </script>
         <title>创建账户 -- Omar Hub</title>
     </head>
     <body>
