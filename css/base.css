@@ -23,6 +23,14 @@ body{
     margin-right: auto;
 }
 
+a{
+	text-decoration: none;
+}
+
+#content_wrap{
+	min-height: 100%;
+}
+
 /*font-family*/
 
 .georgia{
@@ -55,8 +63,8 @@ body{
     color: #f2836b;	
 }
 
-.indigo{
-    color: #6baba4;	
+.freshcolor{
+    color: #f2e1ac;	
 }
 .carmine{
     color: #cd2c24;	

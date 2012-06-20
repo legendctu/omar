@@ -4,10 +4,9 @@
 
 .main-navi-active{
 	background: url("../image/gradient-dark.png") repeat-x;
-	color: white;
 }
 
-.main-navi:hover{
+.main-navi a:hover{
     color: white;
 }
 
