@@ -1,0 +1,94 @@
+#entry{
+    padding-bottom: 37px;	
+	height: 75%;
+}
+
+#footer{
+    height: 37px;
+    margin-top: -37px;	
+}
+#entry .mt{
+    height: 36px;	
+	background: url(../image/gradient-light.png) repeat-x 0 0;
+}
+
+#entry .mt h2{
+    float: left;
+    height: 33px;
+    padding-left: 15px;
+    line-height: 33px;	
+}
+
+#entry .mc{
+    padding: 40px 40px 30px 40px;
+    border: solid #D1D1D1;
+    margin-bottom: 10px;
+    border-width: 0 1px 1px;	
+}
+
+#entry .form{
+    float: left;
+    width: 540px;
+    overflow: hidden;
+}
+#entry .guide{
+float: right;
+width: 350px;
+height: 290px;
+padding: 0px 0 20px 40px;
+border-left: 1px solid #D1D1D1;
+}
+
+#entry .text{
+width: 240px;
+height: 26px;
+padding: 4px 3px;
+border: 1px solid #BBB;
+font-size: 14px;
+font-family: arial,"ËÎÌו";
+}
+
+#entry .mail-span{
+	width: 100px;
+	text-align: right;
+}
+
+#entry .login{
+	background: url("../image/gradient-light.png") repeat-x;
+	height:40px;
+	width: 115px;
+	margin-left: 100px;
+	margin-top: 50px;
+}
+
+#entry .first-button{
+	background: url("../image/gradient-light.png") repeat-x;
+	height:40px;
+	width: 115px;
+	margin-left: 80px;
+	margin-top: 50px;
+}
+.bg-blue{
+	 background: url("../image/gradient-light.png") repeat-x;
+	 height: 36px;
+}
+
+table{
+	border-collapse: collapse;
+	}
+	
+.td1{
+    width: 100px;
+	text-align: right;
+	padding-top: 25px;
+}
+
+.td2{
+    width: 250px;
+    padding-top: 25px;	
+}
+
+.td3{
+    padding-top: 25px;
+    text-align: center;	
+}

@@ -372,6 +372,10 @@ a{
 
 /* text effect */
 
+.underline{
+    text-decoration: underline;
+}
+
 .shadow{
 	text-shadow: -1px -1px 1px #448;
 }

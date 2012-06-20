@@ -1,4 +1,3 @@
-<?php require_once("../common.php"); ?>
 <?php require_once("view_helper.php"); ?>
 <?php
 	render_header('People & Activity');
