@@ -9,6 +9,11 @@
             $(document).ready(function(){
                 $("#save").click(function(){
                     $("#msgbox").removeClass("red").html("Processing, please wait…");
+                    if($("#pwd").val() == "" || $("#pwd2").val() == ""){
+                        $("#msgbox").addClass("red").html("* Please enter your password");
+                        return;
+                    }
+                    
                     if($("#pwd").val() != $("#pwd2").val()){
                         $("#msgbox").addClass("red").html("* These passwords don't match each other");
                         return;
