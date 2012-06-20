@@ -423,3 +423,7 @@ input{
 .button-bg{
 	background: url("../image/gradient-light.png") repeat-x;
 }
+
+.hidden {
+    display: none;
+}

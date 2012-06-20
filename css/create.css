@@ -1,0 +1,83 @@
+.spacer{clear:both; height:1px;}
+/* ----------- My Form ----------- */
+.myform{
+margin:0 auto;
+width:400px;
+padding:14px;
+}
+ 
+/* ----------- stylized ----------- */
+#stylized{
+border:solid 2px #D1D1D1;
+min-height:80%;
+background: #fff;
+}
+
+.stylized-border{
+    border-bottom:solid 1px #D1D1D1;
+}
+#stylized h1 {
+	font: arial 18px;
+	font-weight:bold;
+	margin-bottom:8px;
+}
+#stylized p{
+	font-size:15px;
+	color:#666666;
+	margin-bottom:20px;
+	padding-bottom:10px;
+}
+#stylized div{
+    margin-top: 12px;
+}
+#stylized label{
+    font: 18px arial;
+	display:block;
+	/*font-weight:bold;*/
+	text-align:right;
+	margin-top: 7px;
+	width:240px;
+	float:left;
+}
+#stylized select{
+	float:left;
+	font-size:12px;
+	min-width:120px;
+	margin:10px 0 20px 10px;
+}
+#stylized .small{
+    font-family: arial;
+	color:#666666;
+	display:block;
+	font-size:11px;
+	font-weight:normal;
+	text-align:right;
+	width:240px;
+}
+#stylized input{
+	float:left;
+	font-size:12px;
+	padding:4px 2px;
+	border:solid 1px #aacfe4;
+	width:200px;
+	margin:2px 0 20px 10px;
+}
+#stylized textarea{
+	float:left;
+	font-size:12px;
+	width:200px;
+	margin:10px 0 20px 10px;
+}
+#stylized button{
+	clear:both;
+	margin-left:150px;
+	width:125px;
+	height:31px;
+	text-align:center;
+	line-height:31px;
+	font-size:11px;
+	font-weight:bold;
+}
+
+/*padding*/
+/*width*/
