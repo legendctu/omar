@@ -47,6 +47,10 @@ a{
 
 /*color*/
 
+.red{
+	color: #f00;
+}
+
 .white{
     color: #fff;	
 }
