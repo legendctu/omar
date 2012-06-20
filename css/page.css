@@ -2,12 +2,16 @@
     background: url("../image/gradient-light.png") repeat-x;
 }
 
-
-.main-navi:hover{
-    background: url("../image/gradient-dark.png") repeat-x;
+.main-navi-active{
+	background: url("../image/gradient-dark.png") repeat-x;
+	color: white;
 }
 
-.follow-bg{
+.main-navi:hover{
+    color: white;
+}
+
+.button-bg{
 	background: url("../image/gradient-light.png") repeat-x;
 }
 

@@ -43,6 +43,10 @@ body{
     color: #fff;	
 }
 
+.gray{
+	color: #eee;
+}
+
 .pink{
     color: #f2594b;	
 }
@@ -348,11 +352,18 @@ body{
     display: none;	
 }
 
-/*position*/
+/* position */
+
 .absolute{
     position: absolute;	
 }
 
 .overflow{
 	overflow: auto;
+}
+
+/* text effect */
+
+.shadow{
+	text-shadow: -1px -1px 1px #448;
 }

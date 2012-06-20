@@ -22,10 +22,10 @@
 		</div>
 	
 		<div id="navi_wrap" class="navi-bg">
-			<div id="navi" class="wrap">
-				<ul class="w700 fl b font24 white">
+			<div id="navi" class="wrap shadow">
+				<ul class="w700 fl b font24 gray">
 				<li class="fl center pl20 pr20 main-navi"><a>PROFILE</a></li>
-				<li class="fl center pl20 pr20 main-navi"><a>PEOPLE & ACTIVITY</a></li>
+				<li class="fl center pl20 pr20 main-navi-active"><a>PEOPLE & ACTIVITY</a></li>
 				<li class="fl center pl20 pr20 main-navi"><a>TAGS</a></li>
 				<li class="fl center pl20 pr20 main-navi"><a>CREATE</a></li>
 				<li class="clear"></li>
@@ -45,7 +45,7 @@
 				<span class="font24 pink b ml20">Filter</span>
 				<hr />
 				<div class="ml15 mr15">
-					<div class="pl20 white font18 bg-blue r14">
+					<div class="pl20 white font18 button-bg r14 shadow">
 					Field of work
 					<span class="pr20 fr">plus</span>
 					</div>
@@ -57,7 +57,7 @@
 				</div>
 				<hr class="mt15" />
 				<div class="ml15 mr15">
-					<div class="pl20 white font18 bg-blue r14">
+					<div class="pl20 white font18 button-bg r14 shadow">
 					Field of work
 					<span class="pr20 fr">plus</span>
 					</div>
@@ -94,7 +94,7 @@
 							</ul>
 						</div>
 						
-						<span class="fr white font24 arial r14 bg-blue pl20 pr20 b">follow</span>
+						<span class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</span>
 					</div>
 				</div>
 			</div>
