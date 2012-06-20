@@ -1,7 +1,11 @@
 <?php require_once("../common.php"); ?>
 <?php require_once("view_helper.php"); ?>
-<?php include("header.php"); ?>
-<?php render_nav('people_activity'); ?>
+<?php
+	render_header('People & Activity');
+	render_nav('people_activity');
+?>
+
+<link style="text/css" href="../css/page.css" rel="stylesheet"/>
 
 <div id="content_wrap" class="wrap bg-white"><!--clear-->
 <div class="p20 overflow">
