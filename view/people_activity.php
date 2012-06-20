@@ -7,7 +7,7 @@
 <link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
 
 <div id="content_wrap" class="wrap bg-white"><!--clear-->
-<div class="p20 overflow">
+<div class="p20">
 	<div id="l_side" class="fl w250">
 		<span class="font24 pink b ml20">Filter</span>
 		<hr />
@@ -16,11 +16,10 @@
 			Field of work
 			<span class="pr20 fr">plus</span>
 			</div>
-			<ul class="black arial font18 mt15">
-				<li class="fl tag">IT<a>X</a></li>
-				<li class="fl tag">O<a>X</a></li>
-				<li class="clear"></li>
-			</ul>
+			<p class="black arial font18 mt15">
+				<span class="tag">IT<a>X</a></span>
+				<span class="tag">O<a>X</a></span>
+			</p>
 		</div>
 		<hr class="mt15" />
 		<div class="ml15 mr15">
@@ -28,59 +27,78 @@
 			Field of work
 			<span class="pr20 fr">plus</span>
 			</div>
-			<ul class="black arial font18 mt15">
-				<li class="fl tag">IT<a>X</a></li>
-				<li class="fl tag">O<a>X</a></li>
-				<li class="clear"></li>
-			</ul>
+			<p class="black arial font18 mt15">
+				<span class="tag">IT<a>X</a></span>
+				<span class="tag">O<a>X</a></span>
+			</p>
 		</div>
 	</div>
-	<div id="r_side" class="fr">
-		<ul id="r_side_navi" class="b font24 freshcolor">
-			<li class="fl center mr15"><a href="#" class="carmine">All</a></li>
-			<li class="fl center">/</li>
-			<li class="fl center ml15 mr15"><a href="#" class="light-red">Offers</a></li>
-			<li class="fl center">/</li>
-			<li class="fl center ml15 mr15"><a href="#" class="light-red">Needs</a></li>
-			<li class="fl center">/</li>
-			<li class="fl center ml15 "><a href="#" class="light-red">Event</a></li>
-			<li class="clear"></li>
-		</ul>
-		<hr />
-		<div class="clear mt50">
-			<div class="clear">
+	
+	
+	<div id="r_side" class="ml300">
+        <p id="r_side_navi" class="b font24 freshcolor">
+            <span class="center mr15"><a href="#" class="carmine">All</a></span>
+            <span class="center">/</span>
+            <span class="center ml15 mr15"><a href="#" class="light-red">Offers</a></span>
+            <span class="center">/</span>
+            <span class="center ml15 mr15"><a href="#" class="light-red">Needs</a></span>
+            <span class="center">/</span>
+            <span class="center ml15 "><a href="#" class="light-red">Event</a></span>
+        </p>
+
+		<div>
+			<div class="mt10 pt10 border-t">
 				<img class="avatar fl" src="" />
-				<div class="intro w500 fl ml15">
+				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
+				<div class="intro w500 ml90">
 					<span class="arial blue font24 b">#username</span>
 					<p class="verdana font18">啊啊啊</p>
-					<ul class="black arial font18 mt15">
-						<li class="fl tag">IT<a>star</a></li>
-						<li class="fl tag">O<a>star</a></li>
-						<li class="fl tag">Medicine<a>star</a></li>
-						<li class="fl tag">Event<a>star</a></li>
-					</ul>
+					<p class="black arial font18 mt15">
+						<span class="tag">IT<a>star</a></span>
+						<span class="tag">O<a>star</a></span>
+						<span class="tag">Medicine<a>star</a></span>
+						<span class="tag">Event<a>star</a></span>
+					</p>
 				</div>
-				
-				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			</div>
 			
-			<div class="clear">
+			<div class="mt10 pt10 border-t">
 				<img class="avatar fl" src="" />
-				<div class="intro w500 fl ml15">
+				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
+				<div class="intro w500 ml90">
 					<span class="arial blue font24 b">#username</span>
 					<p class="verdana font18">啊啊啊</p>
-					<ul class="black arial font18 mt15">
-						<li class="fl tag">IT<a>star</a></li>
-						<li class="fl tag">O<a>star</a></li>
-						<li class="fl tag">Medicine<a>star</a></li>
-						<li class="fl tag">Event<a>star</a></li>
-					</ul>
+					<p class="black arial font18 mt15">
+						<span class="tag">IT<a>star</a></span>
+						<span class="tag">O<a>star</a></span>
+						<span class="tag">Medicine<a>star</a></span>
+						<span class="tag">Event<a>star</a></span>
+					</p>
 				</div>
-				
+			</div>
+			
+			<div class="mt10 pt10 border-t">
+				<img class="avatar fl" src="" />
 				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
+				<div class="intro w500 ml90">
+					<span class="arial blue font24 b">#username</span>
+					<p class="verdana font18">啊啊啊</p>
+					<p class="black arial font18 mt15">
+						<span class="tag">IT<a>star</a></span>
+						<span class="tag">O<a>star</a></span>
+						<span class="tag">Medicine<a>star</a></span>
+						<span class="tag">Event<a>star</a></span>
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+
+	
+	
+	
 </div>
 </div>
 

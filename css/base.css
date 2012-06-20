@@ -185,6 +185,12 @@ a{
    clear:both;
 }
 
+/* border */
+
+.border-t{
+    border-top: 1px solid black;
+}
+
 /*padding*/
 
 .pCenter{
@@ -198,6 +204,10 @@ a{
 
 .p20{
 	padding: 20px;
+}
+
+.pt10{
+    padding-top: 10px;
 }
 
 .pt20{
@@ -276,6 +286,14 @@ a{
     margin-left: 60px;
 }
 
+.ml90{
+    margin-left: 90px;
+}
+
+.ml300{
+    margin-left: 300px;
+}
+
 .mr15{
 	margin-right:15px;
 }
@@ -297,6 +315,10 @@ a{
 
 .mr60{
     margin-right: 60px;
+}
+
+.mt10{
+    margin-top: 10px;
 }
 
 .mt15{
