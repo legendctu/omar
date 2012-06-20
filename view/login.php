@@ -49,6 +49,15 @@
 	
 <script type="text/javascript">
 	$(document).ready(function(){
+        $("#email, #pwd").keyup(function(e){
+            if(e.keyCode == 13)
+                $("#login").click();
+        });
+        $("#a_email").keyup(function(e){
+            if(e.keyCode == 13)
+                $("#activate").click();
+        });
+	
 		$("#login").click(function(){
 			$("#msgbox").removeClass("red").html("");
 			if($.trim($("#email").val()) == ""){
@@ -108,6 +117,9 @@
 						case 0:
 							$("#a_msgbox").addClass("red").html("* The connection is interrupted, please try again");
 							break;
+                        case 400:
+                            $("#a_msgbox").addClass("red").html("* This account doesn't exist");
+                            break;
 						case 401:
 							$("#a_msgbox").addClass("red").html("* Permission denied");
 							break;
