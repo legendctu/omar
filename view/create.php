@@ -143,7 +143,7 @@ if ($type == "event"){
     </div>
     
     <div class="ml300">
-        <input type="submit" id="create" value="Save" class="button-bg white r14 arial font24 b">
+        <p><a id="create" class="button-bg white r14 arial font24 b">Save</a></p>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
