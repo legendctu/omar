@@ -1,3 +1,9 @@
+<?php
+	if(isset($_COOKIE["OH_user"])){
+		setcookie("OH_user", "", time()-3600, '/');
+		setcookie("OH_pwd", "", time()-3600, '/');
+	}
+?>
 <?php require_once("view_helper.php"); ?>
 <?php
 	render_header('People & Activity', false);
@@ -7,12 +13,11 @@
 
 <div class="bg-blue">
 	<div class="mt wrap">
-		<h2 class="font24 white pl20">USER LOGIN</h2>
-		<b></b>
+		<h2 class="font24 white pl20 shadow">USER LOGIN</h2>
 	</div>
 </div>
 
-<div class="wrap" id="entry">
+<div class="wrap bg-white" id="entry">
 	<div class="fl form">
 		<table>
 			<tr>
@@ -43,6 +48,15 @@
 	
 <script type="text/javascript">
 	$(document).ready(function(){
+        $("#email, #pwd").keyup(function(e){
+            if(e.keyCode == 13)
+                $("#login").click();
+        });
+        $("#a_email").keyup(function(e){
+            if(e.keyCode == 13)
+                $("#activate").click();
+        });
+	
 		$("#login").click(function(){
 			$("#msgbox").removeClass("red").html("");
 			if($.trim($("#email").val()) == ""){
@@ -102,6 +116,9 @@
 						case 0:
 							$("#a_msgbox").addClass("red").html("* The connection is interrupted, please try again");
 							break;
+                        case 400:
+                            $("#a_msgbox").addClass("red").html("* This account doesn't exist");
+                            break;
 						case 401:
 							$("#a_msgbox").addClass("red").html("* Permission denied");
 							break;
