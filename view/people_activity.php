@@ -12,7 +12,7 @@
 		'count' => 10,
 		'page' => 0);
 	$ret = callapi("items", "GET", $data);
-	//print_r($ret);
+	print_r($ret);
 	
 	function render_item($item) { ?>
 		<div class="mt10 p10 border-t">
@@ -71,7 +71,7 @@
             <span class="center">/</span>
             <span class="center ml15 mr15 b"><a href="<?= $type == "need" ? "#" : "people_activity.php?type=need" ?>" class="<?= $type == "need" ? "carmine" : "light-red" ?>">Needs</a></span>
             <span class="center">/</span>
-            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "people_activity.php?type=event" ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Event</a></span>
+            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "people_activity.php?type=event" ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Events</a></span>
         </p>
 
 		<div>

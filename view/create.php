@@ -55,7 +55,7 @@ if ($type == "event"){
             $( "#from" ).datepicker({
                 defaultDate: "+1w",
                 changeMonth: true,
-                numberOfMonths: 3,
+                numberOfMonths: 1,
                 onSelect: function( selectedDate ) {
                     $( "#to" ).datepicker( "option", "minDate", selectedDate );
                 }
@@ -63,28 +63,39 @@ if ($type == "event"){
             $( "#to" ).datepicker({
                 defaultDate: "+1w",
                 changeMonth: true,
-                numberOfMonths: 3,
+                numberOfMonths: 1,
                 onSelect: function( selectedDate ) {
                     $( "#from" ).datepicker( "option", "maxDate", selectedDate );
                 }
             });
-        });
-        
-        $("#onday").toggle(function(){
-            alert(1);
-            $(this).addClass("hidden");
-        },function(){
-            $(this).removeClass("hidden");
+			$("#oneday").click(function(){
+				if($(this).attr("checked")){
+					$("#end-date").addClass("hidden");
+				}else{
+					$("#end-date").removeClass("hidden");
+				}
+			});
         });
         </script>
         ';
     
+	echo '
+        <div>
+            <label>One day event?
+            <span class="small">Is is an one-day event?</span>
+            </label>
+            <input id="oneday" type="checkbox"/>
+            <div class="clear"></div>
+        </div>
+    ';
+
+	
     echo '
         <div>
             <label>Start Date
             <span class="small">When does the event starts.</span>
             </label>
-            <input type="text" id="from" class="hasDatepicker">
+            <input type="text" id="from">
             <div class="clear"></div>
         </div>
     ';
@@ -94,17 +105,7 @@ if ($type == "event"){
             <label>End Date
             <span class="small">When does the event ends.</span>
             </label>
-            <input type="text" id="to" class="hasDatepicker">
-            <div class="clear"></div>
-        </div>
-    ';
-    
-    echo '
-        <div>
-            <label>One day even?
-            <span class="small">Is is a one-day event?</span>
-            </label>
-            <input id="onday" type="checkbox"/>
+            <input type="text" id="to">
             <div class="clear"></div>
         </div>
     ';
@@ -141,8 +142,8 @@ if ($type == "event"){
         <div class="clear"></div>
     </div>
     
-    <div>
-        <button type="submit" class="bg-blue r14">Save</button>
+    <div class="ml300">
+        <input type="submit" id="create" value="Save" class="button-bg white r14 arial font24 b">
         <div class="clear"></div>
     </div>
     <div class="clear"></div>

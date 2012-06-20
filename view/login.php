@@ -31,7 +31,7 @@
 			<td class="td3 underline font14 blue"><a>forget password?</a></td>
 		</tr>
 		</table>
-		<input type="submit" id="login" value="login" class="login r14 font24 arial b">
+		<input type="submit" id="login" value="Login" class="login r14 font24 arial b">
 		<span id="msgbox"></span>
 	</div>
 	
@@ -40,7 +40,7 @@
 		<p class="verdana font18">If it's your first time login, please activate your account first!</p>
 		
 		<span class="mail-span mt20 font18 arial b">Email:</span><input type="text" id="a_email" class="text mt20">
-		<input type="submit" id="activate" value="first" class="first-button r14 arial font24 b">
+		<input type="submit" id="activate" value="First" class="first-button r14 arial font24 b">
 		<span id="a_msgbox"></span>
 	</div>
 	<div class="clear"></div>
