@@ -13,8 +13,7 @@ function render_header($title, $is_user = true) {
 		<?php if($is_user && !isset($_COOKIE["OH_user"])) echo "<script type='text/javascript'>window.location='login.php';</script>";?>
 		<div class="bg-white">
 		<div class="wrap">
-			
-			<div id="welcome" class="fr font18 pr10 arial light-red">
+			<div id="welcome" class="fr font18 pr20 arial light-red">
 				<?php if ($is_user) { ?>
 				Welcome <a href="#" class="blue b">#username</a>, 
 				<a href="login.php" class="arial carmine b">logout</a>

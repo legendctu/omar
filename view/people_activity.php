@@ -15,7 +15,7 @@
 	//print_r($ret);
 	
 	function render_item($item) { ?>
-		<div class="mt10 pt10 border-t">
+		<div class="mt10 p10 border-t">
 			<img class="avatar fl" src="" />
 			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			<div class="intro w500 ml90">
@@ -64,7 +64,7 @@
 	</div>
 	
 	<div id="r_side" class="ml300">
-        <p id="r_side_navi" class="font24 freshcolor">
+        <p id="r_side_navi" class="pl20 font24 freshcolor">
             <span class="center mr15 b"><a href="<?= $type == "all" ? "#" : "people_activity.php" ?>" class="<?= $type == "all" ? "carmine" : "light-red" ?>">All</a></span>
             <span class="center">/</span>
             <span class="center ml15 mr15 b"><a href="<?= $type == "offer" ? "#" : "people_activity.php?type=offer" ?>" class="<?= $type == "offer" ? "carmine" : "light-red" ?>">Offers</a></span>
@@ -85,12 +85,6 @@
 		?>
 		</div>
 	</div>
-	
-	
-
-	
-	
-	
 </div>
 </div>
 
