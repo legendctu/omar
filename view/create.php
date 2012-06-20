@@ -29,7 +29,7 @@
     </div>
     
     <div>    
-        <label>Title of <?php echo ucfirst($type)?>
+        <label>Title of <?php echo $type ?>
         <span class="small">Add the title</span>
         </label>
         <input type="text" name="title" id="title" />
@@ -38,7 +38,7 @@
     
     <div>
         <label>Description
-        <span class="small">Describe your Offer</span>
+        <span class="small">Describe your <?php echo $type ?></span>
         </label>
         <textarea type="text" name="description" id="description" rows="3"></textarea>
         <div class="clear"></div>

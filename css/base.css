@@ -453,7 +453,37 @@ input{
 	z-index: 5;
 }
 
+#navi_wrap { height: 36px; }
+
+#navi ul li ul { visibility: hidden; }
+
+#navi ul li:hover ul { visibility: visible; }
+
+#navi ul li ul{
+	position: absolute;
+}
+
+#navi ul li ul li{
+	background-color: #4ea2bc;
+    display: block;
+    height: 36px;
+    width: 120px;
+    list-style: none;
+}
+
+#navi ul li ul li a{
+    text-decoration: none;
+    line-height: 30px;
+    display: block;
+    vertical-align: middle;
+}
+
+#navi ul li ul li:hover{ background-color: #255a68; }
+
+#navi ul li ul li:hover a{ color: #fff; }
+
 /* button */
+
 .button-bg{
 	background: url("../image/gradient-light.png") repeat-x;
 }
