@@ -8,9 +8,9 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#save").click(function(){
-                    $("#msgbox").removeClass("red").html("正在保存，请稍候…");
+                    $("#msgbox").removeClass("red").html("Processing, please wait…");
                     if($("#pwd").val() != $("#pwd2").val()){
-                        $("#msgbox").addClass("red").html("* 两次密码输入不一致");
+                        $("#msgbox").addClass("red").html("* These passwords don't match each other");
                         return;
                     }
                     
@@ -24,17 +24,17 @@
                         function(d){
                             switch(d.code){
                                 case 0:
-                                    $("#msgbox").addClass("red").html("* 网络中断，请重试");
+                                    $("#msgbox").addClass("red").html("* The connection is interrupted, please try again");
                                     break;
                                 case 200:
-                                    $("#msgbox").html("设置成功，请登录。3秒后跳转…");
+                                    $("#msgbox").html("Your password is set. Please login. Redirect in 3 seconds…");
                                     setTimeout('window.location="login.html"', 3000);
                                     break;
                                 case 401:
-                                    $("#msgbox").addClass("red").html("* 该用户已激活");
+                                    $("#msgbox").addClass("red").html("* The account has been activated");
                                     break;
                                 case 403:
-                                    $("#msgbox").addClass("red").html("* 验证码和邮箱不匹配");
+                                    $("#msgbox").addClass("red").html("* Your verification code and email don't match");
                                     break;
                             }
                         },
@@ -43,7 +43,7 @@
                 });
             });
         </script>
-        <title>激活校验 -- Omar Hub</title>
+        <title>Activate Your Account -- Omar Hub</title>
     </head>
     <body>
         <div class="wrap">
@@ -65,10 +65,10 @@
         <div class="wrap">
             <input type="hidden" id="email" value="<?php echo $email;?>" />
             <input type="hidden" id="vcode" value="<?php echo $vcode;?>" />
-            <h1>设置您的密码</h1>
-            <p>请输入密码: <input type="password" id="pwd" /></p>
-            <p>请再次输入密码: <input type="password" id="pwd2" /></p>
-            <p><a href="#" id="save">确定</a> <span id="msgbox"></span></p>
+            <h1>Please set your password</h1>
+            <p>Enter your password: <input type="password" id="pwd" /></p>
+            <p>Enter it again: <input type="password" id="pwd2" /></p>
+            <p><a href="#" id="save">Save</a> <span id="msgbox"></span></p>
         </div>
         
     </body>

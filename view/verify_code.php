@@ -5,7 +5,7 @@
         <link type="text/css" rel="stylesheet" href="../css/base.css" />
         <link type="text/css" rel="stylesheet" href="../css/page.css" />
         <script src="../script/jquery-1.7.2.min.js"></script>
-        <title>激活校验 -- Omar Hub</title>
+        <title>Activate Your Account -- Omar Hub</title>
     </head>
     <body>
         <div class="wrap">
@@ -28,14 +28,14 @@
             
             switch($res["code"]){
                 case 0:
-                    echo '<div class="wrap"><h1>网络连接中断，请刷新重试</h1></div>';
+                    echo '<div class="wrap"><h1>The connection is interrupted. Please refresh the page to try again.</h1></div>';
                     break;
                 case 401:
                 case 403:
                     ?>
                     <div class="wrap">
-                        <h1>激活校验失败</h1>
-                        <p><a href="login.html">请重新输入邮箱地址以接收激活邮件</a></p>
+                        <h1>Fail to activate your account</h1>
+                        <p><a href="login.html">Please put in your email again to receive the activation email.</a></p>
                     </div>
                     <?php
                     break;

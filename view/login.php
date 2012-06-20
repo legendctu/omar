@@ -10,15 +10,15 @@
                 $("#login").click(function(){
                     $("#msgbox").removeClass("red").html("");
                     if($.trim($("#email").val()) == ""){
-                        $("#msgbox").addClass("red").html("* 请输入用户登录邮箱");
+                        $("#msgbox").addClass("red").html("* Please enter your email");
                         return;
                     }
                     if($.trim($("#pwd").val()) == ""){
-                        $("#msgbox").addClass("red").html("* 请输入登录密码");
+                        $("#msgbox").addClass("red").html("* Please enter your password");
                         return;
                     }
                 
-                    $("#msgbox").removeClass("red").html("正在验证，请稍候…");
+                    $("#msgbox").removeClass("red").html("Logging in, please wait…");
                     
                     $.post(
                         "../controller/login.php",
@@ -31,10 +31,10 @@
                             console.log(d);
                             switch(d.code){
                                 case 401:
-                                    $("#msgbox").addClass("red").html("* 用户邮箱或密码错误");
+                                    $("#msgbox").addClass("red").html("* Your email and password don't match");
                                     break;
                                 case 200:
-                                    $("#msgbox").html("登录成功，正在跳转…");
+                                    $("#msgbox").html("Logged in, please wait…");
                                     break;
                             }
                         },
@@ -45,11 +45,11 @@
                 $("#activate").click(function(){
                     $("#a_msgbox").removeClass("red").html("");
                     if($.trim($("#a_email").val()) == ""){
-                        $("#a_msgbox").addClass("red").html("* 请输入用户激活邮箱");
+                        $("#a_msgbox").addClass("red").html("* Please enter your email to activate it");
                         return;
                     }
                     
-                    $("#a_msgbox").removeClass("red").html("正在发送激活邮件，请稍候…");
+                    $("#a_msgbox").removeClass("red").html("Sending an activation email…");
                     
                     $.post(
                         "../controller/login.php",
@@ -60,13 +60,13 @@
                         function(d){
                             switch(d.code){
                                 case 401:
-                                    $("#a_msgbox").addClass("red").html("* 用户身份验证失败");
+                                    $("#a_msgbox").addClass("red").html("* Permission denied");
                                     break;
                                 case 403:
-                                    $("#a_msgbox").addClass("red").html("* 该用户不处于等待激活状态");
+                                    $("#a_msgbox").addClass("red").html("* This account has been activated");
                                     break;
                                 case 200:
-                                    $("#a_msgbox").html("激活邮件已发送，请注意查收");
+                                    $("#a_msgbox").html("The activation email has been sent");
                                     break;
                             }
                         },
@@ -75,7 +75,7 @@
                 });
             });
         </script>
-        <title>登录 -- Omar Hub</title>
+        <title>Log In -- Omar Hub</title>
     </head>
     <body>
         <div class="wrap">
@@ -87,17 +87,17 @@
         </div>
         
         <div class="wrap">
-            <div><h1>用户登录</h1></div>
+            <div><h1>Login</h1></div>
             <div class="wrap">
-                <p>邮箱: <input type="text" id="email" /></p>
-                <p>密码: <input type="password" id="pwd" /></p>
-                <p><a href="#" id="login">登录</a> <span id="msgbox"></span></p>
+                <p>Email: <input type="text" id="email" /></p>
+                <p>Password: <input type="password" id="pwd" /></p>
+                <p><a href="#" id="login">Login</a> <span id="msgbox"></span></p>
             </div>
             <div>
-                <h2>第一次登录？</h2>
-                <p>首次登录请先激活您的账户</p>
-                <p>邮箱: <input type="text" id="a_email" /></p>
-                <p><a href="#" id="activate">激活</a> <span id="a_msgbox"></span></p>
+                <h2>First time to use?</h2>
+                <p>If it's your first time login, please activate your account first!</p>
+                <p>Email: <input type="text" id="a_email" /></p>
+                <p><a href="#" id="activate">Activate</a> <span id="a_msgbox"></span></p>
             </div>
         </div>
     </body>

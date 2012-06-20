@@ -10,19 +10,19 @@
                 $("#create").click(function(){
                     $("#msgbox").removeClass("red").html("");
                     if($.trim($("#email").val()) == ""){
-                        $("#msgbox").addClass("red").html("* 请输入用户邮箱");
+                        $("#msgbox").addClass("red").html("* Please enter your E-mail address");
                         return;
                     }
                     if($.trim($("#firstname").val()) == ""){
-                        $("#msgbox").addClass("red").html("* 请输入用户姓氏");
+                        $("#msgbox").addClass("red").html("* Please enter your firstname");
                         return;
                     }
                     if($.trim($("#lastname").val()) == ""){
-                        $("#msgbox").addClass("red").html("* 请输入用户名字");
+                        $("#msgbox").addClass("red").html("* Please enter your lastname");
                         return;
                     }
                 
-                    $("#msgbox").removeClass("red").html("正在创建，请稍等…");
+                    $("#msgbox").removeClass("red").html("Creating, please wait…");
                     
                     $.post(
                         "../controller/create_account.php",
@@ -35,16 +35,16 @@
                         function(d){
                             switch(d.code){
                                 case 0:
-                                    $("#msgbox").addClass("red").html("* 网络中断，请重试");
+                                    $("#msgbox").addClass("red").html("* The connection is interrupted. Please try again");
                                     break;
                                 case 409:
-                                    $("#msgbox").addClass("red").html("* 该邮箱已被注册");
+                                    $("#msgbox").addClass("red").html("* This email has been registered");
                                     break;
                                 case 401:
-                                    $("#msgbox").addClass("red").html("* 用户身份验证失败");
+                                    $("#msgbox").addClass("red").html("* Permission denied");
                                     break;
                                 case 200:
-                                    $("#msgbox").html("创建成功");
+                                    $("#msgbox").html("Created successfully");
                                     break;
                             }
                         },
@@ -53,7 +53,7 @@
                 });
             });
         </script>
-        <title>创建账户 -- Omar Hub</title>
+        <title>Create A Account -- Omar Hub</title>
     </head>
     <body>
         <div class="wrap">
@@ -66,11 +66,11 @@
         
         
         <div class="wrap">
-            <p>用户邮箱: <input type="text" id="email" /></p>
-            <p>用户姓氏: <input type="text" id="lastname" /></p>
-            <p>用户名字: <input type="text" id="firstname" /></p>
-            <p>用户角色: <input type="radio" name="role" value="admin" id="admin"><label for="admin">Admin</label> <input type="radio" name="role" value="fellow" id="fellow" checked="checked"><label for="fellow">Fellow</label></p>
-            <p><input type="submit" value="创建" id="create" /> <span id="msgbox"></span></p>
+            <p>E-mail: <input type="text" id="email" /></p>
+            <p>Firstname: <input type="text" id="lastname" /></p>
+            <p>Lastname: <input type="text" id="firstname" /></p>
+            <p>Role: <input type="radio" name="role" value="admin" id="admin"><label for="admin">Admin</label> <input type="radio" name="role" value="fellow" id="fellow" checked="checked"><label for="fellow">Fellow</label></p>
+            <p><input type="submit" value="Create" id="create" /> <span id="msgbox"></span></p>
         </div>
         
     </body>
