@@ -458,6 +458,10 @@ input{
 
 #navi ul li:hover ul { visibility: visible; }
 
+#navi ul li ul{
+	position: absolute;
+}
+
 #navi ul li ul li{
 	background-color: #4ea2bc;
     display: block;
