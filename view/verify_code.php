@@ -28,7 +28,7 @@
             
             switch($res["code"]){
                 case 0:
-                    echo '<div class="wrap"><h1>网络连接中断，请重试</h1></div>';
+                    echo '<div class="wrap"><h1>网络连接中断，请刷新重试</h1></div>';
                     break;
                 case 401:
                 case 403:

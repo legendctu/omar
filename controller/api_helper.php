@@ -1,5 +1,5 @@
 <?php
-function callapi($url, $type = "POST", $data = array()){
+function callapi($url, $type = "POST", $data = array(), $tmp_user = "", $tmp_pwd = ""){
     $type = strtoupper($type);
     
     ob_start();
@@ -7,9 +7,13 @@ function callapi($url, $type = "POST", $data = array()){
     
     $headers = array();
     $auth_str = "";
+    
     if(isset($_COOKIE["OH_user"]) && isset($_COOKIE["OH_pwd"])){
         $auth_str = $_COOKIE["OH_user"] . ":" . $_COOKIE["OH_pwd"];
+    }else{
+        $auth_str = $tmp_user . ":" . $tmp_pwd;
     }
+
     $headers["Authorization"] = "Basic " . base64_encode($auth_str);
     
     if($type == "POST"){
