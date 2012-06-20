@@ -10,8 +10,7 @@
 ?>
 <div class="navi-bg">
 	<div class="mt wrap">
-		<h2 class="font24 white pl20">ACCOUNT ACTIVATION</h2>
-		<b></b>
+		<h2 class="font24 white pl20 shadow">ACCOUNT ACTIVATION</h2>
 	</div>
 </div>
 <div id="content_wrap" class="wrap bg-white center">

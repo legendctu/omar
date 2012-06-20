@@ -13,8 +13,7 @@
 
 <div class="bg-blue">
 	<div class="mt wrap">
-		<h2 class="font24 white pl20">USER LOGIN</h2>
-		<b></b>
+		<h2 class="font24 white pl20 shadow">USER LOGIN</h2>
 	</div>
 </div>
 
