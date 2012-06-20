@@ -1,5 +1,5 @@
 <?php
-function callapi($url, $type = "POST", $data){
+function callapi($url, $type = "POST", $data = array()){
     $type = strtoupper($type);
     
     ob_start();
@@ -16,11 +16,12 @@ function callapi($url, $type = "POST", $data){
         $headers["Content-Type"] = "application/json";
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     }else{
-        $url .= "?";
-        foreach($data as $k => $v){
-            $url .= "{$k}={$v}&";
+        if(!empty($data)){
+            $url .= "?";
+            foreach($data as $k => $v){
+                $url .= "{$k}={$v}&";
+            }
         }
-        
     }
     $headerArr = array();
     foreach( $headers as $n => $v ){
