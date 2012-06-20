@@ -35,11 +35,18 @@ function render_nav($current) {
 		'profile'         => array('main-navi', 'profile.php',         'gray', 'PROFILE'          ),
 		'people_activity' => array('main-navi', 'people_activity.php', 'gray', 'PEOPLE & ACTIVITY'),
 		'tags'            => array('main-navi', 'tags.php',            'gray', 'TAGS'             ),
-		'create'          => array('main-navi', 'create.php',          'gray', 'CREATE'           ));
+		'create'          => array('main-navi', '#',                   'gray', 'CREATE'           ));
 	$nav[$current] = array('main-navi-active', '#', 'white', $nav[$current][3]);
 	
 	function generate_nav_item($nav, $name) {
-		?><li class="fl center pl20 pr20 <?= $nav[$name][0] ?>"><a href="<?= $nav[$name][1] ?>" class="<?= $nav[$name][2] ?>"><?= $nav[$name][3] ?></a></li><?php
+		?><li class="fl center pl20 pr20 <?= $nav[$name][0] ?>"><a href="<?= $nav[$name][1] ?>" class="<?= $nav[$name][2] ?>"><?= $nav[$name][3] ?></a><?php if($name == "create")
+			echo '
+				<ul>
+					<li><a href="create.php?type=offer" class="gray">Offer</a></li>
+					<li><a href="create.php?type=need" class="gray">Need</a></li>
+					<li><a href="create.php?type=event" class="gray">Event</a></li>
+				</ul>
+			'; ?></li><?php
 	}
 ?>
 <div id="navi_wrap" class="navi-bg">
