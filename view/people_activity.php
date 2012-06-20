@@ -1,7 +1,18 @@
-<?php require_once("view_helper.php"); ?>
 <?php
+	require_once("view_helper.php");
+	require_once("../controller/api_helper.php");
+
+	$type = isset($_GET["type"]) ? $_GET["type"] : "all";
+	
 	render_header('People & Activity');
 	render_nav('people_activity');
+
+	$data = array(
+		'sort' => 'time',
+		'count' => 10,
+		'page' => 0);
+	$ret = callapi("items", "GET", $data);
+	print_r($ret);
 ?>
 
 <link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
@@ -34,16 +45,15 @@
 		</div>
 	</div>
 	
-	
 	<div id="r_side" class="ml300">
-        <p id="r_side_navi" class="b font24 freshcolor">
-            <span class="center mr15"><a href="#" class="carmine">All</a></span>
+        <p id="r_side_navi" class="font24 freshcolor">
+            <span class="center mr15 b"><a href="<?= $type == "all" ? "#" : "people_activity.php" ?>" class="<?= $type == "all" ? "carmine" : "light-red" ?>">All</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15"><a href="#" class="light-red">Offers</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "offer" ? "#" : "people_activity.php?type=offer" ?>" class="<?= $type == "offer" ? "carmine" : "light-red" ?>">Offers</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15"><a href="#" class="light-red">Needs</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "need" ? "#" : "people_activity.php?type=need" ?>" class="<?= $type == "need" ? "carmine" : "light-red" ?>">Needs</a></span>
             <span class="center">/</span>
-            <span class="center ml15 "><a href="#" class="light-red">Event</a></span>
+            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "people_activity.php?type=event" ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Event</a></span>
         </p>
 
 		<div>
