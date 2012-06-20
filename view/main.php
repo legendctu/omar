@@ -3,18 +3,18 @@
 <html>
     <head>
 		<meta http-equiv="Content-Type"content="text/html; charset=utf-8" />
-		<link style="text/css" href="<?=CSS_DIR?>base.css" rel="stylesheet"/>
-		<link style="text/css" href="<?=CSS_DIR?>page.css" rel="stylesheet"/>
+		<link style="text/css" href="../css/base.css" rel="stylesheet"/>
+		<link style="text/css" href="../css/page.css" rel="stylesheet"/>
     </head>
     <body>
 		<div class="bg-white">
 		<div class="wrap">
 			<div id="welcome" class="fr font18 pr10 arial light-red">
-				Welcome <span class="indigo b">#username</span>, 
-				<span class="arial carmine b">logout</span>
+				Welcome <a href="#" class="blue b">#username</a>, 
+				<a href="#" class="arial carmine b">logout</a>
 			</div>
 			<div class="p20">
-				<img src="<?=IMG_DIR?>omarhub-logo.png" width="96" class="mb-15"/>
+				<img src="../image/omarhub-logo.png" width="96" class="mb-15"/>
 				<span id="omar" class="georgia"><b>Omar</b></span>
 				<span id="hub" class="georgia"><b>Hub</b></span>
 			</div>
@@ -22,17 +22,17 @@
 		</div>
 	
 		<div id="navi_wrap" class="navi-bg">
-			<div id="navi" class="wrap">
-				<ul class="w700 fl b font24 white">
-				<li class="fl center pl20 pr20 main-navi"><a>PROFILE</a></li>
-				<li class="fl center pl20 pr20 main-navi"><a>PEOPLE & ACTIVITY</a></li>
-				<li class="fl center pl20 pr20 main-navi"><a>TAGS</a></li>
-				<li class="fl center pl20 pr20 main-navi"><a>CREATE</a></li>
+			<div id="navi" class="wrap shadow">
+				<ul class="w700 fl b font24">
+				<li class="fl center pl20 pr20 main-navi"><a href="#" class="gray">PROFILE</a></li>
+				<li class="fl center pl20 pr20 main-navi-active"><a href="#" class="white">PEOPLE & ACTIVITY</a></li>
+				<li class="fl center pl20 pr20 main-navi"><a href="#" class="gray">TAGS</a></li>
+				<li class="fl center pl20 pr20 main-navi"><a href="#" class="gray">CREATE</a></li>
 				<li class="clear"></li>
 			</ul>
 			<div id="search" class="fr pr20">
 				<input type="text">
-				<img src="<?=IMG_DIR?>Find.png" width="35px" class="find">
+				<img src="../image/Find.png" width="35px" class="find">
 			</div>
 			<div class="clear"></div>
 			</div>
@@ -45,7 +45,7 @@
 				<span class="font24 pink b ml20">Filter</span>
 				<hr />
 				<div class="ml15 mr15">
-					<div class="pl20 white font18 bg-blue r14">
+					<div class="pl20 white font18 button-bg r14 shadow">
 					Field of work
 					<span class="pr20 fr">plus</span>
 					</div>
@@ -57,7 +57,7 @@
 				</div>
 				<hr class="mt15" />
 				<div class="ml15 mr15">
-					<div class="pl20 white font18 bg-blue r14">
+					<div class="pl20 white font18 button-bg r14 shadow">
 					Field of work
 					<span class="pr20 fr">plus</span>
 					</div>
@@ -69,14 +69,14 @@
 				</div>
 			</div>
 			<div id="r_side" class="fr">
-				<ul id="r_side_navi" class="b font24 light-red">
-					<li class="fl center mr15 carmine">All</li>
+				<ul id="r_side_navi" class="b font24 freshcolor">
+					<li class="fl center mr15"><a href="#" class="carmine">All</a></li>
 					<li class="fl center">/</li>
-					<li class="fl center ml15 mr15">Offers</li>
+					<li class="fl center ml15 mr15"><a href="#" class="light-red">Offers</a></li>
 					<li class="fl center">/</li>
-					<li class="fl center ml15 mr15">Needs</li>
+					<li class="fl center ml15 mr15"><a href="#" class="light-red">Needs</a></li>
 					<li class="fl center">/</li>
-					<li class="fl center ml15 ">Event</li>
+					<li class="fl center ml15 "><a href="#" class="light-red">Event</a></li>
 					<li class="clear"></li>
 				</ul>
 				<hr />
@@ -94,7 +94,7 @@
 							</ul>
 						</div>
 						
-						<span class="fr white font24 arial r14 bg-blue pl20 pr20 b">follow</span>
+						<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 					</div>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 			</div>
 		</div>
     </body>
-    <script type="text/javascript" src="<?=JS_DIR?>jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
     
     <script type="text/javascript">
         $(document).ready(function(){
