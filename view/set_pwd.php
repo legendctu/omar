@@ -25,10 +25,13 @@
 	<div class="wrap">
 		<input type="hidden" id="email" value="<?php echo $email;?>" />
 		<input type="hidden" id="vcode" value="<?php echo $vcode;?>" />
-		<h1>Please set your password</h1>
+		<h1 class="p20">Please set your password</h1>
 		<p>Enter your password: <input type="password" id="pwd" /></p>
 		<p>Enter it again: <input type="password" id="pwd2" /></p>
-		<p><a href="#" id="save">Save</a> <span id="msgbox"></span></p>
+		<div class="p20">
+			<a href="#" id="save" class="white font24 arial r14 button-bg pl20 pr20 b shadow">Save</a>
+			<span id="msgbox"></span>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
