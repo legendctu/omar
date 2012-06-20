@@ -21,18 +21,18 @@
 	<div class="fl form">
 		<table>
 			<tr>
-			<td class="td1 font18 arial b">Email:</td>
-			<td class="td2"><input type="text" id="email" class="text"></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="td1 font18 arial b">Password:</td>
-			<td class="td2"><input type="password" id="pwd" class="text"></td>
-			<td class="td3 underline font14 blue"><a>forget password?</a></td>
-		</tr>
+                <td class="td1 font18 arial b">Email:</td>
+                <td class="td2"><input type="text" id="email" class="text"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="td1 font18 arial b">Password:</td>
+                <td class="td2"><input type="password" id="pwd" class="text"></td>
+                <td class="td3 underline font14 blue"><a>forget password?</a></td>
+            </tr>
 		</table>
-		<input type="submit" id="login" value="Login" class="login r14 font24 arial b">
-		<span id="msgbox"></span>
+		<p class="mt15"><a id="login" class="login r14 font24 arial b">Login</a><span id="msgbox"></span></p>
+		<!-- <input type="submit" id="login" value="Login" class="login r14 font24 arial b"> -->
 	</div>
 	
 	<div class="fl guide">
@@ -40,8 +40,9 @@
 		<p class="verdana font18">If it's your first time login, please activate your account first!</p>
 		
 		<span class="mail-span mt20 font18 arial b">Email:</span><input type="text" id="a_email" class="text mt20">
-		<input type="submit" id="activate" value="First" class="first-button r14 arial font24 b">
-		<span id="a_msgbox"></span>
+		<p class="mt15"><a id="activate" class="first-button r14 arial font24 b">Activate</a></p>
+		<!-- <input type="submit" id="activate" value="First" class="first-button r14 arial font24 b"> -->
+		<p id="a_msgbox"></p>
 	</div>
 	<div class="clear"></div>
 </div>

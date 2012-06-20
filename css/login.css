@@ -1,6 +1,6 @@
 #entry{
     padding-bottom: 37px;	
-	height: 75%;
+    min-height: 462px;
 }
 
 #footer{
@@ -54,20 +54,42 @@ font-family: arial,"ËÎÌו";
 }
 
 #entry .login{
-	background: url("../image/gradient-light.png") repeat-x;
-	height:40px;
-	width: 115px;
+	background: url("../image/gradient.png") repeat-x 0 0;
+    color: #fff;
+    padding: 3px 10px;
 	margin-left: 100px;
-	margin-top: 50px;
+}
+
+#entry .login:hover{
+	background: url("../image/gradient.png") repeat-x 0 0;
+    color: #eee;
+    text-shadow: -1px -1px 2px gray;
+}
+
+#entry .login:active{
+	background: url("../image/gradient.png") repeat-x 0 -50px;
+    color: #ddd
 }
 
 #entry .first-button{
-	background: url("../image/gradient-light.png") repeat-x;
-	height:40px;
-	width: 115px;
+	background: url("../image/gradient.png") repeat-x 0 0;
 	margin-left: 80px;
-	margin-top: 50px;
+	color: #fff;
+	padding: 3px 10px;
 }
+
+#entry .first-button:hover{
+	background: url("../image/gradient.png") repeat-x 0 0;
+	margin-left: 80px;
+	color: #eee;
+    text-shadow: -1px -1px 2px gray;
+}
+
+#entry .first-button:active{
+	background: url("../image/gradient.png") repeat-x 0 -50px;
+    color: #ddd
+}
+
 .bg-blue{
 	 background: url("../image/gradient-light.png") repeat-x;
 	 height: 36px;
