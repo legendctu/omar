@@ -4,7 +4,7 @@
 	render_nav('people_activity');
 ?>
 
-<link style="text/css" href="../css/page.css" rel="stylesheet"/>
+<link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
 
 <div id="content_wrap" class="wrap bg-white"><!--clear-->
 <div class="p20 overflow">

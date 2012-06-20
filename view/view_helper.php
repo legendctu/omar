@@ -1,6 +1,6 @@
 <?php
 
-function render_header($title) {
+function render_header($title, $is_user = true) {
 ?>
 <html>
     <head>
@@ -12,9 +12,14 @@ function render_header($title) {
     <body>
 		<div class="bg-white">
 		<div class="wrap">
+			
 			<div id="welcome" class="fr font18 pr10 arial light-red">
+				<?php if ($is_user) { ?>
 				Welcome <a href="#" class="blue b">#username</a>, 
 				<a href="#" class="arial carmine b">logout</a>
+				<?php } else { ?>
+				Welcome to <span class="arial carmine b">Omar</span>!
+				<?php } ?>
 			</div>
 			<div class="p20">
 				<img src="../image/omarhub-logo.png" width="96" class="mb-15"/>
