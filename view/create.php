@@ -3,9 +3,9 @@
 <?php
     $type = $_GET["type"];
     render_header('Create '.ucfirst($type));
-	render_nav('people_activity');
+	render_nav('create');
 ?>
-
+<input type="hidden" id="create_type" value="<?php echo $type;?>" />
 <link rel="stylesheet" type="text/css" href="../css/create.css" media="all" />
 
 <div id="stylized" class="wrap">
@@ -93,7 +93,7 @@ if ($type == "event"){
     echo '
         <div>
             <label>Start Date
-            <span class="small">When does the event starts.</span>
+            <span class="small">When the event starts.</span>
             </label>
             <input type="text" id="from">
             <div class="clear"></div>
@@ -103,7 +103,7 @@ if ($type == "event"){
     echo '
         <div id="end-date">
             <label>End Date
-            <span class="small">When does the event ends.</span>
+            <span class="small">When the event ends.</span>
             </label>
             <input type="text" id="to">
             <div class="clear"></div>
@@ -143,10 +143,86 @@ if ($type == "event"){
     </div>
     
     <div class="ml300">
-        <p><a id="create" class="button-bg white r14 arial font24 b">Save</a></p>
+        <p><a id="create" class="button-bg white r14 arial font24 b">Save</a><span id="msgbox"></span></p>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
 </div>
+
+<script type="text/javascript">
+$(function(){
+    $("#create").click(function(){
+        var type = $("#create_type").val();
+        var one_day = $("#oneday").attr("checked") ? true : false;
+
+        $("#msgbox").removeClass("red").html("Processing, please wait…");
+
+        if($.trim($("#title").val()) == ""){
+            $("#msgbox").addClass("red").html("* Please enter your title");
+            return;
+        }
+        if($.trim($("#description").val()) == ""){
+            $("#msgbox").addClass("red").html("* Please enter your description");
+            return;
+        }
+        if(type == "event" && $.trim($("#from").val()) == ""){
+            $("#msgbox").addClass("red").html("* Please select a start date");
+            return;
+        }
+        if(type == "event" && !one_day && $.trim($("#to").val()) == ""){
+            $("#msgbox").addClass("red").html("* Please select a end date");
+            return;
+        }
+        if($.trim($("#targetPop").val()) == ""){
+            $("#msgbox").addClass("red").html("* Please enter your target population");
+            return;
+        }
+        
+        switch(type){
+            case "offer":
+                type = "offer";
+                break;
+            case "need":
+                type = "needs";
+                break;
+            case "event":
+                type = "event";
+                break;
+        }
+        var data = {
+            "category": type,
+            "title": $.trim($("#title").val()),
+            "description": $("#description").val(),
+            "work_fields": $("#fieldsOfWork").val(),
+            "target_population": $.trim($("#targetPop").val())
+        };
+        if(type == "event"){
+            data["start_date"] = Date.parse($("#from").val()) / 1000;
+            if(!one_day){
+                data["end_date"] = Date.parse($("#to").val()) / 1000;
+            }
+        }
+        $.post(
+            "../controller/create.php",
+            data,
+            function(d){
+                switch(d.code){
+                    case 0:
+                        $("#msgbox").addClass("red").html("* The connection is interrupted. Please try again");
+                        break;
+                    case 401:
+                        $("#msgbox").addClass("red").html("* Permission denied");
+                        break;
+                    case 200:
+                        $("#msgbox").html("Created successfully. Redirecting, please wait…");
+                        window.location = "people_activity.php";
+                        break;
+                }
+            },
+            "json"
+        );
+    });
+});
+</script>
 
 <?php include("footer.php");?>
