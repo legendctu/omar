@@ -13,6 +13,23 @@
 		'page' => 0);
 	$ret = callapi("items", "GET", $data);
 	print_r($ret);
+	
+	function render_item() { ?>
+		<div class="mt10 pt10 border-t">
+			<img class="avatar fl" src="" />
+			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
+			<div class="intro w500 ml90">
+				<span class="arial blue font24 b">#username</span>
+				<p class="verdana font18">啊啊啊</p>
+				<p class="black arial font18 mt15">
+					<span class="tag">IT<a>star</a></span>
+					<span class="tag">O<a>star</a></span>
+					<span class="tag">Medicine<a>star</a></span>
+					<span class="tag">Event<a>star</a></span>
+				</p>
+			</div>
+		</div><?php
+	}
 ?>
 
 <link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
@@ -57,50 +74,10 @@
         </p>
 
 		<div>
-			<div class="mt10 pt10 border-t">
-				<img class="avatar fl" src="" />
-				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
-				<div class="intro w500 ml90">
-					<span class="arial blue font24 b">#username</span>
-					<p class="verdana font18">啊啊啊</p>
-					<p class="black arial font18 mt15">
-						<span class="tag">IT<a>star</a></span>
-						<span class="tag">O<a>star</a></span>
-						<span class="tag">Medicine<a>star</a></span>
-						<span class="tag">Event<a>star</a></span>
-					</p>
-				</div>
-			</div>
-			
-			<div class="mt10 pt10 border-t">
-				<img class="avatar fl" src="" />
-				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
-				<div class="intro w500 ml90">
-					<span class="arial blue font24 b">#username</span>
-					<p class="verdana font18">啊啊啊</p>
-					<p class="black arial font18 mt15">
-						<span class="tag">IT<a>star</a></span>
-						<span class="tag">O<a>star</a></span>
-						<span class="tag">Medicine<a>star</a></span>
-						<span class="tag">Event<a>star</a></span>
-					</p>
-				</div>
-			</div>
-			
-			<div class="mt10 pt10 border-t">
-				<img class="avatar fl" src="" />
-				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
-				<div class="intro w500 ml90">
-					<span class="arial blue font24 b">#username</span>
-					<p class="verdana font18">啊啊啊</p>
-					<p class="black arial font18 mt15">
-						<span class="tag">IT<a>star</a></span>
-						<span class="tag">O<a>star</a></span>
-						<span class="tag">Medicine<a>star</a></span>
-						<span class="tag">Event<a>star</a></span>
-					</p>
-				</div>
-			</div>
+		<?php
+			for ($i = 0; $i < 3; $i++)
+				render_item();
+		?>
 		</div>
 	</div>
 	
