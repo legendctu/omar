@@ -404,9 +404,9 @@ input{
 	margin-top:3px; margin-bottom:3px;
 	padding-left:10px;
 	padding-right: 38px;
-	border-radius: 15px;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
+	border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 	z-index: -1;
 }
 
