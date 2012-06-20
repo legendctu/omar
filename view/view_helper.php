@@ -4,7 +4,7 @@ function render_header($title) {
 ?>
 <html>
     <head>
-		<title><?= $title ?></title>
+		<title><?= $title ?> - OmarHub</title>
 		<meta http-equiv="Content-Type"content="text/html; charset=utf-8" />
 		<link style="text/css" href="../css/base.css" rel="stylesheet"/>
 		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
