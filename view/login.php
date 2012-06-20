@@ -1,3 +1,9 @@
+<?php
+	if(isset($_COOKIE["OH_user"])){
+		setcookie("OH_user", "", time()-3600, '/');
+		setcookie("OH_pwd", "", time()-3600, '/');
+	}
+?>
 <?php require_once("view_helper.php"); ?>
 <?php
 	render_header('People & Activity', false);

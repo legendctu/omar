@@ -63,6 +63,22 @@
 				
 				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			</div>
+			
+			<div class="clear">
+				<img class="avatar fl" src="" />
+				<div class="intro w500 fl ml15">
+					<span class="arial blue font24 b">#username</span>
+					<p class="verdana font18">啊啊啊</p>
+					<ul class="black arial font18 mt15">
+						<li class="fl tag">IT<a>star</a></li>
+						<li class="fl tag">O<a>star</a></li>
+						<li class="fl tag">Medicine<a>star</a></li>
+						<li class="fl tag">Event<a>star</a></li>
+					</ul>
+				</div>
+				
+				<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -70,11 +86,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".main-navi").toggle(function(){
-			$(".sub").slideDown();
-		}, function(){
-			$(".sub").slideUp();
-		});
+
 	});
 </script>
 
