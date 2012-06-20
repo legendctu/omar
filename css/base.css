@@ -214,8 +214,8 @@ a{
 	padding-top: 20px;
 }
 
-.pr10{
-	padding-right: 10px;
+.pl10{
+	padding-left: 10px;
 }
 
 .pl20{
@@ -238,9 +238,10 @@ a{
     padding-left: 60px;
 }
 
-.mb-15{
-    margin-bottom: -15px;
+.pr10{
+	padding-right: 10px;
 }
+
 .pr20{
     padding-right: 20px;
 }
@@ -297,6 +298,7 @@ a{
 .mr15{
 	margin-right:15px;
 }
+
 .mr20{
     margin-right: 20px;
 }
@@ -315,6 +317,10 @@ a{
 
 .mr60{
     margin-right: 60px;
+}
+
+.mr100{
+    margin-right: 100px;
 }
 
 .mt10{
@@ -344,8 +350,9 @@ a{
 .mt60{
     margin-top: 60px;
 }
-.mr100{
-    margin-right: 100px;
+
+.mb-15{
+    margin-bottom: -15px;
 }
 
 .b {

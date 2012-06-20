@@ -12,15 +12,16 @@
 		'count' => 10,
 		'page' => 0);
 	$ret = callapi("items", "GET", $data);
-	print_r($ret);
+	//print_r($ret);
 	
-	function render_item() { ?>
+	function render_item($item) { ?>
 		<div class="mt10 pt10 border-t">
 			<img class="avatar fl" src="" />
 			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			<div class="intro w500 ml90">
-				<span class="arial blue font24 b">#username</span>
-				<p class="verdana font18">啊啊啊</p>
+				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
+				<span class="arial blue font24 b"><?= $item["title"] ?></span>
+				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
 				<p class="black arial font18 mt15">
 					<span class="tag">IT<a>star</a></span>
 					<span class="tag">O<a>star</a></span>
@@ -75,8 +76,12 @@
 
 		<div>
 		<?php
+			$item = array(
+				'category' => 'offer',
+				'title' => 'Three New Computers',
+				'description' => 'Three <b>new</b> computers bought from USA.');
 			for ($i = 0; $i < 3; $i++)
-				render_item();
+				render_item($item);
 		?>
 		</div>
 	</div>
