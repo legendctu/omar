@@ -11,6 +11,8 @@
 	//print_r($ret);
 ?>
 
+<link style="text/css" href="../css/profile.css" rel="stylesheet"/>
+
 <div id="content_wrap" class="wrap bg-white">
 <div class="p20 overflow">
 	<div id="l_side" class="fl w750">
@@ -28,19 +30,36 @@
             <span class="center">/</span>
             <span class="center ml15 mr15 b"><a href="<?= $type == "innovation" ? "#" : "profile.php?type=innovation" ?>" class="<?= $type == "innovation" ? "carmine" : "light-red" ?>">Innovation</a></span>
         </p>
-		<div>
+		<div id="contact">
 			<div id="contact-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Contact Information</h3>
 				<a id="contact-edit" class="fr ml20 button-bg white r14 arial font18 b shadow">Edit</a>
 				<a id="contact-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
 			</div>
-			<div id="contect-form" class="pl20 pr20">
-				Mobile Number Country Code: 123
+			<div id="contect-form" class="pl20 pr20 form font18">
+				<span>Mobile number country code:</span> <p>123</p><br />
+				<span>My mobile number:</span> <p>123</p><br />
+				<span>Mailing address type:</span> <p>123</p><br />
+				<span>Street:</span> <p>123</p><br />
+				<span>City:</span> <p>123</p><br />
+			</div>
+		</div>
+		<div id="organization">
+			<div id="organization-header" class="overflow m10 p10 border-b">
+				<h3 class="fl font20 pink b ml20">Organization Information</h3>
+				<a id="organization-edit" class="fr ml20 button-bg white r14 arial font18 b shadow">Edit</a>
+				<a id="organization-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+			</div>
+			<div id="organization-form" class="pl20 pr20 form font18">
+				<span>Mobile number country code:</span> <p>123</p><br />
+				<span>My mobile number:</span> <p>123</p><br />
+				<span>Mailing address type:</span> <p>123</p><br />
+				<span>Street:</span> <p>123</p><br />
+				<span>City:</span> <p>123</p><br />
 			</div>
 		</div>
 	</div>
 	<div id="r_side" class="fr w250">
-	b
 	</div>
 </div>
 </div>
