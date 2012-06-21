@@ -34,7 +34,7 @@
 
 <link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
 
-<div id="content_wrap" class="wrap bg-white"><!--clear-->
+<div id="content_wrap" class="wrap bg-white box-shadow">
 <div class="p20">
 	<div id="l_side" class="fl w250">
 		<span class="font24 pink b ml20">Filter</span>

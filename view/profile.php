@@ -13,7 +13,7 @@
 
 <link style="text/css" href="../css/profile.css" rel="stylesheet"/>
 
-<div id="content_wrap" class="wrap bg-white">
+<div id="content_wrap" class="wrap bg-white box-shadow">
 <div class="p20 overflow">
 	<div id="l_side" class="fl w670">
 		<div id="status" class="overflow m10 p10 border-b">
