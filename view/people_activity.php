@@ -79,7 +79,7 @@
 			$has_more = $content['has_more'];
 			$items = $content['items'];
 			if (count($items) == 0)
-				echo 'There is no '.$type;
+				echo '<p class="center font18">There is no '.$type.'.</p>';
 			for ($i = 0; $i < count($items); $i++)
 				render_item($items[$i]);
 		?>
