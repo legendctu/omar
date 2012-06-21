@@ -17,7 +17,7 @@
 	</div>
 </div>
 
-<div class="wrap bg-white" id="entry">
+<div class="wrap bg-white box-shadow" id="entry">
 	<div class="fl form">
 		<table>
 			<tr>
