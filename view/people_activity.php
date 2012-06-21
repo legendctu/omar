@@ -12,7 +12,6 @@
 		'count' => 10,
 		'page' => 0);
 	$ret = callapi("items", "GET", $data);
-	print_r($ret);
 	
 	function render_item($item) { ?>
 		<div class="mt10 p10 border-t">
@@ -76,12 +75,11 @@
 
 		<div>
 		<?php
-			$item = array(
-				'category' => 'offer',
-				'title' => 'Three New Computers',
-				'description' => 'Three <b>new</b> computers bought from USA.');
-			for ($i = 0; $i < 3; $i++)
-				render_item($item);
+			$content = json_decode($ret['content'], true);
+			$has_more = $content['has_more'];
+			$items = $content['items'];
+			for ($i = 0; $i < count($items); $i++)
+				render_item($items[$i]);
 		?>
 		</div>
 	</div>
