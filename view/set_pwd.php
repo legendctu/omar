@@ -62,7 +62,7 @@
 							break;
 						case 200:
 							$("#msgbox").html("Your password is set. Please login. Redirect in 3 seconds…");
-							setTimeout('window.location="login.html"', 3000);
+							setTimeout('window.location="login.php"', 3000);
 							break;
 						case 401:
 							$("#msgbox").addClass("red").html("* The account has been activated");
