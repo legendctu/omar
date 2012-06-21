@@ -12,12 +12,11 @@
 <div id="content_wrap" class="wrap bg-white">
 <div class="p20 overflow">
 	<div id="l_side" class="fl w750">
-		<div id="status" class="p20">
-			<div class="avatar">
-			</div>
-			<div class="fl">
-				<input type="text" id="status" class="text">
-				<a id="update" class="r14 font24 arial b">Submit</a>
+		<div id="status" class="overflow m10 p10 border-b">
+			<img class="avatar fl" src="../image/blank-avatar.gif" />
+			<div class="fl ml20">
+				<textarea type="text" id="status" rows="3" class="w600"></textarea><br />
+				<a id="update" class="fr mt10 button-bg white r14 arial font18 b shadow">Submit</a>
 			</div>
 		</div>
 	</div>

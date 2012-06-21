@@ -173,8 +173,12 @@ a{
     width: 500px;
 }
 
+.w600{
+	width: 600px;
+}
+
 .w700{
-    width:700px;
+    width: 700px;
 }
 .w750{
     width: 750px;	
@@ -190,6 +194,10 @@ a{
 
 .border-t{
     border-top: 1px solid gray;
+}
+
+.border-b{
+	border-bottom: 1px solid gray;
 }
 
 /*padding*/
@@ -268,6 +276,10 @@ a{
 }
 
 /* margin */
+
+.m10{
+	margin: 10px;
+}
 
 .ml15{
     margin-left: 15px;
@@ -360,11 +372,8 @@ a{
     margin-bottom: -15px;
 }
 
-.b {
-    font-weight: bold;
-}
-
 /*radius*/
+
 .r14{
     border-radius: 14px;
     -moz-border-radius: 14px;
@@ -409,6 +418,10 @@ a{
 }
 
 /* text effect */
+
+.b {
+    font-weight: bold;
+}
 
 .underline{
     text-decoration: underline;
