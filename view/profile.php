@@ -78,6 +78,23 @@
 			</ul>
 			<a href="#" class="font18 arial carmine b">Show All</a>
 		</div>
+		<div class="center border-blue mt20">
+			<div class="font24 white bg-blue pl10">Following(10)</div>
+			<ul class="list p10">
+				<li><div class="overflow">
+					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
+					<p class="fl pl10 pr10 font20">username</p>
+					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
+					<img class="star fr" src="../image/blank-avatar.gif" />
+				</div></li>
+			</ul>
+			<a href="#" class="font18 arial carmine b">Show All</a>
+		</div>
+		<div class="center border-blue mt20">
+			<div class="font24 white bg-blue pl10">Tag I Follow(10)</div>
+			
+			<a href="#" class="font18 arial carmine b">Show All</a>
+		</div>
 	</div>
 </div>
 </div>
