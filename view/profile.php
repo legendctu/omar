@@ -15,11 +15,11 @@
 
 <div id="content_wrap" class="wrap bg-white">
 <div class="p20 overflow">
-	<div id="l_side" class="fl w750">
+	<div id="l_side" class="fl w670">
 		<div id="status" class="overflow m10 p10 border-b">
 			<img class="avatar fl" src="../image/blank-avatar.gif" />
 			<div class="fl ml20">
-				<textarea type="text" id="status" rows="3" class="w600"></textarea><br />
+				<textarea type="text" id="status" rows="3" class="w500"></textarea><br />
 				<a id="update" class="fr mt10 button-bg white r14 arial font18 b shadow">Submit</a>
 			</div>
 		</div>
@@ -59,7 +59,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="r_side" class="fr w250">
+	<div id="r_side" class="fr w300">
 		<div class="center border-blue">
 			<div class="font24 white bg-blue pl10">Followers(10)</div>
 			<ul class="list p10">
