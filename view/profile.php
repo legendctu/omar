@@ -28,6 +28,16 @@
             <span class="center">/</span>
             <span class="center ml15 mr15 b"><a href="<?= $type == "innovation" ? "#" : "profile.php?type=innovation" ?>" class="<?= $type == "innovation" ? "carmine" : "light-red" ?>">Innovation</a></span>
         </p>
+		<div>
+			<div id="contact-header" class="overflow m10 p10 border-b">
+				<h3 class="fl font20 pink b ml20">Contact Information</h3>
+				<a id="contact-edit" class="fr ml20 button-bg white r14 arial font18 b shadow">Edit</a>
+				<a id="contact-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+			</div>
+			<div id="contect-form" class="pl20 pr20">
+				Mobile Number Country Code: 123
+			</div>
+		</div>
 	</div>
 	<div id="r_side" class="fr w250">
 	b
