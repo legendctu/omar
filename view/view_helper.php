@@ -21,7 +21,7 @@ function render_header($title, $is_user = true) {
 		<div class="wrap">
 			<div id="welcome" class="fr font18 pr20 arial light-red">
 				<?php if ($is_user) { ?>
-				Welcome <a href="#" class="blue b"><?= $content["firstname"]." ".$content["lastname"] ?></a>, 
+				Welcome <a href="profile.php" class="blue b"><?= $content["firstname"]." ".$content["lastname"] ?></a>, 
 				<a href="login.php" class="arial carmine b">logout</a>
 				<?php } else { ?>
 				Welcome to <span class="arial carmine b">Omar</span>!
