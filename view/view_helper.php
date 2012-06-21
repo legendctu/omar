@@ -1,13 +1,14 @@
 <?php
 require_once("../controller/api_helper.php");
 
-$global = array();
-
 function render_header($title, $is_user = true) {
+	$var = array();
 	$ret = callapi("profile", "GET", array());
 	if ($ret["code"] == 200) {
 		$content = json_decode($ret['content'], true);
-		$global["username"] = $content["firstname"]." ".$content["lastname"];
+		$var["username"] = $content["firstname"]." ".$content["lastname"];
+	} else {
+		$var["username"] = "";
 	}
 ?>
 <html>
@@ -23,7 +24,7 @@ function render_header($title, $is_user = true) {
 		<div class="wrap">
 			<div id="welcome" class="fr font18 pr20 arial light-red">
 				<?php if ($is_user) { ?>
-				Welcome <a href="#" class="blue b"><?= $global["username"] ?></a>, 
+				Welcome <a href="#" class="blue b"><?= $var["username"] ?></a>, 
 				<a href="login.php" class="arial carmine b">logout</a>
 				<?php } else { ?>
 				Welcome to <span class="arial carmine b">Omar</span>!

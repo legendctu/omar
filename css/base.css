@@ -471,10 +471,11 @@ textarea{
 }
 
 #navi ul li ul li{
+	margin-left: -20px;
 	background-color: #4ea2bc;
     display: block;
     height: 36px;
-    width: 120px;
+    width: 134px;
     list-style: none;
 }
 
