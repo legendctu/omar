@@ -194,6 +194,7 @@ $(function(){
             "title": $.trim($("#title").val()),
             "description": $("#description").val(),
             "work_fields": $("#fieldsOfWork").val(),
+            "work_location": $("#locationsOfWork").val(),
             "target_population": $.trim($("#targetPop").val())
         };
         if(type == "event"){

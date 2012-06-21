@@ -3,6 +3,7 @@
     $title = isset($_POST["title"]) ? $_POST["title"] : "";
     $description = isset($_POST["description"]) ? $_POST["description"] : "";
     $work_fields = isset($_POST["work_fields"]) ? $_POST["work_fields"] : "";
+    $work_location = isset($_POST["work_location"]) ? $_POST["work_location"] : "";
     $target_population = isset($_POST["target_population"]) ? $_POST["target_population"] : "";
     
     if($category == "event"){
@@ -13,6 +14,7 @@
             "title" => $title,
             "description" => $description,
             "work_fields" => $work_fields,
+            "work_location" => $work_location,
             "target_population" => $target_population
         );
         $data["start_date"] = $start_date;
@@ -25,6 +27,7 @@
             "title" => $title,
             "description" => $description,
             "work_fields" => $work_fields,
+            "work_location" => $work_location,
             "target_population" => $target_population
         );
     }
