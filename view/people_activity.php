@@ -6,12 +6,12 @@
 	
 	render_header('People & Activity');
 	render_nav('people_activity');
-
+	
 	$data = array(
 		'sort' => 'time',
 		'count' => 10,
 		'page' => 0);
-	$ret = callapi("items", "GET", $data);
+	$ret = callapi($type == "all" ? "items" : "items/".$type, "GET", $data);
 	
 	function render_item($item) { ?>
 		<div class="mt10 p10 border-t">
@@ -78,6 +78,8 @@
 			$content = json_decode($ret['content'], true);
 			$has_more = $content['has_more'];
 			$items = $content['items'];
+			if (count($items) == 0)
+				echo 'There is no '.$type;
 			for ($i = 0; $i < count($items); $i++)
 				render_item($items[$i]);
 		?>

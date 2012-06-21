@@ -31,7 +31,7 @@
                 <td class="td3 underline font14 blue"><a>forget password?</a></td>
             </tr>
 		</table>
-		<p class="mt15"><a id="login" class="login r14 font24 arial b">Login</a><span id="msgbox"></span></p>
+		<p class="mt15"><a id="login" class="login r14 font24 arial b shadow">Login</a><span id="msgbox"></span></p>
 		<!-- <input type="submit" id="login" value="Login" class="login r14 font24 arial b"> -->
 	</div>
 	
