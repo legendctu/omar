@@ -18,3 +18,7 @@
 	height: 30px;
 	width: 30px;
 }
+
+.border-blue {
+	border: 1px solid #4ea2bc;
+}
