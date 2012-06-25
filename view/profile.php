@@ -11,13 +11,15 @@
 	//print_r($ret);
 ?>
 
-<div id="content_wrap" class="wrap bg-white">
+<link style="text/css" href="../css/profile.css" rel="stylesheet"/>
+
+<div id="content_wrap" class="wrap bg-white box-shadow">
 <div class="p20 overflow">
-	<div id="l_side" class="fl w750">
+	<div id="l_side" class="fl w670">
 		<div id="status" class="overflow m10 p10 border-b">
 			<img class="avatar fl" src="../image/blank-avatar.gif" />
 			<div class="fl ml20">
-				<textarea type="text" id="status" rows="3" class="w600"></textarea><br />
+				<textarea type="text" id="status" rows="3" class="w500"></textarea><br />
 				<a id="update" class="fr mt10 button-bg white r14 arial font18 b shadow">Submit</a>
 			</div>
 		</div>
@@ -28,9 +30,71 @@
             <span class="center">/</span>
             <span class="center ml15 mr15 b"><a href="<?= $type == "innovation" ? "#" : "profile.php?type=innovation" ?>" class="<?= $type == "innovation" ? "carmine" : "light-red" ?>">Innovation</a></span>
         </p>
+		<div id="contact">
+			<div id="contact-header" class="overflow m10 p10 border-b">
+				<h3 class="fl font20 pink b ml20">Contact Information</h3>
+				<a id="contact-edit" class="fr ml20 button-bg white r14 arial font18 b shadow">Edit</a>
+				<a id="contact-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+			</div>
+			<div id="contect-form" class="pl20 pr20 form font18">
+				<span>Mobile number country code:</span> <p>123</p><br />
+				<span>My mobile number:</span> <p>123</p><br />
+				<span>Mailing address type:</span> <p>123</p><br />
+				<span>Street:</span> <p>123</p><br />
+				<span>City:</span> <p>123</p><br />
+			</div>
+		</div>
+		<div id="organization">
+			<div id="organization-header" class="overflow m10 p10 border-b">
+				<h3 class="fl font20 pink b ml20">Organization Information</h3>
+				<a id="organization-edit" class="fr ml20 button-bg white r14 arial font18 b shadow">Edit</a>
+				<a id="organization-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+			</div>
+			<div id="organization-form" class="pl20 pr20 form font18">
+				<span>Mobile number country code:</span> <p>123</p><br />
+				<span>My mobile number:</span> <p>123</p><br />
+				<span>Mailing address type:</span> <p>123</p><br />
+				<span>Street:</span> <p>123</p><br />
+				<span>City:</span> <p>123</p><br />
+			</div>
+		</div>
 	</div>
-	<div id="r_side" class="fr w250">
-	b
+	<div id="r_side" class="fr w300">
+		<div class="center border-blue">
+			<div class="font24 white bg-blue pl10">Followers(10)</div>
+			<ul class="list p10">
+				<li><div class="overflow">
+					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
+					<p class="fl pl10 pr10 font20">username</p>
+					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
+					<img class="star fr" src="../image/blank-avatar.gif" />
+				</div></li>
+				<li><div class="overflow">
+					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
+					<p class="fl pl10 pr10 font20">username</p>
+					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
+					<img class="star fr" src="../image/blank-avatar.gif" />
+				</div></li>
+			</ul>
+			<a href="#" class="font18 arial carmine b">Show All</a>
+		</div>
+		<div class="center border-blue mt20">
+			<div class="font24 white bg-blue pl10">Following(10)</div>
+			<ul class="list p10">
+				<li><div class="overflow">
+					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
+					<p class="fl pl10 pr10 font20">username</p>
+					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
+					<img class="star fr" src="../image/blank-avatar.gif" />
+				</div></li>
+			</ul>
+			<a href="#" class="font18 arial carmine b">Show All</a>
+		</div>
+		<div class="center border-blue mt20">
+			<div class="font24 white bg-blue pl10">Tag I Follow(10)</div>
+			
+			<a href="#" class="font18 arial carmine b">Show All</a>
+		</div>
 	</div>
 </div>
 </div>

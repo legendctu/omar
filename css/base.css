@@ -101,6 +101,10 @@ a{
 	background-color: #fff;
 }
 
+.bg-header{
+	background: url("../image/header-background.png") repeat-x;
+}
+
 /*font size*/
 
 .font10{
@@ -183,6 +187,10 @@ a{
 
 .w600{
 	width: 600px;
+}
+
+.w670{
+	width: 670px;
 }
 
 .w700{
@@ -451,6 +459,10 @@ a{
 	text-shadow: -1px -1px 1px #448;
 }
 
+.title-shadow{
+	text-shadow: 0px 0px 10px #fff;
+}
+
 /* nav */
 
 .navi-bg{
@@ -544,4 +556,9 @@ textarea{
 
 .hidden {
     display: none;
+}
+
+.box-shadow {
+	-webkit-box-shadow:0px 5px 15px black;
+	-moz-box-shadow:0px 5px 15px black;
 }

@@ -1,0 +1,24 @@
+.form span {
+	text-align: right;
+	float: left;
+	width: 300px;
+	padding-right: 20px;
+}
+
+.form p {
+	float: left;
+}
+
+.small-avatar {
+	height: 40px;
+	width: 40px;
+}
+
+.star {
+	height: 30px;
+	width: 30px;
+}
+
+.border-blue {
+	border: 1px solid #4ea2bc;
+}

@@ -17,7 +17,7 @@ function render_header($title, $is_user = true) {
     </head>
     <body>
 		<?php if($is_user && !isset($_COOKIE["OH_user"])) echo "<script type='text/javascript'>window.location='login.php';</script>";?>
-		<div class="bg-white">
+		<div class="bg-header">
 		<div class="wrap">
 			<div id="welcome" class="fr font18 pr20 arial light-red">
 				<?php if ($is_user) { ?>
@@ -27,7 +27,7 @@ function render_header($title, $is_user = true) {
 				Welcome to <span class="arial carmine b">Omar</span>!
 				<?php } ?>
 			</div>
-			<div class="p20">
+			<div class="p20 title-shadow">
 				<img src="../image/omarhub-logo.png" width="96" class="mb-15"/>
 				<span id="omar" class="georgia"><b>Omar</b></span>
 				<span id="hub" class="georgia"><b>Hub</b></span>

@@ -47,7 +47,10 @@ function callapi($url, $type = "POST", $data = array(), $tmp_user = "", $tmp_pwd
     foreach( $headers as $n => $v ){
         $headerArr[] = $n .': ' . $v;
     }
-    curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me:58000/{$url}");
+
+	//curl_setopt($ch, CURLOPT_URL, "http://192.168.17.33:8000/{$url}");
+    curl_setopt($ch, CURLOPT_URL, "http://42.120.12.192:58000/{$url}");
+
     curl_setopt ($ch, CURLOPT_HTTPHEADER, $headerArr);
     
     $result = curl_exec($ch);
