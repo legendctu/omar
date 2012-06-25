@@ -19,7 +19,7 @@
 	
 	function render_item($item) { ?>
 		<div class="mt10 p10 border-t">
-			<img class="avatar fl" src="../image/blank-avatar.gif" />
+			<a href="profile.php?id=<?= $item["publisher_id"] ?>"><img class="avatar fl" src="../image/blank-avatar.gif" /></a>
 			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			<div class="intro w500 ml90">
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
