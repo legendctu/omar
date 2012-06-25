@@ -12,6 +12,10 @@
 		'count' => 10,
 		'page' => 0);
 	$ret = callapi($type == "all" ? "items" : "items/".$type, "GET", $data);
+	$items = json_decode($ret['content'], true);
+	
+	$ret = callapi("items/count", "GET", array());
+	$items_count = json_decode($ret['content'], true);
 	
 	function render_item($item) { ?>
 		<div class="mt10 p10 border-t">
@@ -66,18 +70,17 @@
         <p id="r_side_navi" class="pl20 font24 freshcolor">
             <span class="center mr15 b"><a href="<?= $type == "all" ? "#" : "people_activity.php" ?>" class="<?= $type == "all" ? "carmine" : "light-red" ?>">All</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "offer" ? "#" : "people_activity.php?type=offer" ?>" class="<?= $type == "offer" ? "carmine" : "light-red" ?>">Offers</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "offer" ? "#" : "people_activity.php?type=offer" ?>" class="<?= $type == "offer" ? "carmine" : "light-red" ?>">Offers (<?= $items_count["offer"] ?>)</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "need" ? "#" : "people_activity.php?type=need" ?>" class="<?= $type == "need" ? "carmine" : "light-red" ?>">Needs</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "need" ? "#" : "people_activity.php?type=need" ?>" class="<?= $type == "need" ? "carmine" : "light-red" ?>">Needs (<?= $items_count["need"] ?>)</a></span>
             <span class="center">/</span>
-            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "people_activity.php?type=event" ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Events</a></span>
+            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "people_activity.php?type=event" ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Events (<?= $items_count["event"] ?>)</a></span>
         </p>
 
 		<div>
 		<?php
-			$content = json_decode($ret['content'], true);
-			$has_more = $content['has_more'];
-			$items = $content['items'];
+			$has_more = $items['has_more'];
+			$items = $items['items'];
 			if (count($items) == 0)
 				echo '<p class="center font18">There is no '.$type.'.</p>';
 			for ($i = 0; $i < count($items); $i++)
