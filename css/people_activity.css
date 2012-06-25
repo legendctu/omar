@@ -1,0 +1,11 @@
+#person_info.info-wrapper{
+    background: url("../image/info-bg.png") repeat;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#person_info .info-content{
+    background: #fff;
+    border: 1px solid #bbb;
+}

@@ -91,10 +91,38 @@
 </div>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
+<div id="person_info" class="info-wrapper p5 absolute none">
+    <div class="info-content p5">
+        <p>loading, please wait…</p>
+<!--    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p> -->
+    </div>
+</div>
 
-	});
+<script type="text/javascript">
+    $(function(){
+        $(".avatar").mouseover(function(){
+            console.log($(this));
+            console.log($(this).offset());
+            console.log($(document).scrollTop());
+            console.log($(document).scrollLeft());
+            
+            var info_off = $(this).offset();
+            $("#person_info").css({"top": info_off.top, "left": info_off.left+$(this).width()}).show();
+            
+            
+        }).mouseout(function(){
+            $("#person_info").hide();
+        });
+        $("#person_info").mouseover(function(){
+            $(this).show();
+        }).mouseout(function(){
+            $(this).hide();
+        });
+    });
 </script>
 
 <?php include("footer.php"); ?>
