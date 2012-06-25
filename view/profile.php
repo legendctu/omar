@@ -57,7 +57,7 @@
 			<div id="basic-form" class="pl20 pr20 form font18">
 				<span>Firstname:</span> <p><?php echo $basic_info["firstname"];?></p><br />
 				<span>Lastname:</span> <p><?php echo $basic_info["lastname"];?></p><br />
-                <span>Gender:</span> <p><?php echo $basic_info["gender"];?></p><br />
+                <span id="gender_select">Gender:</span> <p><?php echo $basic_info["gender"];?></p><br />
 				<span>Languages:</span> <p><?php echo $basic_info["languages"];?></p><br />
 				<span>Work Fields:</span> <p><?php echo $basic_info["work_fields"];?></p><br />
 				<span>Work Location:</span> <p><?php echo $basic_info["work_location"];?></p><br />
@@ -145,8 +145,14 @@
                     $(this).parent().next('div').children('span')
                             .each(function(){
                                 $(this).next().addClass('hidden');
-                                v = $(this).next().html();
-                                $(this).after("<input type='text' value='" + v + "'>");
+                                if ($(this).attr('id') != 'gender_select') {
+                                    v = $(this).next().html();
+                                    $(this).after("<input type='text' value='" + v + "'>");
+                                }
+                                else {
+                                    v = $(this).next().html();
+                                    $(this).after("<select><option>male</option><option>female</option></select>");
+                                }
                     });
                 }
                 else {
@@ -154,12 +160,12 @@
                     $(this).html('Edit');
                     $(this).next().html('Download');
                     data = new Array();
-                    $(this).parent().next('div').children('input')
-                            .each(function(){
-                                data.push($(this).val());
-                                $(this).next().removeClass('hidden');
-                                $(this).remove();
-                            });
+                    $(this).parent().next('div').children('input, select')
+                        .each(function(){
+                            data.push($(this).val());
+                            $(this).next().removeClass('hidden');
+                            $(this).remove();
+                        });
                     post_info($(this).children('a:first-child').attr("id"), data);
                 }
             });
@@ -169,7 +175,7 @@
                     in_edit = 0;
                     $(this).prev('a').html('Edit');
                     $(this).html('Download');
-                    $(this).parent().next('div').children('input')
+                    $(this).parent().next('div').children('input, select')
                             .each(function(){
                                 $(this).next().removeClass('hidden');
                                 $(this).remove();
@@ -185,13 +191,15 @@
                 $.post(
                     "../controller/profile.php",
                     {
+                        "type": "basic",
                         "firstname": data[0],
                         "lastname": data[1],
                         "gender": data[2],
                         "languages": data[3],
                         "work_fields": data[4],
                         "work_location": data[5],
-                        "target_population": data[6]
+                        "target_population": data[6],
+                        
                     },
                     function(d){
                         i = 0;
