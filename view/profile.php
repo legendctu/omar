@@ -3,12 +3,23 @@
 	require_once("../controller/api_helper.php");
 
 	$type = isset($_GET["type"]) ? $_GET["type"] : "activity";
+	$id = isset($_GET["id"]) ? $_GET["id"] : "";
 
 	render_header('Profile');
 	render_nav('profile');
 
 	$ret = callapi("profile", "GET", array());
-    $basic_info = json_decode($ret["content"], true);
+	$self = json_decode($ret["content"], true);
+	if (empty($id))
+		$id = $self["id"];
+	$is_self = $self["id"] == $id;
+	
+	if ($is_self) {
+		$basic_info = $self;
+	} else {
+		$ret = callapi("profile/".$id, "GET", array());
+		$basic_info = json_decode($ret["content"], true);
+	}
     
     //$contact_info
     //$org_info
@@ -19,13 +30,15 @@
 <div id="content_wrap" class="wrap bg-white box-shadow">
 <div class="p20 overflow">
 	<div id="l_side" class="fl w670">
-		<div id="status" class="overflow m10 p10 border-b">
-			<img class="avatar fl" src="../image/blank-avatar.gif" />
-			<div class="fl ml20">
-				<textarea type="text" id="status" rows="3" class="w500"></textarea><br />
-				<a id="update" class="fr mt10 button-bg white r14 arial font18 b shadow">Submit</a>
+		<?php if ($is_self) { ?>
+			<div id="status" class="overflow m10 p10 border-b">
+				<img class="avatar fl" src="../image/blank-avatar.gif" />
+				<div class="fl ml20">
+					<textarea type="text" id="status" rows="3" class="w500"></textarea><br />
+					<a id="update" class="fr mt10 button-bg white r14 arial font18 b shadow">Submit</a>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 		<p id="l_side_navi" class="pl20 font24 freshcolor">
             <span class="center mr15 b"><a href="<?= $type == "activity" ? "#" : "profile.php" ?>" class="<?= $type == "activity" ? "carmine" : "light-red" ?>">Activity</a></span>
             <span class="center">/</span>
@@ -36,8 +49,10 @@
         <div id="basic">
 			<div id="basic-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Basic Information</h3>
-				<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
-				<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+				<?php if ($is_self) { ?>
+					<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
+					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+				<?php } ?>
 			</div>
 			<div id="basic-form" class="pl20 pr20 form font18">
 				<span>Firstname:</span> <p><?php echo $basic_info["firstname"];?></p><br />

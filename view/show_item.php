@@ -62,7 +62,7 @@
 	<div id="r_side" class="fr w300 font16">
 		<h1 class="pink m10 p10 border-b font24">Publisher</h1>
 		<div class="m10 p10 overflow">
-			<img class="fl avatar" src="../image/blank-avatar.gif" />
+			<img class="fl avatar" src="<?= get_avatar($pub["email"]) ?>" />
 			<a href="profile.php?id=<?= $item["publisher_id"] ?>" class="ml20 arial blue font24 b">
 				<?= $pub["firstname"]." ".$pub["lastname"] ?></a>
 			<div class="overflow">
@@ -71,11 +71,11 @@
 			</div>
 		</div>
 		<div class="m10 p10 overflow">
-			<div><span class="r_key">Email: </span><a href="mailto:<?= $pub["email"] ?>" class="r_value"><?= $pub["email"] ?></a></div>
-			<div><span class="r_key">Languages: </span><span class="r_value"><?= $pub["languages"] ?></span></div>
-			<div><span class="r_key">Fields of Work: </span><span class="r_value"><?= $pub["work_fields"] ?></span></div>
-			<div><span class="r_key">Location of Work: </span><span class="r_value"><?= $pub["work_location"] ?></span></div>
-			<div><span class="r_key">Target Population: </span><span class="r_value"><?= $pub["target_population"] ?></span></div>
+			<div class="clear"><span class="r_key">Email: </span><a href="mailto:<?= $pub["email"] ?>" class="r_value"><?= $pub["email"] ?></a></div>
+			<div class="clear"><span class="r_key">Languages: </span><span class="r_value"><?= $pub["languages"] ?></span></div>
+			<div class="clear"><span class="r_key">Fields of Work: </span><span class="r_value"><?= $pub["work_fields"] ?></span></div>
+			<div class="clear"><span class="r_key">Location of Work: </span><span class="r_value"><?= $pub["work_location"] ?></span></div>
+			<div class="clear"><span class="r_key">Target Population: </span><span class="r_value"><?= $pub["target_population"] ?></span></div>
 		</div>
 	</div>
 <?php } ?>

@@ -43,7 +43,8 @@ function render_nav($current) {
 		'people_activity' => array('main-navi', 'people_activity.php', 'gray', 'PEOPLE & ACTIVITY'),
 		'tags'            => array('main-navi', 'tags.php',            'gray', 'TAGS'             ),
 		'create'          => array('main-navi', '#',                   'gray', 'CREATE'           ));
-	$nav[$current] = array('main-navi-active', '#', 'white', $nav[$current][3]);
+	$nav[$current][0] = 'main-navi-active';
+	$nav[$current][2] = 'white';
 	
 	function generate_nav_item($nav, $name) {
 		?><li class="fl center pl20 pr20 <?= $nav[$name][0] ?>"><a href="<?= $nav[$name][1] ?>" class="<?= $nav[$name][2] ?>"><?= $nav[$name][3] ?></a><?php if($name == "create")
@@ -73,5 +74,10 @@ function render_nav($current) {
 	</div>
 </div>
 <?php
+}
+
+function get_avatar($email) {
+	$hash = md5(strtolower(trim($email)));
+	return "http://www.gravatar.com/avatar/".$hash;
 }
 ?>
