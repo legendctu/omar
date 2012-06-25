@@ -8,7 +8,7 @@
 <input type="hidden" id="create_type" value="<?php echo $type;?>" />
 <link rel="stylesheet" type="text/css" href="../css/create.css" media="all" />
 
-<div id="stylized" class="wrap">
+<div id="stylized" class="wrap box-shadow">
     <div class="stylized-border pl60">
         <h1 class="pink">Create 
         <?php

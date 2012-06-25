@@ -2,6 +2,7 @@
 require_once("../controller/api_helper.php");
 
 function render_header($title, $is_user = true) {
+	date_default_timezone_set("Asia/Shanghai");
 	$content = array();
 	$ret = callapi("profile", "GET", array());
 	if ($ret["code"] == 200) {

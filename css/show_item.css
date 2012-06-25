@@ -1,0 +1,18 @@
+#l_side div {
+	overflow: auto;
+	font-size: 18px;
+	font-family: Verdana;
+}
+
+.key {
+	float: left;
+	width: 230px;
+	text-align: right;
+	margin: 10px;
+}
+
+.value {
+	float: left;
+	margin: 10px;
+	color: #e2b075;
+}
