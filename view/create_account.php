@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link type="text/css" rel="stylesheet" href="../css/base.css" />
-        <link type="text/css" rel="stylesheet" href="../css/page.css" />
-        <script src="../script/jquery-1.7.2.min.js"></script>
+<?php
+	require_once("view_helper.php");
+	render_header('Create Account');
+	render_nav('');
+?>
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#create").click(function(){
@@ -53,25 +51,29 @@
                 });
             });
         </script>
-        <title>Create A Account -- Omar Hub</title>
-    </head>
-    <body>
-        <div class="wrap">
-            <p>Welcome</p>
-            <p>logo</p>
-        </div>
-        <div>
-            <div>navi</div>
-        </div>
+
         
         
-        <div class="wrap">
-            <p>E-mail: <input type="text" id="email" /></p>
-            <p>Firstname: <input type="text" id="lastname" /></p>
-            <p>Lastname: <input type="text" id="firstname" /></p>
-            <p>Role: <input type="radio" name="role" value="admin" id="admin"><label for="admin">Admin</label> <input type="radio" name="role" value="fellow" id="fellow" checked="checked"><label for="fellow">Fellow</label></p>
-            <p><input type="submit" value="Create" id="create" /> <span id="msgbox"></span></p>
+        <div id="create_body" class="wrap mt20">
+            <div class="ml300"><h1>Create An Account</h1></div>
+            <div class="ml300 mt10">
+                <p class="mt6 fl w80 mr15 right">E-mail: </p>
+                <p class="mt10"><input type="text" id="email" /></p>
+                <p class="mt16 fl w80 mr15 right clear">Firstname: </p>
+                <p class="mt10"><input type="text" id="lastname" /></p>
+                <p class="mt16 fl w80 mr15 right clear">Lastname: </p>
+                <p class="mt10"><input type="text" id="firstname" /></p>
+                <p class="mt10 fl w80 mr15 right clear">Role: </p>
+                <p class="mt10"><input type="radio" name="role" value="admin" id="admin"><label for="admin">Admin</label> <input type="radio" name="role" value="fellow" id="fellow" checked="checked"><label for="fellow">Fellow</label></p>
+                <p class="mt10 ml80"><a id="create" class="button-bg white r14 arial font20 b">Create</a> <span id="msgbox"></span></p>
+            </div>
         </div>
         
-    </body>
-</html>
+<?php include("footer.php");?>
+<script type="text/javascript">
+    var cbody = $("#create_body").offset();
+    var min_h = cbody.top + $("#create_body").height() + $("#footer").height();
+    if($("body").height() > min_h){
+        $("#footer").css({position: "absolute", bottom: "0", width: "100%"});
+    }
+</script>

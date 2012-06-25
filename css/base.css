@@ -156,9 +156,17 @@ a{
     text-align: center;
 }
 
+.right{
+    text-align: right;
+}
+
 .avatar{
     width: 90px;
     height: 90px;
+}
+
+.w80{
+    width: 80px;
 }
 
 .w250{
@@ -304,6 +312,10 @@ a{
     margin-left: 60px;
 }
 
+.ml80{
+    margin-left: 80px;
+}
+
 .ml90{
     margin-left: 90px;
 }
@@ -340,8 +352,16 @@ a{
     margin-right: 100px;
 }
 
+.mt6{
+    margin-top: 6px;
+}
+
 .mt10{
     margin-top: 10px;
+}
+
+.mt16{
+    margin-top: 16px;
 }
 
 .mt15{
@@ -445,7 +465,7 @@ a{
     color: white;
 }
 
-input{
+input[type="text"], input[type="password"]{
 	height: 29px; 
 	width: 180px;
 	margin-top:3px;
