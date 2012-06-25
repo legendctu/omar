@@ -51,13 +51,15 @@
 				<h3 class="fl font20 pink b ml20">Basic Information</h3>
 				<?php if ($is_self) { ?>
 					<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
-					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
+				<?php } else { ?>
+					<a id="follow" href="../controller/follow.php?id=<?= $id ?>" class="fr button-bg white r14 arial font18 b shadow">Follow</a>
 				<?php } ?>
 			</div>
 			<div id="basic-form" class="pl20 pr20 form font18">
 				<span>Firstname:</span> <p><?php echo $basic_info["firstname"];?></p><br />
 				<span>Lastname:</span> <p><?php echo $basic_info["lastname"];?></p><br />
-                <span>Gender:</span> <p><?php echo $basic_info["gender"];?></p><br />
+                <span id="gender_select">Gender:</span> <p><?php echo $basic_info["gender"];?></p><br />
 				<span>Languages:</span> <p><?php echo $basic_info["languages"];?></p><br />
 				<span>Work Fields:</span> <p><?php echo $basic_info["work_fields"];?></p><br />
 				<span>Work Location:</span> <p><?php echo $basic_info["work_location"];?></p><br />
@@ -96,34 +98,49 @@
 	</div>
 	<div id="r_side" class="fr w300">
 		<div class="center border-blue">
-			<div class="font24 white bg-blue pl10">Followers(10)</div>
-			<ul class="list p10">
-				<li><div class="overflow">
-					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
-					<p class="fl pl10 pr10 font20">username</p>
-					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
-					<img class="star fr" src="../image/blank-avatar.gif" />
-				</div></li>
-				<li><div class="overflow">
-					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
-					<p class="fl pl10 pr10 font20">username</p>
-					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
-					<img class="star fr" src="../image/blank-avatar.gif" />
-				</div></li>
-			</ul>
-			<a href="#" class="font18 arial carmine b">Show All</a>
+		<?php
+			$ret = callapi("user/".$id."/follower", "GET", array());
+			$follower = json_decode($ret["content"], true)["users"];
+		?>
+			<div class="font24 white bg-blue pl10">Followers(<?= count($follower) ?>)</div>
+			<?php if (count($follower) > 0) { ?>
+				<ul class="list p10">
+				<?php for ($i = 0; $i < count($follower); $i++) {
+					$user = json_decode(callapi("profile/".$follower[$i], "GET", array())["content"], true); ?>
+					<li><div class="overflow">
+						<a href="profile.php?<?= $follower[$i] ?>" >
+							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
+						<a href="profile.php?id=<?= $follower[$i] ?>" class="fl pl10 pr10 font16 blue">
+							<?= get_fullname($user) ?></a>
+						<a id="follow" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<img class="star fr" src="../image/blank-avatar.gif" />
+					</div></li>
+				<?php } ?>
+				</ul>
+				<a href="#" class="font18 arial carmine b">Show All</a>
+			<?php } ?>
 		</div>
 		<div class="center border-blue mt20">
-			<div class="font24 white bg-blue pl10">Following(10)</div>
-			<ul class="list p10">
-				<li><div class="overflow">
-					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
-					<p class="fl pl10 pr10 font20">username</p>
-					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
-					<img class="star fr" src="../image/blank-avatar.gif" />
-				</div></li>
-			</ul>
-			<a href="#" class="font18 arial carmine b">Show All</a>
+		<?php
+			$ret = callapi("user/".$id."/following", "GET", array());
+			$following = json_decode($ret["content"], true)["users"];
+		?>
+			<div class="font24 white bg-blue pl10">Following(<?= count($following) ?>)</div>
+			<?php if (count($following) > 0) { ?>
+				<ul class="list p10">
+				<?php for ($i = 0; $i < count($following); $i++) {
+					$user = json_decode(callapi("profile/".$following[$i], "GET", array())["content"], true); ?>
+					<li><div class="overflow">
+						<a href="profile.php?<?= $following[$i] ?>" >
+							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
+						<a href="profile.php?id=<?= $following[$i] ?>" class="fl pl10 pr10 font16 blue">
+							<?= get_fullname($user) ?></a>
+						<a id="follow" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+					</div></li>
+				<?php } ?>
+				</ul>
+				<a href="#" class="font18 arial carmine b">Show All</a>
+			<?php } ?>
 		</div>
 		<div class="center border-blue mt20">
 			<div class="font24 white bg-blue pl10">Tag I Follow(10)</div>
@@ -135,39 +152,55 @@
 </div>
 
     <script type="text/javascript">
+        in_edit = 0;
         $(document).ready(function(){
-            $(".edit").toggle(function(){
-                $(this).html('Save');
-                $(this).next('a').html('Cancel').addClass('cancel');
-                $(this).parent().next('div').children('span')
-                        .each(function(){
-                            $(this).next().addClass('hidden');
-                            v = $(this).next().html();
-                            $(this).after("<input type='text' value='" + v + "'>");
-                        });
-            }, function(){
-                $(this).html('Edit');
-                $(this).next('a').html('Download').removeClass('cancel');
-                data = new Array();
-                $(this).parent().next('div').children('input')
+            $(".edit").click(function(){
+                if (in_edit == 0) {
+                    in_edit = 1;
+                    $(this).html('Save');
+                    $(this).next().html('Cancel');
+                    $(this).parent().next('div').children('span')
+                            .each(function(){
+                                $(this).next().addClass('hidden');
+                                if ($(this).attr('id') != 'gender_select') {
+                                    v = $(this).next().html();
+                                    $(this).after("<input type='text' value='" + v + "'>");
+                                }
+                                else {
+                                    v = $(this).next().html();
+                                    $(this).after("<select><option>male</option><option>female</option></select>");
+                                }
+                    });
+                }
+                else {
+                    in_edit = 0;
+                    $(this).html('Edit');
+                    $(this).next().html('Download');
+                    data = new Array();
+                    $(this).parent().next('div').children('input, select')
                         .each(function(){
                             data.push($(this).val());
                             $(this).next().removeClass('hidden');
                             $(this).remove();
                         });
-                post_info($(this).children('a:first-child').attr("id"), data);
+                    post_info($(this).children('a:first-child').attr("id"), data);
+                }
             });
             
-            $('.cancel').live('click', function(){
-                $(this).prev('a').html('Edit');
-                $(this).html('Download').removeClass('cancel');
-                $(this).parent().next('div').children('input')
-                        .each(function(){
-                            $(this).next().removeClass('hidden');
-                            $(this).remove();
-                        });
+            $(".cancel").click(function(){
+                if (in_edit == 1) {
+                    in_edit = 0;
+                    $(this).prev('a').html('Edit');
+                    $(this).html('Download');
+                    $(this).parent().next('div').children('input, select')
+                            .each(function(){
+                                $(this).next().removeClass('hidden');
+                                $(this).remove();
+                    });
+                }
             });
         });
+        
         function post_info(type, data)
         {
             if (type = 'basic-form') 
@@ -175,13 +208,15 @@
                 $.post(
                     "../controller/profile.php",
                     {
+                        "type": "basic",
                         "firstname": data[0],
                         "lastname": data[1],
                         "gender": data[2],
                         "languages": data[3],
                         "work_fields": data[4],
                         "work_location": data[5],
-                        "target_population": data[6]
+                        "target_population": data[6],
+                        
                     },
                     function(d){
                         i = 0;

@@ -87,4 +87,8 @@ function get_avatar_by_id($id) {
 	return get_avatar($content["email"]);
 }
 
+function get_fullname($user) {
+	return $user["firstname"]." ".$user["lastname"];
+}
+
 ?>
