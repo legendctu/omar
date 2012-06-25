@@ -3,23 +3,13 @@
 	require_once("../controller/api_helper.php");
 
 	$type = isset($_GET["type"]) ? $_GET["type"] : "activity";
-	$id = isset($_GET["id"]) ? $_GET["id"] : "";
+	$id = isset($_GET["id"]) ? $_GET["id"] : $_COOKIE['OH_id'];
 
 	render_header('Profile');
 	render_nav('profile');
 
-	$ret = callapi("profile", "GET", array());
-	$self = json_decode($ret["content"], true);
-	if (empty($id))
-		$id = $self["id"];
-	$is_self = $self["id"] == $id;
-	
-	if ($is_self) {
-		$basic_info = $self;
-	} else {
-		$ret = callapi("profile/".$id, "GET", array());
-		$basic_info = json_decode($ret["content"], true);
-	}
+	$ret = callapi("profile/".$id, "GET", array());
+	$basic_info = json_decode($ret["content"], true);
     
     //$contact_info
     //$org_info
@@ -30,7 +20,7 @@
 <div id="content_wrap" class="wrap bg-white box-shadow">
 <div class="p20 overflow">
 	<div id="l_side" class="fl w670">
-		<?php if ($is_self) { ?>
+		<?php if (is_me($id)) { ?>
 			<div id="status" class="overflow m10 p10 border-b">
 				<img class="avatar fl" src="<?= get_avatar($basic_info["email"]) ?>" />
 				<div class="fl ml20">
@@ -49,11 +39,11 @@
         <div id="basic">
 			<div id="basic-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Basic Information</h3>
-				<?php if ($is_self) { ?>
+				<?php if (is_me($id)) { ?>
 					<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
 					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
 				<?php } else { ?>
-					<a id="follow" href="../controller/follow.php?id=<?= $id ?>" class="fr button-bg white r14 arial font18 b shadow">Follow</a>
+					<a name="follow" uid="<?= $id ?>" class="fr button-bg white r14 arial font18 b shadow">Follow</a>
 				<?php } ?>
 			</div>
 			<div id="basic-form" class="pl20 pr20 form font18">
@@ -112,8 +102,10 @@
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
 						<a href="profile.php?id=<?= $follower[$i] ?>" class="fl pl10 pr10 font16 blue">
 							<?= get_fullname($user) ?></a>
-						<a id="follow" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
-						<img class="star fr" src="../image/blank-avatar.gif" />
+						<?php if (!is_me($follower[$i])) { ?>
+							<a name="follow" uid="<?= $follower[$i] ?>" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<?php } ?>
+						<img class="star fr" src="../image/<?= "star.png" ?>" />
 					</div></li>
 				<?php } ?>
 				</ul>
@@ -135,7 +127,9 @@
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
 						<a href="profile.php?id=<?= $following[$i] ?>" class="fl pl10 pr10 font16 blue">
 							<?= get_fullname($user) ?></a>
-						<a id="follow" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<?php if (!is_me($following[$i])) { ?>
+							<a name="follow" uid="<?= $following[$i] ?>" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<?php } ?>
 					</div></li>
 				<?php } ?>
 				</ul>
@@ -230,4 +224,12 @@
         }
     </script>
 
+	<script type="text/javascript">
+		$("a[name='follow']").click(function() {
+			$.getJSON("../controller/follow.php", { "id" : $(this).attr("uid") }, function(d) {
+				console.log(d);
+			});
+		});
+	</script>
+	
 <?php include("footer.php"); ?>
