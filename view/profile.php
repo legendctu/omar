@@ -32,7 +32,7 @@
 	<div id="l_side" class="fl w670">
 		<?php if ($is_self) { ?>
 			<div id="status" class="overflow m10 p10 border-b">
-				<img class="avatar fl" src="../image/blank-avatar.gif" />
+				<img class="avatar fl" src="<?= get_avatar($basic_info["email"]) ?>" />
 				<div class="fl ml20">
 					<textarea type="text" id="status" rows="3" class="w500"></textarea><br />
 					<a id="update" class="fr mt10 button-bg white r14 arial font18 b shadow">Submit</a>
