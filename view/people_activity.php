@@ -100,7 +100,20 @@
 
 <script type="text/javascript">
     var info_cache = {};
-
+    
+    function displayInfo(uid){
+        str = '<p><a class="blue b font16" href="profile.php?id=' + uid + '">' + info_cache[uid]["firstname"] + ' ' + info_cache[uid]["lastname"] + '</a> (' + info_cache[uid]["email"] + ')</p>';
+        var w_loc = info_cache[uid]["work_location"] == "" ? "" : '@' + info_cache[uid]["work_location"];
+        var str_c = w_loc != "" && info_cache[uid]["work_fields"] != "" ? ", " : "";
+        str += '<p>' + w_loc + str_c + info_cache[uid]["work_fields"] + '</p>';
+        if(info_cache[uid]["is_followed"]){
+            str += '<p class="mt6"><a href="#" class="white font14 arial r14 button-bg pl20 pr20 b shadow">unfollow</a></p>';
+        }else{
+            str += '<p class="mt6"><a href="#" class="white font14 arial r14 button-bg pl20 pr20 b shadow">follow</a></p>';
+        }
+        $("#person_info .info-content").html(str);
+    }
+    
     $(function(){
         $(".avatar").mouseover(function(){
 /*
@@ -109,15 +122,16 @@
             console.log($(document).scrollTop());
             console.log($(document).scrollLeft());
 */
-            $("#person_info .info-content").html('<p>loading, please wait…</p>');
+            $("#person_info .info-content").html('<p class="b">loading, please wait…</p>');
             var info_off = $(this).offset();
             $("#person_info").css({"top": info_off.top, "left": info_off.left+$(this).width()}).show();
+            var uid = $(this).attr("uid");
             if(typeof info_cache[ $(this).attr("uid") ] == "undefined"){
                 $.post(
                     "../controller/profile.php",
                     {
-                        "type": "get",
-                        "uid": $(this).attr("uid")
+                        "type": "get_profile",
+                        "uid": uid
                     },
                     function(d){
                         for(var i in d["content"]){
@@ -129,21 +143,34 @@
                         switch(d.code){
                             case 200:
                                 info_cache[ d.content.id ] = d.content;
-                                str = '<p>' + d["content"]["firstname"] + ' ' + d["content"]["lastname"] + '</p>' + '<p>' + d["content"]["work_location"] + ' ' + d["content"]["work_fields"] + '</p>';
+                                $.post(
+                                    "../controller/profile.php",
+                                    {
+                                        "type": "get_follow_stat",
+                                        "uid": uid
+                                    },
+                                    function(d){
+                                        if(d.code == 404){
+                                            info_cache[uid]["is_followed"] = false;
+                                        }else{
+                                            info_cache[uid]["is_followed"] = true;
+                                        }
+                                        displayInfo(uid);
+                                    },
+                                    "json"
+                                );
                                 break;
                             case 0:
-                                str = '<p>The connection is interrupted.</p>';
+                                str = '<p class="b">The connection is interrupted.</p>';
+                                $("#person_info .info-content").html(str);
                                 break;
                             
                         }
-                        $("#person_info .info-content").html(str);
                     },
                     "json"
                 );
             }else{
-                var uid = $(this).attr("uid");
-                str = '<p>' + info_cache[uid]["firstname"] + ' ' + info_cache[uid]["lastname"] + '</p>' + '<p>' + info_cache[uid]["work_location"] + ' ' + info_cache[uid]["work_fields"] + '</p>';
-                $("#person_info .info-content").html(str);
+                displayInfo(uid);
             }
             
         }).mouseout(function(){
