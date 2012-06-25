@@ -75,4 +75,9 @@ function render_nav($current) {
 </div>
 <?php
 }
+
+function get_avatar($email) {
+	$hash = md5(strtolower(trim($email)));
+	return "http://www.gravatar.com/avatar/".$hash;
+}
 ?>

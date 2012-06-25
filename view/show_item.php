@@ -62,7 +62,7 @@
 	<div id="r_side" class="fr w300 font16">
 		<h1 class="pink m10 p10 border-b font24">Publisher</h1>
 		<div class="m10 p10 overflow">
-			<img class="fl avatar" src="../image/blank-avatar.gif" />
+			<img class="fl avatar" src="<?= get_avatar($pub["email"]) ?>" />
 			<a href="profile.php?id=<?= $item["publisher_id"] ?>" class="ml20 arial blue font24 b">
 				<?= $pub["firstname"]." ".$pub["lastname"] ?></a>
 			<div class="overflow">
