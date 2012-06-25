@@ -52,6 +52,8 @@
 				<?php if ($is_self) { ?>
 					<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
 					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
+				<?php } else { ?>
+					<a id="follow" href="../controller/follow.php?id=<?= $id ?>" class="fr button-bg white r14 arial font18 b shadow">Follow</a>
 				<?php } ?>
 			</div>
 			<div id="basic-form" class="pl20 pr20 form font18">
@@ -96,34 +98,49 @@
 	</div>
 	<div id="r_side" class="fr w300">
 		<div class="center border-blue">
-			<div class="font24 white bg-blue pl10">Followers(10)</div>
-			<ul class="list p10">
-				<li><div class="overflow">
-					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
-					<p class="fl pl10 pr10 font20">username</p>
-					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
-					<img class="star fr" src="../image/blank-avatar.gif" />
-				</div></li>
-				<li><div class="overflow">
-					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
-					<p class="fl pl10 pr10 font20">username</p>
-					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
-					<img class="star fr" src="../image/blank-avatar.gif" />
-				</div></li>
-			</ul>
-			<a href="#" class="font18 arial carmine b">Show All</a>
+		<?php
+			$ret = callapi("user/".$id."/follower", "GET", array());
+			$follower = json_decode($ret["content"], true)["users"];
+		?>
+			<div class="font24 white bg-blue pl10">Followers(<?= count($follower) ?>)</div>
+			<?php if (count($follower) > 0) { ?>
+				<ul class="list p10">
+				<?php for ($i = 0; $i < count($follower); $i++) {
+					$user = json_decode(callapi("profile/".$follower[$i], "GET", array())["content"], true); ?>
+					<li><div class="overflow">
+						<a href="profile.php?<?= $follower[$i] ?>" >
+							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
+						<a href="profile.php?id=<?= $follower[$i] ?>" class="fl pl10 pr10 font16 blue">
+							<?= get_fullname($user) ?></a>
+						<a id="follow" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<img class="star fr" src="../image/blank-avatar.gif" />
+					</div></li>
+				<?php } ?>
+				</ul>
+				<a href="#" class="font18 arial carmine b">Show All</a>
+			<?php } ?>
 		</div>
 		<div class="center border-blue mt20">
-			<div class="font24 white bg-blue pl10">Following(10)</div>
-			<ul class="list p10">
-				<li><div class="overflow">
-					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
-					<p class="fl pl10 pr10 font20">username</p>
-					<a id="follow" class="fr ml20 button-bg white r14 arial font18 b shadow">follow</a>
-					<img class="star fr" src="../image/blank-avatar.gif" />
-				</div></li>
-			</ul>
-			<a href="#" class="font18 arial carmine b">Show All</a>
+		<?php
+			$ret = callapi("user/".$id."/following", "GET", array());
+			$following = json_decode($ret["content"], true)["users"];
+		?>
+			<div class="font24 white bg-blue pl10">Following(<?= count($following) ?>)</div>
+			<?php if (count($following) > 0) { ?>
+				<ul class="list p10">
+				<?php for ($i = 0; $i < count($following); $i++) {
+					$user = json_decode(callapi("profile/".$following[$i], "GET", array())["content"], true); ?>
+					<li><div class="overflow">
+						<a href="profile.php?<?= $following[$i] ?>" >
+							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
+						<a href="profile.php?id=<?= $following[$i] ?>" class="fl pl10 pr10 font16 blue">
+							<?= get_fullname($user) ?></a>
+						<a id="follow" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+					</div></li>
+				<?php } ?>
+				</ul>
+				<a href="#" class="font18 arial carmine b">Show All</a>
+			<?php } ?>
 		</div>
 		<div class="center border-blue mt20">
 			<div class="font24 white bg-blue pl10">Tag I Follow(10)</div>
