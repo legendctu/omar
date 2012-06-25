@@ -7,6 +7,7 @@ function render_header($title, $is_user = true) {
 	$ret = callapi("profile", "GET", array());
 	if ($ret["code"] == 200) {
 		$content = json_decode($ret['content'], true);
+		setcookie("OH_id", $content['id'], 0, '/');
 	}
 ?>
 <html>
@@ -89,6 +90,15 @@ function get_avatar_by_id($id) {
 
 function get_fullname($user) {
 	return $user["firstname"]." ".$user["lastname"];
+}
+
+function is_followed($id) {
+	$ret = callapi("friendships/".$id, "GET", array());
+	return $content["code"] == 200;
+}
+
+function is_me($id) {
+	return $_COOKIE['OH_id'] == $id;
 }
 
 ?>
