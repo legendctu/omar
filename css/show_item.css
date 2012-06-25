@@ -1,0 +1,33 @@
+.ml20mtb5mr10 {
+	margin: 5px 10px 5px 20px;
+}
+
+#l_side div {
+	overflow: auto;
+	font-size: 18px;
+	font-family: Verdana;
+}
+
+.key {
+	float: left;
+	width: 230px;
+	text-align: right;
+	margin: 10px;
+}
+
+.value {
+	float: left;
+	margin: 10px;
+	color: #e2b075;
+}
+
+.r_key {
+	float: left;
+	margin: 5px;
+}
+
+.r_value {
+	float: left;
+	margin: 5px;
+	color: #e2b075;
+}

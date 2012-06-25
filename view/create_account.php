@@ -1,7 +1,6 @@
 <?php
 	require_once("view_helper.php");
-	render_header('Create Account');
-	render_nav('');
+	render_header('Create Account', false);
 ?>
         <script type="text/javascript">
             $(document).ready(function(){
