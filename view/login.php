@@ -2,6 +2,7 @@
 	if(isset($_COOKIE["OH_user"])){
 		setcookie("OH_user", "", time()-3600, '/');
 		setcookie("OH_pwd", "", time()-3600, '/');
+		setcookie("OH_id", "", time()-3600, '/');
 	}
 ?>
 <?php require_once("view_helper.php"); ?>
@@ -121,7 +122,7 @@
                             $("#a_msgbox").addClass("red").html("* This account doesn't exist");
                             break;
 						case 401:
-							$("#a_msgbox").addClass("red").html("* Permission denied");
+							$("#a_msgbox").addClass("red").html("* This account has been activated");
 							break;
 						case 403:
 							$("#a_msgbox").addClass("red").html("* This account has been activated");
