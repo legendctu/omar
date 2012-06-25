@@ -20,8 +20,9 @@
 	function render_item($item) { ?>
 		<div class="mt10 p10 border-t">
 			<a href="profile.php?id=<?= $item["publisher_id"] ?>">
-				<img class="avatar fl" src="<?= get_avatar_by_id($item["publisher_id"]) ?>" />
+				<img class="avatar fl" src="<?= get_avatar_by_id($item["publisher_id"]) ?>" uid="<?php echo $item["publisher_id"];?>" />
 			</a>
+
 			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			<div class="intro w500 ml90">
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
@@ -94,27 +95,56 @@
 </div>
 
 <div id="person_info" class="info-wrapper p5 absolute none">
-    <div class="info-content p5">
-        <p>loading, please wait…</p>
-<!--    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p>
-    <p>123</p> -->
-    </div>
+    <div class="info-content p10"></div>
 </div>
 
 <script type="text/javascript">
+    var info_cache = {};
+
     $(function(){
         $(".avatar").mouseover(function(){
+/*
             console.log($(this));
             console.log($(this).offset());
             console.log($(document).scrollTop());
             console.log($(document).scrollLeft());
-            
+*/
+            $("#person_info .info-content").html('<p>loading, please wait…</p>');
             var info_off = $(this).offset();
             $("#person_info").css({"top": info_off.top, "left": info_off.left+$(this).width()}).show();
-            
+            if(typeof info_cache[ $(this).attr("uid") ] == "undefined"){
+                $.post(
+                    "../controller/profile.php",
+                    {
+                        "type": "get",
+                        "uid": $(this).attr("uid")
+                    },
+                    function(d){
+                        for(var i in d["content"]){
+                            if(d["content"][i] == null)
+                                d["content"][i] = "";
+                        }
+                        
+                        var str = "";
+                        switch(d.code){
+                            case 200:
+                                info_cache[ d.content.id ] = d.content;
+                                str = '<p>' + d["content"]["firstname"] + ' ' + d["content"]["lastname"] + '</p>' + '<p>' + d["content"]["work_location"] + ' ' + d["content"]["work_fields"] + '</p>';
+                                break;
+                            case 0:
+                                str = '<p>The connection is interrupted.</p>';
+                                break;
+                            
+                        }
+                        $("#person_info .info-content").html(str);
+                    },
+                    "json"
+                );
+            }else{
+                var uid = $(this).attr("uid");
+                str = '<p>' + info_cache[uid]["firstname"] + ' ' + info_cache[uid]["lastname"] + '</p>' + '<p>' + info_cache[uid]["work_location"] + ' ' + info_cache[uid]["work_fields"] + '</p>';
+                $("#person_info .info-content").html(str);
+            }
             
         }).mouseout(function(){
             $("#person_info").hide();
