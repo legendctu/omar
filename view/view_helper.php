@@ -80,4 +80,11 @@ function get_avatar($email) {
 	$hash = md5(strtolower(trim($email)));
 	return "http://www.gravatar.com/avatar/".$hash;
 }
+
+function get_avatar_by_id($id) {
+	$ret = callapi("profile/".$id, "GET", array());
+	$content = json_decode($ret["content"], true);
+	return get_avatar($content["email"]);
+}
+
 ?>
