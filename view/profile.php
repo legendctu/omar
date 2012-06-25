@@ -96,7 +96,11 @@
 	</div>
 	<div id="r_side" class="fr w300">
 		<div class="center border-blue">
-			<div class="font24 white bg-blue pl10">Followers(10)</div>
+		<?php
+			$ret = callapi("user/".$id."/follower", "GET", array());
+			$follower = json_decode($ret["content"], true)["users"];
+		?>
+			<div class="font24 white bg-blue pl10">Followers(<?= count($follower) ?>)</div>
 			<ul class="list p10">
 				<li><div class="overflow">
 					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
@@ -114,7 +118,11 @@
 			<a href="#" class="font18 arial carmine b">Show All</a>
 		</div>
 		<div class="center border-blue mt20">
-			<div class="font24 white bg-blue pl10">Following(10)</div>
+		<?php
+			$ret = callapi("user/".$id."/following", "GET", array());
+			$following = json_decode($ret["content"], true)["users"];
+		?>
+			<div class="font24 white bg-blue pl10">Following(<?= count($following) ?>)</div>
 			<ul class="list p10">
 				<li><div class="overflow">
 					<img class="small-avatar fl" src="../image/blank-avatar.gif" />
