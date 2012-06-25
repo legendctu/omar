@@ -51,7 +51,7 @@
 				<h3 class="fl font20 pink b ml20">Basic Information</h3>
 				<?php if ($is_self) { ?>
 					<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
-					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
+					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
 				<?php } ?>
 			</div>
 			<div id="basic-form" class="pl20 pr20 form font18">
@@ -135,39 +135,49 @@
 </div>
 
     <script type="text/javascript">
+        in_edit = 0;
         $(document).ready(function(){
-            $(".edit").toggle(function(){
-                $(this).html('Save');
-                $(this).next('a').html('Cancel').addClass('cancel');
-                $(this).parent().next('div').children('span')
-                        .each(function(){
-                            $(this).next().addClass('hidden');
-                            v = $(this).next().html();
-                            $(this).after("<input type='text' value='" + v + "'>");
-                        });
-            }, function(){
-                $(this).html('Edit');
-                $(this).next('a').html('Download').removeClass('cancel');
-                data = new Array();
-                $(this).parent().next('div').children('input')
-                        .each(function(){
-                            data.push($(this).val());
-                            $(this).next().removeClass('hidden');
-                            $(this).remove();
-                        });
-                post_info($(this).children('a:first-child').attr("id"), data);
+            $(".edit").click(function(){
+                if (in_edit == 0) {
+                    in_edit = 1;
+                    $(this).html('Save');
+                    $(this).next().html('Cancel');
+                    $(this).parent().next('div').children('span')
+                            .each(function(){
+                                $(this).next().addClass('hidden');
+                                v = $(this).next().html();
+                                $(this).after("<input type='text' value='" + v + "'>");
+                    });
+                }
+                else {
+                    in_edit = 0;
+                    $(this).html('Edit');
+                    $(this).next().html('Download');
+                    data = new Array();
+                    $(this).parent().next('div').children('input')
+                            .each(function(){
+                                data.push($(this).val());
+                                $(this).next().removeClass('hidden');
+                                $(this).remove();
+                            });
+                    post_info($(this).children('a:first-child').attr("id"), data);
+                }
             });
             
-            $('.cancel').live('click', function(){
-                $(this).prev('a').html('Edit');
-                $(this).html('Download').removeClass('cancel');
-                $(this).parent().next('div').children('input')
-                        .each(function(){
-                            $(this).next().removeClass('hidden');
-                            $(this).remove();
-                        });
+            $(".cancel").click(function(){
+                if (in_edit == 1) {
+                    in_edit = 0;
+                    $(this).prev('a').html('Edit');
+                    $(this).html('Download');
+                    $(this).parent().next('div').children('input')
+                            .each(function(){
+                                $(this).next().removeClass('hidden');
+                                $(this).remove();
+                    });
+                }
             });
         });
+        
         function post_info(type, data)
         {
             if (type = 'basic-form') 
