@@ -23,7 +23,7 @@
 			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
 			<div class="intro w500 ml90">
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
-				<span class="arial blue font24 b"><?= $item["title"] ?></span>
+				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
 				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
 				<p class="black arial font18 mt15">
 					<span class="tag">IT<a>star</a></span>
