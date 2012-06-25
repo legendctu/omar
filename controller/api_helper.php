@@ -16,22 +16,38 @@ function callapi($url, $type = "POST", $data = array(), $tmp_user = "", $tmp_pwd
 
     $headers["Authorization"] = "Basic " . base64_encode($auth_str);
     
-    if($type == "POST"){
-        $headers["Content-Type"] = "application/json";
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    }else{
-        if(!empty($data)){
-            $url .= "?";
-            foreach($data as $k => $v){
-                $url .= "{$k}={$v}&";
+    switch($type){
+        case "POST":
+            $headers["Content-Type"] = "application/json";
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            break;
+        case "GET":
+            if(!empty($data)){
+                $url .= "?";
+                foreach($data as $k => $v){
+                    $url .= "{$k}={$v}&";
+                }
             }
-        }
+            break;
+        case "DELETE":
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST,'DELETE');
+            break;
+        case "PUT":
+            curl_setopt($ch, CURLOPT_PUT,true);
+            break;
+        default:
+            return array(
+                "code" => -1,
+                "content" => "Method Error!"
+            );
+            break;
     }
+
     $headerArr = array();
     foreach( $headers as $n => $v ){
         $headerArr[] = $n .': ' . $v;
     }
-    curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me:8000/{$url}");
+    curl_setopt($ch, CURLOPT_URL, "http://coconut.yach.me:58000/{$url}");
     curl_setopt ($ch, CURLOPT_HTTPHEADER, $headerArr);
     
     $result = curl_exec($ch);
