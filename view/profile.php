@@ -166,7 +166,8 @@
                                 }
                                 else {
                                     v = $(this).next().html();
-                                    $(this).after("<select><option>male</option><option>female</option></select>");
+                                    $(this).after("<select><option>male</option><option>female</option><option>unknown</option></select>");
+                                    $(this).next("select").val(v);
                                 }
                     });
                 }
