@@ -59,9 +59,9 @@
                 <p class="mt6 fl w80 mr15 right">E-mail: </p>
                 <p class="mt10"><input type="text" id="email" /></p>
                 <p class="mt16 fl w80 mr15 right clear">Firstname: </p>
-                <p class="mt10"><input type="text" id="lastname" /></p>
-                <p class="mt16 fl w80 mr15 right clear">Lastname: </p>
                 <p class="mt10"><input type="text" id="firstname" /></p>
+                <p class="mt16 fl w80 mr15 right clear">Lastname: </p>
+                <p class="mt10"><input type="text" id="lastname" /></p>
                 <p class="mt10 fl w80 mr15 right clear">Role: </p>
                 <p class="mt10"><input type="radio" name="role" value="admin" id="admin"><label for="admin">Admin</label> <input type="radio" name="role" value="fellow" id="fellow" checked="checked"><label for="fellow">Fellow</label></p>
                 <p class="mt10 ml80"><a id="create" class="button-bg white r14 arial font20 b">Create</a> <span id="msgbox"></span></p>
