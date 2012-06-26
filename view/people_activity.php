@@ -27,13 +27,14 @@
                 $get_follow = callapi("watch/".$item['item_id'], "GET", array());
             ?>
             
-            <a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+            <a name="watch_btn" type="" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
                 <?php 
                     if ($get_follow['code'] == 404) {
                         echo 'follow';
                     } else {
                         echo 'unfollow';
                     }
+                    
                 ?>
             </a>
             <div class="intro w500 ml90">
@@ -114,7 +115,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".follow").click(function(){
-            
+            if($(this).html() == 'follow'){
+                $.get('../controller.php', 
+                    {"id": <?php $items[""]?>})
+            }
         });
     });
     var info_cache = {};
