@@ -93,8 +93,8 @@ function get_fullname($user) {
 }
 
 function is_followed($id) {
-	$ret = callapi("friendships/".$id, "GET", array());
-	return $content["code"] == 200;
+	$ret = callapi("friendships/".$id, "GET");
+	return $ret["code"] == 200;
 }
 
 function is_me($id) {

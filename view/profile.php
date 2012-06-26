@@ -8,7 +8,7 @@
 	render_header('Profile');
 	render_nav('profile');
 
-	$ret = callapi("profile/".$id, "GET", array());
+	$ret = callapi("profile/".$id, "GET");
 	$basic_info = json_decode($ret["content"], true);
     
     //$contact_info
@@ -42,8 +42,9 @@
 				<?php if (is_me($id)) { ?>
 					<a id="basic-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
 					<a id="basic-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
-				<?php } else { ?>
-					<a name="follow" uid="<?= $id ?>" class="fr button-bg white r14 arial font18 b shadow">Follow</a>
+				<?php } else { 
+				    $tmp_is_followed = is_followed($id);?>
+					<a name="follow" uid="<?= $id ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr button-bg white r14 arial font18 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 				<?php } ?>
 			</div>
 			<div id="basic-form" class="pl20 pr20 form font18">
@@ -97,15 +98,16 @@
 			<?php if (count($follower) > 0) { ?>
 				<ul class="list p10">
 				<?php for ($i = 0; $i < count($follower); $i++) {
-				    $res = callapi("profile/".$follower[$i], "GET", array());
+				    $res = callapi("profile/".$follower[$i]["id"], "GET", array());
 					$user = json_decode($res["content"], true); ?>
 					<li><div class="overflow">
-						<a href="profile.php?<?= $follower[$i] ?>" >
+						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $follower[$i] ?>" class="fl pl10 pr10 font16 blue">
+						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl pl10 pr10 font16 blue">
 							<?= get_fullname($user) ?></a>
-						<?php if (!is_me($follower[$i])) { ?>
-							<a name="follow" uid="<?= $follower[$i] ?>" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<?php if (!is_me($follower[$i]["id"])) {
+						    $tmp_is_followed = is_followed($follower[$i]["id"]);?>
+							<a name="follow" uid="<?= $follower[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
 						<img class="star fr" src="../image/<?= "star.png" ?>" />
 					</div></li>
@@ -124,15 +126,16 @@
 			<?php if (count($following) > 0) { ?>
 				<ul class="list p10">
 				<?php for ($i = 0; $i < count($following); $i++) {
-				    $res = callapi("profile/".$following[$i], "GET", array());
+				    $res = callapi("profile/".$following[$i]["id"], "GET", array());
 					$user = json_decode($res["content"], true); ?>
 					<li><div class="overflow">
-						<a href="profile.php?<?= $following[$i] ?>" >
+						<a href="profile.php?id=<?= $following[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $following[$i] ?>" class="fl pl10 pr10 font16 blue">
+						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl pl10 pr10 font16 blue">
 							<?= get_fullname($user) ?></a>
-						<?php if (!is_me($following[$i])) { ?>
-							<a name="follow" uid="<?= $following[$i] ?>" class="fr ml20 button-bg white r14 arial font14 b shadow">follow</a>
+						<?php if (!is_me($following[$i]["id"])) { 
+						    $tmp_is_followed = is_followed($following[$i]["id"]);?>
+							<a name="follow" uid="<?= $following[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
 					</div></li>
 				<?php } ?>
@@ -231,23 +234,41 @@
 
 	<script type="text/javascript">
 		$("a[name='follow']").click(function() {
-			$.getJSON("../controller/follow.php", { "id" : $(this).attr("uid"), "type" : "follow" }, function(d) {
-				console.log(d);
-				switch(d.code){
-				    case 0:
-				        alert("The connection is interrupted. Please try again.");
-				        break;
-				    case 403:
-				        alert("Sorry, you can't follow an admin.");
-				        break;
-				    case 404:
-				        alert("The user you follow doesn't exist.");
-				        break;
-				    case 200:
-				        
-				        break;
-				}
-			});
+            var uid = $(this).attr("uid"),
+                type = $(this).attr("type"),
+                that = $(this);
+            $.getJSON(
+                "../controller/follow.php",
+                {
+                    "id" : uid,
+                    "type" : type
+                },
+                function(d) {
+                    console.log(d);
+                    switch(d.code){
+                        case 0:
+                            alert("The connection is interrupted. Please try again.");
+                            break;
+                        case 403:
+                            alert("Sorry, you can't follow an admin.");
+                            break;
+                        case 404:
+                            alert("The user you follow doesn't exist.");
+                            break;
+                        case 200:
+                            if(type == "follow"){
+                                $("a[name='follow'][uid='" + uid + "']").each(function(){
+                                    that.attr("type", "unfollow").html("unfollow");
+                                });
+                            }else{
+                                $("a[name='follow'][uid='" + uid + "']").each(function(){
+                                    that.attr("type", "follow").html("follow");
+                                });
+                            }
+                            break;
+                    }
+                }
+            );
 		});
 	</script>
 	
