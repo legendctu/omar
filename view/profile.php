@@ -90,13 +90,15 @@
 		<div class="center border-blue">
 		<?php
 			$ret = callapi("user/".$id."/follower", "GET", array());
-			$follower = json_decode($ret["content"], true)["users"];
+			$r_content = json_decode($ret["content"], true);
+			$follower = $r_content["users"];
 		?>
 			<div class="font24 white bg-blue pl10">Followers(<?= count($follower) ?>)</div>
 			<?php if (count($follower) > 0) { ?>
 				<ul class="list p10">
 				<?php for ($i = 0; $i < count($follower); $i++) {
-					$user = json_decode(callapi("profile/".$follower[$i], "GET", array())["content"], true); ?>
+				    $res = callapi("profile/".$follower[$i], "GET", array());
+					$user = json_decode($res["content"], true); ?>
 					<li><div class="overflow">
 						<a href="profile.php?<?= $follower[$i] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
@@ -115,13 +117,15 @@
 		<div class="center border-blue mt20">
 		<?php
 			$ret = callapi("user/".$id."/following", "GET", array());
-			$following = json_decode($ret["content"], true)["users"];
+			$r_content = json_decode($ret["content"], true);
+			$following = $r_content["users"];
 		?>
 			<div class="font24 white bg-blue pl10">Following(<?= count($following) ?>)</div>
 			<?php if (count($following) > 0) { ?>
 				<ul class="list p10">
 				<?php for ($i = 0; $i < count($following); $i++) {
-					$user = json_decode(callapi("profile/".$following[$i], "GET", array())["content"], true); ?>
+				    $res = callapi("profile/".$following[$i], "GET", array());
+					$user = json_decode($res["content"], true); ?>
 					<li><div class="overflow">
 						<a href="profile.php?<?= $following[$i] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
