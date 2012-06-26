@@ -106,22 +106,18 @@
         var w_loc = info_cache[uid]["work_location"] == "" ? "" : '@' + info_cache[uid]["work_location"];
         var str_c = w_loc != "" && info_cache[uid]["work_fields"] != "" ? ", " : "";
         str += '<p>' + w_loc + str_c + info_cache[uid]["work_fields"] + '</p>';
+        str += '<p class="mt6">';
         if(info_cache[uid]["is_followed"]){
-            str += '<p class="mt6"><a href="#" class="white font14 arial r14 button-bg pl20 pr20 b shadow">unfollow</a></p>';
+            str += '<a id="follow_btn" f_type="unfollow" uid="' + uid + '" class="white font14 arial r14 button-bg pl20 pr20 b shadow">unfollow</a>';
         }else{
-            str += '<p class="mt6"><a href="#" class="white font14 arial r14 button-bg pl20 pr20 b shadow">follow</a></p>';
+            str += '<a id="follow_btn" f_type="follow" uid="' + uid + '" class="white font14 arial r14 button-bg pl20 pr20 b shadow">follow</a>';
         }
+        str += ' <span id="msgbox"></span></p>';
         $("#person_info .info-content").html(str);
     }
     
     $(function(){
         $(".avatar").mouseover(function(){
-/*
-            console.log($(this));
-            console.log($(this).offset());
-            console.log($(document).scrollTop());
-            console.log($(document).scrollLeft());
-*/
             $("#person_info .info-content").html('<p class="b">loading, please wait…</p>');
             var info_off = $(this).offset();
             $("#person_info").css({"top": info_off.top, "left": info_off.left+$(this).width()}).show();
@@ -180,6 +176,27 @@
             $(this).show();
         }).mouseout(function(){
             $(this).hide();
+        });
+        
+        $("#follow_btn").live("click", function(){
+            var type = $(this).attr("f_type"),
+                uid = $(this).attr("uid");
+            $("#msgbox").html("Processing…");
+            $.getJSON(
+                "../controller/follow.php",
+                {
+                    "type": type,
+                    "id": uid
+                },
+                function(d){
+                    if(d.code != 200){
+                        $("#msgbox").html("Failed. Please try again.");
+                    }else{
+                        info_cache[uid]["is_followed"] = type == "follow" ? true : false;
+                        displayInfo(uid);
+                    }
+                }
+            );
         });
     });
 </script>
