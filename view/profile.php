@@ -65,12 +65,12 @@
 				<a id="contact-download" class="fr button-bg white r14 arial font18 b shadow">Download</a>
 			</div>
 			<div id="contect-form" class="pl20 pr20 form font18">
-				<span>Mobile number country code:</span> <p><?php echo $contact_info["phonenumber_country_code"];?></p><br />
-				<span>My mobile number:</span> <p><?php echo $contact_info["phonenumber"];?></p><br />
+				<span>Mobile number country code:</span> <p><?php echo $contact_info["phone_number_country_code"];?></p><br />
+				<span>My mobile number:</span> <p><?php echo $contact_info["phone_number"];?></p><br />
 				<span>Street:</span> <p><?php echo $contact_info["street"];?></p><br />
 				<span>City:</span> <p><?php echo $contact_info["city"];?></p><br />
 				<span>State or Province:</span> <p><?php echo $contact_info["province"];?></p><br />
-				<span>Zip/Postal Code:</span> <p><?php echo $contact_info["zip"];?></p><br />
+				<span>Zip/Postal Code:</span> <p><?php echo $contact_info["zip_code"];?></p><br />
 				<span>Country:</span> <p><?php echo $contact_info["country"];?></p><br />
 			</div>
 		</div>
@@ -89,8 +89,8 @@
 				<span>Organization type:</span> <p><?php echo $org_info["type"];?></p><br />
 				<span>Number of employees:</span> <p><?php echo $org_info["employee_number"];?></p><br />
 				<span>Organization’s estimated annual budget (US Dollars):</span> <p><?php echo $org_info["annual_budget"];?></p><br />
-				<span>Organization phone number country code:</span> <p><?php echo $org_info["phonenumber_country_code"];?></p><br />
-				<span>Organization phone number:</span> <p><?php echo $org_info["phonenumber"];?></p><br />
+				<span>Organization phone number country code:</span> <p><?php echo $org_info["phone_number_country_code"];?></p><br />
+				<span>Organization phone number:</span> <p><?php echo $org_info["phone_number"];?></p><br />
 			</div>
 		</div>
 	</div>
