@@ -110,13 +110,13 @@
 					<li class="mt10"><div class="overflow">
 						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl ml10 mr10 font16 blue">
+						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl ml10 mt8 font16 blue long-name">
 							<?= get_fullname($user) ?></a>
 						<?php if (!is_me($follower[$i]["id"])) {
 						    $tmp_is_followed = is_followed($follower[$i]["id"]);?>
-							<a name="follow" uid="<?= $follower[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
+							<a name="follow" uid="<?= $follower[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml5 mt6 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
-						<img class="star fr" src="../image/<?= $follower[$i]["inverted"] ? "star.png" : "star-empty.png" ?>" />
+						<img class="star fr mt9" src="../image/<?= $follower[$i]["inverted"] ? "star.png" : "star-empty.png" ?>" />
 					</div></li>
 				<?php } ?>
 				</ul>
@@ -138,11 +138,11 @@
 					<li class="mt10"><div class="overflow">
 						<a href="profile.php?id=<?= $following[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl ml10 mr10 font16 blue">
+						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl mt8 ml10 font16 blue long-name">
 							<?= get_fullname($user) ?></a>
 						<?php if (!is_me($following[$i]["id"])) { 
 						    $tmp_is_followed = is_followed($following[$i]["id"]);?>
-							<a name="follow" uid="<?= $following[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
+							<a name="follow" uid="<?= $following[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml5 mt6 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
 					</div></li>
 				<?php } ?>
@@ -244,14 +244,15 @@
             var uid = $(this).attr("uid"),
                 type = $(this).attr("type"),
                 that = $(this);
-            $.getJSON(
-                "../controller/follow.php",
-                {
+            $.ajax({
+                url: "../controller/follow.php",
+                timeout: 30000,
+                type: "GET",
+                data: {
                     "id" : uid,
                     "type" : type
                 },
-                function(d) {
-                    console.log(d);
+                success: function(d) {
                     switch(d.code){
                         case 0:
                             alert("The connection is interrupted. Please try again.");
@@ -274,8 +275,13 @@
                             }
                             break;
                     }
-                }
-            );
+                },
+                error: function(d){
+                    console.log(d);
+                    alert("Quest failed. Please try again.");
+                },
+                dataType: "json"
+            });
 		});
 	</script>
 	

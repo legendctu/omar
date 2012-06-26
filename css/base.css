@@ -301,6 +301,10 @@ a{
 	margin: 10px;
 }
 
+.ml5{
+    margin-left: 5px;
+}
+
 .ml10{
     margin-left: 10px;
 }
@@ -374,6 +378,14 @@ a{
 
 .mt6{
     margin-top: 6px;
+}
+
+.mt8{
+    margin-top: 8px;
+}
+
+.mt9{
+    margin-top: 9px;
 }
 
 .mt10{
