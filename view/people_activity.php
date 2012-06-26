@@ -22,9 +22,22 @@
 			<a href="profile.php?id=<?= $item["publisher_id"] ?>">
 				<img class="avatar fl" src="<?= get_avatar_by_id($item["publisher_id"]) ?>" uid="<?php echo $item["publisher_id"];?>" />
 			</a>
-
-			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
-			<div class="intro w500 ml90">
+            
+            <?php
+                $get_follow = callapi("watch/".$item['item_id'], "GET", array());
+                $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
+            ?>
+            
+            <a name="watch_btn" action="<?php echo $action?>" iid="<?php echo $item['item_id']?>" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                <?php 
+                    if ($action == 'watch') {
+                        echo 'follow';
+                    } else {
+                        echo 'unfollow';
+                    }
+                ?>
+            </a>
+            <div class="intro w500 ml90">
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
 				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
 				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
@@ -84,6 +97,7 @@
 		<?php
 			$has_more = $items['has_more'];
 			$items = $items['items'];
+            //print_r($items);
 			if (count($items) == 0)
 				echo '<p class="center font18">There is no '.$type.'.</p>';
 			for ($i = 0; $i < count($items); $i++)
@@ -180,6 +194,29 @@
             $(this).show();
         }).mouseout(function(){
             $(this).hide();
+        });
+        
+        $("a[name='watch_btn']").click(function(){
+            var type = $(this).attr("action"),
+                $this =$(this);
+            $.get("../controller/follow.php", 
+                {
+                "id": $(this).attr("iid"),
+                "type": type
+                },
+                function(d) {
+                    if (type == 'watch') {
+                        console.log($this);
+                        $this.attr("action", "unwatch");
+                        $this.html('unfollow');
+                    }
+                    else{
+                        $this.attr("action", "watch");
+                        $this.html('follow');
+                    }
+                },
+                "json"
+            );
         });
         
         $("#follow_btn").live("click", function(){
