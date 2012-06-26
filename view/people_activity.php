@@ -134,6 +134,30 @@
         $("#person_info .info-content").html(str);
     }
     
+    function watch_btn_click(e){
+        var that = e.data.t;
+        var type = that.attr("action");
+        that.unbind("click");
+        $.get("../controller/follow.php", 
+            {
+                "id": that.attr("iid"),
+                "type": type
+            },
+            function(d) {
+                that.bind("click", { t: that}, watch_btn_click);
+                if (type == 'watch') {
+                    that.attr("action", "unwatch");
+                    that.html('unfollow');
+                }
+                else{
+                    that.attr("action", "watch");
+                    that.html('follow');
+                }
+            },
+            "json"
+        );
+    }
+    
     $(function(){
         $(".avatar").mouseover(function(){
             $("#person_info .info-content").html('<p class="b">loading, please wait…</p>');
@@ -196,27 +220,10 @@
             $(this).hide();
         });
         
-        $("a[name='watch_btn']").click(function(){
-            var type = $(this).attr("action"),
-                $this =$(this);
-            $.get("../controller/follow.php", 
-                {
-                "id": $(this).attr("iid"),
-                "type": type
-                },
-                function(d) {
-                    if (type == 'watch') {
-                        console.log($this);
-                        $this.attr("action", "unwatch");
-                        $this.html('unfollow');
-                    }
-                    else{
-                        $this.attr("action", "watch");
-                        $this.html('follow');
-                    }
-                },
-                "json"
-            );
+        //$("a[name='watch_btn']").bind("click", { t: $(this) }, watch_btn_click);
+        $("a[name='watch_btn']").each(function(){
+            var pp = $(this);
+            $(this).bind("click", { t: pp }, watch_btn_click);
         });
         
         $("#follow_btn").live("click", function(){
