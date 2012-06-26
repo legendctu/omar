@@ -40,7 +40,7 @@
 ?>
 
 <link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
-
+<input type="hidden" id="cookie_self_id" value="<?php echo $_COOKIE["OH_id"];?>" />
 <div id="content_wrap" class="wrap bg-white box-shadow">
 <div class="p20">
 	<div id="l_side" class="fl w250">
@@ -100,19 +100,23 @@
 
 <script type="text/javascript">
     var info_cache = {};
+    var self_id = $("#cookie_self_id").val();
     
     function displayInfo(uid){
         str = '<p><a class="blue b font16" href="profile.php?id=' + uid + '">' + info_cache[uid]["firstname"] + ' ' + info_cache[uid]["lastname"] + '</a> (' + info_cache[uid]["email"] + ')</p>';
         var w_loc = info_cache[uid]["work_location"] == "" ? "" : '@' + info_cache[uid]["work_location"];
         var str_c = w_loc != "" && info_cache[uid]["work_fields"] != "" ? ", " : "";
         str += '<p>' + w_loc + str_c + info_cache[uid]["work_fields"] + '</p>';
-        str += '<p class="mt6">';
-        if(info_cache[uid]["is_followed"]){
-            str += '<a id="follow_btn" f_type="unfollow" uid="' + uid + '" class="white font14 arial r14 button-bg pl20 pr20 b shadow">unfollow</a>';
-        }else{
-            str += '<a id="follow_btn" f_type="follow" uid="' + uid + '" class="white font14 arial r14 button-bg pl20 pr20 b shadow">follow</a>';
+        if(self_id != uid){
+            str += '<p class="mt6">';
+            if(info_cache[uid]["is_followed"]){
+                str += '<a id="follow_btn" f_type="unfollow" uid="' + uid + '" class="white font14 arial r14 button-bg pl20 pr20 b shadow">unfollow</a>';
+            }else{
+                str += '<a id="follow_btn" f_type="follow" uid="' + uid + '" class="white font14 arial r14 button-bg pl20 pr20 b shadow">follow</a>';
+            }
+            str += ' <span id="msgbox"></span></p>';
         }
-        str += ' <span id="msgbox"></span></p>';
+        
         $("#person_info .info-content").html(str);
     }
     
