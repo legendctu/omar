@@ -166,7 +166,8 @@
                                 }
                                 else {
                                     v = $(this).next().html();
-                                    $(this).after("<select><option>male</option><option>female</option></select>");
+                                    $(this).after("<select><option>male</option><option>female</option><option>unknown</option></select>");
+                                    $(this).next("select").val(v);
                                 }
                     });
                 }
@@ -230,8 +231,22 @@
 
 	<script type="text/javascript">
 		$("a[name='follow']").click(function() {
-			$.getJSON("../controller/follow.php", { "id" : $(this).attr("uid") }, function(d) {
+			$.getJSON("../controller/follow.php", { "id" : $(this).attr("uid"), "type" : "follow" }, function(d) {
 				console.log(d);
+				switch(d.code){
+				    case 0:
+				        alert("The connection is interrupted. Please try again.");
+				        break;
+				    case 403:
+				        alert("Sorry, you can't follow an admin.");
+				        break;
+				    case 404:
+				        alert("The user you follow doesn't exist.");
+				        break;
+				    case 200:
+				        
+				        break;
+				}
 			});
 		});
 	</script>
