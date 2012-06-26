@@ -80,7 +80,6 @@
 					"pwd": $("#pwd").val()
 				},
 				function(d){
-					console.log(d);
 					switch(d.code){
 						case 0:
 							$("#msgbox").addClass("red").html("* The connection is interrupted, please try again");
