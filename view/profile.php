@@ -110,7 +110,7 @@
 					<li class="mt10"><div class="overflow">
 						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl pl10 pr10 font16 blue">
+						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl ml10 mr10 font16 blue">
 							<?= get_fullname($user) ?></a>
 						<?php if (!is_me($follower[$i]["id"])) {
 						    $tmp_is_followed = is_followed($follower[$i]["id"]);?>
@@ -138,7 +138,7 @@
 					<li class="mt10"><div class="overflow">
 						<a href="profile.php?id=<?= $following[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl pl10 pr10 font16 blue">
+						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl ml10 mr10 font16 blue">
 							<?= get_fullname($user) ?></a>
 						<?php if (!is_me($following[$i]["id"])) { 
 						    $tmp_is_followed = is_followed($following[$i]["id"]);?>

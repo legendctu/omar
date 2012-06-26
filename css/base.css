@@ -301,6 +301,10 @@ a{
 	margin: 10px;
 }
 
+.ml10{
+    margin-left: 10px;
+}
+
 .ml15{
     margin-left: 15px;
 }
@@ -334,6 +338,10 @@ a{
 
 .ml300{
     margin-left: 300px;
+}
+
+.mr10{
+    margin-right: 10px;
 }
 
 .mr15{
