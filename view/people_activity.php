@@ -22,9 +22,21 @@
 			<a href="profile.php?id=<?= $item["publisher_id"] ?>">
 				<img class="avatar fl" src="<?= get_avatar_by_id($item["publisher_id"]) ?>" uid="<?php echo $item["publisher_id"];?>" />
 			</a>
-
-			<a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow">follow</a>
-			<div class="intro w500 ml90">
+            
+            <?php
+                $get_follow = callapi("watch/".$item['item_id'], "GET", array());
+            ?>
+            
+            <a href="#" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                <?php 
+                    if ($get_follow['code'] == 404) {
+                        echo 'follow';
+                    } else {
+                        echo 'unfollow';
+                    }
+                ?>
+            </a>
+            <div class="intro w500 ml90">
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
 				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
 				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
@@ -84,6 +96,7 @@
 		<?php
 			$has_more = $items['has_more'];
 			$items = $items['items'];
+            //print_r($items);
 			if (count($items) == 0)
 				echo '<p class="center font18">There is no '.$type.'.</p>';
 			for ($i = 0; $i < count($items); $i++)
@@ -99,6 +112,11 @@
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function(){
+        $(".follow").click(function(){
+            
+        });
+    });
     var info_cache = {};
     
     function displayInfo(uid){
