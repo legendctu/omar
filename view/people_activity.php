@@ -25,16 +25,16 @@
             
             <?php
                 $get_follow = callapi("watch/".$item['item_id'], "GET", array());
+                $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
             ?>
             
-            <a name="watch_btn" type="" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+            <a name="watch_btn" action="<?php echo $action?>" iid="<?php echo $item['item_id']?>" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
                 <?php 
-                    if ($get_follow['code'] == 404) {
+                    if ($action == 'watch') {
                         echo 'follow';
                     } else {
                         echo 'unfollow';
                     }
-                    
                 ?>
             </a>
             <div class="intro w500 ml90">
@@ -113,14 +113,6 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $(".follow").click(function(){
-            if($(this).html() == 'follow'){
-                $.get('../controller.php', 
-                    {"id": <?php $items[""]?>})
-            }
-        });
-    });
     var info_cache = {};
     
     function displayInfo(uid){
@@ -198,6 +190,29 @@
             $(this).show();
         }).mouseout(function(){
             $(this).hide();
+        });
+        
+        $("a[name='watch_btn']").click(function(){
+            var type = $(this).attr("action"),
+                $this =$(this);
+            $.get("../controller/follow.php", 
+                {
+                "id": $(this).attr("iid"),
+                "type": type
+                },
+                function(d) {
+                    if (type == 'watch') {
+                        console.log($this);
+                        $this.attr("action", "unwatch");
+                        $this.html('unfollow');
+                    }
+                    else{
+                        $this.attr("action", "watch");
+                        $this.html('follow');
+                    }
+                },
+                "json"
+            );
         });
         
         $("#follow_btn").live("click", function(){
