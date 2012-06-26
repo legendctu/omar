@@ -242,8 +242,7 @@
 	<script type="text/javascript">
 		$("a[name='follow']").click(function() {
             var uid = $(this).attr("uid"),
-                type = $(this).attr("type"),
-                that = $(this);
+                type = $(this).attr("type");
             $.ajax({
                 url: "../controller/follow.php",
                 timeout: 30000,
@@ -266,11 +265,13 @@
                         case 200:
                             if(type == "follow"){
                                 $("a[name='follow'][uid='" + uid + "']").each(function(){
-                                    that.attr("type", "unfollow").html("unfollow");
+                                    $(this).attr("type", "unfollow").html("unfollow");
+                                    $(this).next("img").attr("src", "../image/star.png");
                                 });
                             }else{
                                 $("a[name='follow'][uid='" + uid + "']").each(function(){
-                                    that.attr("type", "follow").html("follow");
+                                    $(this).attr("type", "follow").html("follow");
+                                    $(this).next("img").attr("src", "../image/star-empty.png");
                                 });
                             }
                             break;
