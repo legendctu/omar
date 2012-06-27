@@ -15,6 +15,9 @@ if($type == "activate"){
     if($res["code"] == 200){
         setcookie("OH_user", $email, 0, '/');
         setcookie("OH_pwd", $pwd, 0, '/');
+        $get_uid_res = callapi("profile", "GET", array(), $email, $pwd);
+        $get_uid_res = json_decode($get_uid_res["content"]);
+        setcookie("OH_id", $get_uid_res->id, 0, '/');
     }
     echo json_encode($res);
 }
