@@ -48,8 +48,8 @@ function callapi($url, $type = "POST", $data = array(), $tmp_user = "", $tmp_pwd
         $headerArr[] = $n .': ' . $v;
     }
 
-	curl_setopt($ch, CURLOPT_URL, "http://192.168.17.33:58000/{$url}");
-    //curl_setopt($ch, CURLOPT_URL, "http://42.120.12.192:58000/{$url}");
+	//curl_setopt($ch, CURLOPT_URL, "http://192.168.17.33:58000/{$url}");
+    curl_setopt($ch, CURLOPT_URL, "http://42.120.12.192:58000/{$url}");
 
     curl_setopt ($ch, CURLOPT_HTTPHEADER, $headerArr);
     
