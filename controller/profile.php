@@ -35,8 +35,51 @@ switch($type){
             "work_location" => $work_location,
             "target_population" => $target_population
         );
-        
         echo json_encode(callapi("profile", "POST", $data));
+        break;
+    case "contact":
+        $phone_number_country_code = isset($_POST["phone_number_country_code"]) ? $_POST["phone_number_country_code"] : "";
+        $phone_number = isset($_POST["phone_number"]) ? $_POST["phone_number"] : "";
+        $street = isset($_POST["street"]) ? $_POST["street"] : "";
+        $city = isset($_POST["city"]) ? $_POST["city"] : "";
+        $province = isset($_POST["province"]) ? $_POST["province"] : "";
+        $zip_code = isset($_POST["zip_code"]) ? $_POST["zip_code"] : "";
+        $country = isset($_POST["country"]) ? $_POST["country"] : "";
+        
+        $data = array(
+            "phone_number_country_code" => $phone_number_country_code,
+            "phone_number" => $phone_number,
+            "street" => $street,
+            "city" => $city,
+            "province" => $province,
+            "zip_code" => $zip_code,
+            "country" => $country
+        );
+        echo json_encode(callapi("profile/contact_information", "POST", $data));
+        break;
+    case "org":
+        $name = isset($_POST["name"]) ? $_POST["name"] : "";
+        $acronym = isset($_POST["acronym"]) ? $_POST["acronym"] : "";
+        $formed_date = isset($_POST["formed_date"]) ? $_POST["formed_date"] : "";
+        $website = isset($_POST["website"]) ? $_POST["website"] : "";
+        $org_type = isset($_POST["org_type"]) ? $_POST["org_type"] : "";
+        $employee_number = isset($_POST["employee_number"]) ? $_POST["employee_number"] : "";
+        $annual_budget = isset($_POST["annual_budget"]) ? $_POST["annual_budget"] : "";
+        $phone_number_country_code = isset($_POST["phone_number_country_code"]) ? $_POST["phone_number_country_code"] : "";
+        $phone_number = isset($_POST["phone_number"]) ? $_POST["phone_number"] : "";
+        
+        $data = array(
+            "name" => $name,
+            "acronym" => $acronym,
+            "formed_date" => $formed_date,
+            "website" => $website,
+            "type" => $org_type,
+            "employee_number" => $employee_number,
+            "annual_budget" => $annual_budget,
+            "phone_number_country_code" => $phone_number_country_code,
+            "phone_number" => $phone_number
+        );
+        echo json_encode(callapi("profile/organization_information", "POST", $data));
         break;
 }
 ?>
