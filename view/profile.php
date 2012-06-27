@@ -103,20 +103,20 @@
 		?>
 			<div class="font24 white bg-blue pl10">Followers(<?= count($follower) ?>)</div>
 			<?php if (count($follower) > 0) { ?>
-				<ul class="list p10">
+				<ul class="list pb10 pl10 pr10">
 				<?php for ($i = 0; $i < count($follower); $i++) {
 				    $res = callapi("profile/".$follower[$i]["id"], "GET", array());
 					$user = json_decode($res["content"], true); ?>
-					<li><div class="overflow">
+					<li class="mt10"><div class="overflow">
 						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl pl10 pr10 font16 blue">
+						<a href="profile.php?id=<?= $follower[$i]["id"] ?>" class="fl ml10 mt8 font16 blue long-name">
 							<?= get_fullname($user) ?></a>
 						<?php if (!is_me($follower[$i]["id"])) {
 						    $tmp_is_followed = is_followed($follower[$i]["id"]);?>
-							<a name="follow" uid="<?= $follower[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
+							<a name="follow" uid="<?= $follower[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml5 mt6 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
-						<img class="star fr" src="../image/<?= $follower[$i]["inverted"] ? "star.png" : "star-empty.png" ?>" />
+						<img class="star fr mt9" src="../image/<?= $follower[$i]["inverted"] ? "star.png" : "star-empty.png" ?>" />
 					</div></li>
 				<?php } ?>
 				</ul>
@@ -131,18 +131,18 @@
 		?>
 			<div class="font24 white bg-blue pl10">Following(<?= count($following) ?>)</div>
 			<?php if (count($following) > 0) { ?>
-				<ul class="list p10">
+				<ul class="list pl10 pr10 pb10">
 				<?php for ($i = 0; $i < count($following); $i++) {
 				    $res = callapi("profile/".$following[$i]["id"], "GET", array());
 					$user = json_decode($res["content"], true); ?>
-					<li><div class="overflow">
+					<li class="mt10"><div class="overflow">
 						<a href="profile.php?id=<?= $following[$i]["id"] ?>" >
 							<img class="small-avatar fl" src="<?= get_avatar($user["email"]) ?>" /></a>
-						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl pl10 pr10 font16 blue">
+						<a href="profile.php?id=<?= $following[$i]["id"] ?>" class="fl mt8 ml10 font16 blue long-name">
 							<?= get_fullname($user) ?></a>
 						<?php if (!is_me($following[$i]["id"])) { 
 						    $tmp_is_followed = is_followed($following[$i]["id"]);?>
-							<a name="follow" uid="<?= $following[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml20 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
+							<a name="follow" uid="<?= $following[$i]["id"] ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr ml5 mt6 button-bg white r14 arial font14 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 						<?php } ?>
 					</div></li>
 				<?php } ?>
@@ -310,16 +310,16 @@
 	<script type="text/javascript">
 		$("a[name='follow']").click(function() {
             var uid = $(this).attr("uid"),
-                type = $(this).attr("type"),
-                that = $(this);
-            $.getJSON(
-                "../controller/follow.php",
-                {
+                type = $(this).attr("type");
+            $.ajax({
+                url: "../controller/follow.php",
+                timeout: 30000,
+                type: "GET",
+                data: {
                     "id" : uid,
                     "type" : type
                 },
-                function(d) {
-                    console.log(d);
+                success: function(d) {
                     switch(d.code){
                         case 0:
                             alert("The connection is interrupted. Please try again.");
@@ -333,17 +333,24 @@
                         case 200:
                             if(type == "follow"){
                                 $("a[name='follow'][uid='" + uid + "']").each(function(){
-                                    that.attr("type", "unfollow").html("unfollow");
+                                    $(this).attr("type", "unfollow").html("unfollow");
+                                    $(this).next("img").attr("src", "../image/star.png");
                                 });
                             }else{
                                 $("a[name='follow'][uid='" + uid + "']").each(function(){
-                                    that.attr("type", "follow").html("follow");
+                                    $(this).attr("type", "follow").html("follow");
+                                    $(this).next("img").attr("src", "../image/star-empty.png");
                                 });
                             }
                             break;
                     }
-                }
-            );
+                },
+                error: function(d){
+                    console.log(d);
+                    alert("Quest failed. Please try again.");
+                },
+                dataType: "json"
+            });
 		});
 	</script>
 	

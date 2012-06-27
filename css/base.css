@@ -235,6 +235,10 @@ a{
 	padding: 20px;
 }
 
+.pb10{
+    padding-bottom: 10px;
+}
+
 .pt10{
     padding-top: 10px;
 }
@@ -297,6 +301,14 @@ a{
 	margin: 10px;
 }
 
+.ml5{
+    margin-left: 5px;
+}
+
+.ml10{
+    margin-left: 10px;
+}
+
 .ml15{
     margin-left: 15px;
 }
@@ -332,6 +344,10 @@ a{
     margin-left: 300px;
 }
 
+.mr10{
+    margin-right: 10px;
+}
+
 .mr15{
 	margin-right:15px;
 }
@@ -362,6 +378,14 @@ a{
 
 .mt6{
     margin-top: 6px;
+}
+
+.mt8{
+    margin-top: 8px;
+}
+
+.mt9{
+    margin-top: 9px;
 }
 
 .mt10{
