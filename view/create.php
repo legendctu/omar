@@ -45,72 +45,62 @@
     </div>
     
 <?php
-if ($type == "event"){
-    echo '
-        <link rel="stylesheet" type="text/css" href="../css/base/jquery.ui.all.css" media="all" />
-        <script type="text/javascript" src="../script/jquery.ui.core.js"></script>
-        <script type="text/javascript" src="../script/jquery.ui.datepicker.js"></script>
-        <script>
-        $(function() {
-            $( "#from" ).datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 1,
-                onSelect: function( selectedDate ) {
-                    $( "#to" ).datepicker( "option", "minDate", selectedDate );
-                }
-            });
-            $( "#to" ).datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 1,
-                onSelect: function( selectedDate ) {
-                    $( "#from" ).datepicker( "option", "maxDate", selectedDate );
-                }
-            });
-			$("#oneday").click(function(){
-				if($(this).attr("checked")){
-					$("#end-date").addClass("hidden");
-				}else{
-					$("#end-date").removeClass("hidden");
-				}
-			});
+if ($type == "event"){ ?>
+    <link rel="stylesheet" type="text/css" href="../css/base/jquery.ui.all.css" media="all" />
+    <script type="text/javascript" src="../script/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="../script/jquery.ui.datepicker.js"></script>
+    <script>
+    $(function() {
+        $( "#from" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onSelect: function( selectedDate ) {
+                $( "#to" ).datepicker( "option", "minDate", selectedDate );
+            }
         });
-        </script>
-        ';
-    
-	echo '
-        <div>
-            <label>One day event?
-            <span class="small">Is is an one-day event?</span>
-            </label>
-            <input id="oneday" type="checkbox"/>
-            <div class="clear"></div>
-        </div>
-    ';
+        $( "#to" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onSelect: function( selectedDate ) {
+                $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+        $("#oneday").click(function(){
+            if($(this).attr("checked")){
+                $("#end-date").addClass("hidden");
+            }else{
+                $("#end-date").removeClass("hidden");
+            }
+        });
+    });
+    </script>
 
-	
-    echo '
-        <div>
-            <label>Start Date
-            <span class="small">When the event starts.</span>
-            </label>
-            <input type="text" id="from">
-            <div class="clear"></div>
-        </div>
-    ';
-    
-    echo '
-        <div id="end-date">
-            <label>End Date
-            <span class="small">When the event ends.</span>
-            </label>
-            <input type="text" id="to">
-            <div class="clear"></div>
-        </div>
-    ';
-}
-?>
+    <div>
+        <label>One day event?
+        <span class="small">Is is an one-day event?</span>
+        </label>
+        <input id="oneday" type="checkbox"/>
+        <div class="clear"></div>
+    </div>
+
+    <div>
+        <label>Start Date
+        <span class="small">When the event starts.</span>
+        </label>
+        <input type="text" id="from">
+        <div class="clear"></div>
+    </div>
+
+    <div id="end-date">
+        <label>End Date
+        <span class="small">When the event ends.</span>
+        </label>
+        <input type="text" id="to">
+        <div class="clear"></div>
+    </div>
+<?php } ?>
     
     <div>
         <label>Fields of work
@@ -198,9 +188,13 @@ $(function(){
             "target_population": $.trim($("#targetPop").val())
         };
         if(type == "event"){
+            console.log(one_day);
+            console.log(data);
             data["start_date"] = Date.parse($("#from").val()) / 1000;
             if(!one_day){
                 data["end_date"] = Date.parse($("#to").val()) / 1000;
+            } else {
+                data["end_date"] = data["start_date"];
             }
         }
         $.post(
