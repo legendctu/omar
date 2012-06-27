@@ -246,7 +246,7 @@
             if (type == 'basic-edit') 
             {
                 info = {
-                        "request_type": "basic",
+                        "type": "basic",
                         "firstname": data[0],
                         "lastname": data[1],
                         "gender": data[2],
@@ -259,7 +259,7 @@
             else if (type == 'contact-edit')
             {
                 info = {
-                        "request_type": "contact",
+                        "type": "contact",
                         "phone_number_country_code": data[0],
                         "phone_number": data[1],
                         "street": data[2],
@@ -272,7 +272,7 @@
             else if(type == 'organization-edit')
             {
                 info = {
-                        "request_type": "org",
+                        "type": "org",
                         "name" : data[0],
                         "acronym" : data[1],
                         "formed_date" : data[2],
