@@ -19,29 +19,28 @@
 </div>
 
 <div class="wrap bg-white box-shadow" id="entry">
-	<div class="fl form">
-		<table>
-			<tr>
-                <td class="td1 font18 arial b">Email:</td>
-                <td class="td2"><input type="text" id="email" class="text"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td class="td1 font18 arial b">Password:</td>
-                <td class="td2"><input type="password" id="pwd" class="text"></td>
-                <td class="td3 underline font14 blue"><a>forget password?</a></td>
-            </tr>
-		</table>
+	<div class="fl form ml60 mt50">
+		<div class="overflow">
+            <p class="fl font18 arial b w150 mt6">Email:</p>
+            <input type="text" id="email" class="text fl p10">
+        </div>
+        <div class="overflow">
+            <p class="fl font18 arial b w150 mt6">Password:</p>
+            <input type="password" id="pwd" class="text fl p10">
+            <a class="fl underline font14 blue p10">forget password?</a>
+		</div>
 		<p class="mt15"><a id="login" class="login r14 font24 arial b shadow">Login</a><span id="msgbox"></span></p>
 		<!-- <input type="submit" id="login" value="Login" class="login r14 font24 arial b"> -->
 	</div>
 	
-	<div class="fl guide">
-		<h3 class="arial font24">First time to use?</h3>
-		<p class="verdana font18">If it's your first time login, please activate your account first!</p>
-		
-		<span class="mail-span mt20 font18 arial b">Email:</span><input type="text" id="a_email" class="text mt20">
-		<p class="mt15"><a id="activate" class="first-button r14 arial font24 b">Activate</a></p>
+	<div class="fl guide p20">
+		<h3 class="arial font24 ml80">First time to use?</h3>
+		<p class="verdana font18 pl20">If it's your first time login, please activate your account first!</p>
+		<div class="mt20 overflow h60">
+			<span class="fl mail-span font18 arial b mt6">Email:</span>
+			<input type="text" id="a_email" class="fl text ml30">
+		</div>
+		<a id="activate" class="first-button r14 arial font24 b shadow">Activate</a>
 		<!-- <input type="submit" id="activate" value="First" class="first-button r14 arial font24 b"> -->
 		<p id="a_msgbox"></p>
 	</div>
