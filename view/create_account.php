@@ -41,7 +41,7 @@
                                     $("#msgbox").addClass("red").html("* Permission denied");
                                     break;
                                 case 200:
-                                    $("#msgbox").html("Created successfully");
+                                    $("#msgbox").html("Created successfully. Please <a href='login.php'>activate your account</a>.");
                                     break;
                             }
                         },
