@@ -164,6 +164,10 @@ a{
     text-align: right;
 }
 
+.left{
+    text-align: left;
+}
+
 .avatar{
     width: 90px;
     height: 90px;
@@ -171,6 +175,10 @@ a{
 
 .w80{
     width: 80px;
+}
+
+.w140{
+    width: 140px;
 }
 
 .w250{

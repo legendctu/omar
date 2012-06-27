@@ -26,12 +26,16 @@
 		<input type="hidden" id="email" value="<?php echo $email;?>" />
 		<input type="hidden" id="vcode" value="<?php echo $vcode;?>" />
 		<h1 class="p20">Please set your password</h1>
-		<p>Enter your password: <input type="password" id="pwd" /></p>
-		<p>Enter it again: <input type="password" id="pwd2" /></p>
-		<div class="p20">
-			<a href="#" id="save" class="white font24 arial r14 button-bg pl20 pr20 b shadow">Save</a>
-			<span id="msgbox"></span>
-		</div>
+		<div class="ml300">
+    		<p class="mt6 fl w140 mr15 right">Enter your password:</p>
+    		<p class="mt10 left"><input type="password" id="pwd" /></p>
+    		<p class="mt16 fl w140 mr15 right clear">Enter it again:</p>
+    		<p class="mt10 left"><input type="password" id="pwd2" /></p>
+    		<div class="p20 left ml90">
+    			<a id="save" class="white font24 arial r14 button-bg b shadow">Save</a>
+    			<span id="msgbox"></span>
+    		</div>
+        </div>
 	</div>
 </div>
 <script type="text/javascript">
@@ -74,6 +78,11 @@
 				},
 				"json"
 			);
+		});
+		
+		$("#pwd, #pwd2").keyup(function(e){
+            if(e.keyCode == 13)
+                $("#save").click();
 		});
 	});
 </script>
