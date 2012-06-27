@@ -48,6 +48,11 @@
                         "json"
                     );
                 });
+                
+                $("#email, #firstname, #lastname, input:radio[name='role']").keyup(function(e){
+                    if(e.keyCode == 13)
+                        $("#create").click();
+                });
             });
         </script>
 
