@@ -1,5 +1,5 @@
 <?php
-	if(isset($_COOKIE["OH_user"])){
+	if(isset($_COOKIE["OH_user"]) || isset($_COOKIE["OH_pwd"]) || isset($_COOKIE["OH_id"])){
 		setcookie("OH_user", "", time()-3600, '/');
 		setcookie("OH_pwd", "", time()-3600, '/');
 		setcookie("OH_id", "", time()-3600, '/');

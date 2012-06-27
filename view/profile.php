@@ -61,8 +61,10 @@
 		<div id="contact">
 			<div id="contact-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Contact Information</h3>
-				<a id="contact-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
-				<a id="contact-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
+                <?php if (is_me($id)) { ?>
+                    <a id="contact-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
+                    <a id="contact-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
+                <?php }?>
 			</div>
 			<div id="contect-form" class="pl20 pr20 form font18">
 				<span>Mobile number country code:</span> <p><?php echo $contact_info["phone_number_country_code"];?></p><br />
@@ -78,8 +80,10 @@
 		<div id="organization">
 			<div id="organization-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Organization Information</h3>
-				<a id="organization-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
-				<a id="organization-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
+                <?php if (is_me($id)) { ?>
+                    <a id="organization-edit" class="fr ml20 button-bg white r14 arial font18 b shadow edit">Edit</a>
+                    <a id="organization-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
+                <?php }?>
 			</div>
 			<div id="organization-form" class="pl20 pr20 form font18">
 				<span>Organization name:</span> <p><?php echo $org_info["name"];?></p><br />
