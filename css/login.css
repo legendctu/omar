@@ -35,14 +35,12 @@
 float: right;
 width: 350px;
 height: 290px;
-padding: 0px 0 20px 40px;
 border-left: 1px solid #D1D1D1;
 }
 
 #entry .text{
-width: 240px;
+width: 200px;
 height: 26px;
-padding: 4px 3px;
 border: 1px solid #BBB;
 font-size: 14px;
 font-family: arial,"宋体";
@@ -57,7 +55,7 @@ font-family: arial,"宋体";
 	background: url("../image/gradient.png") repeat-x 0 0;
     color: #fff;
     padding: 3px 10px;
-	margin-left: 100px;
+	margin-left: 170px;
 }
 
 #entry .login:hover{
@@ -73,14 +71,14 @@ font-family: arial,"宋体";
 
 #entry .first-button{
 	background: url("../image/gradient.png") repeat-x 0 0;
-	margin-left: 80px;
+	margin-left: 130px;
+	margin-top: 30px;
 	color: #fff;
 	padding: 3px 10px;
 }
 
 #entry .first-button:hover{
 	background: url("../image/gradient.png") repeat-x 0 0;
-	margin-left: 80px;
 	color: #eee;
     text-shadow: -1px -1px 2px gray;
 }
@@ -95,22 +93,10 @@ font-family: arial,"宋体";
 	 height: 36px;
 }
 
-table{
-	border-collapse: collapse;
-	}
-	
-.td1{
-    width: 100px;
-	text-align: right;
-	padding-top: 25px;
+.w150 {
+	width: 150px;
 }
 
-.td2{
-    width: 250px;
-    padding-top: 25px;	
-}
-
-.td3{
-    padding-top: 25px;
-    text-align: center;	
+.h60 {
+	height: 60px;
 }
