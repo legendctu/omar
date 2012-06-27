@@ -39,4 +39,5 @@ padding-left: 10px
     width: 120px;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: left;
 }
