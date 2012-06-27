@@ -48,7 +48,7 @@
 					<a name="follow" uid="<?= $id ?>" type="<?php echo $tmp_is_followed ? "unfollow" : "follow";?>" class="fr button-bg white r14 arial font18 b shadow"><?php echo $tmp_is_followed ? "unfollow" : "follow";?></a>
 				<?php } ?>
 			</div>
-			<div id="basic-form" class="pl20 pr20 form font18">
+			<div id="basic-form" class="pl20 pr20 form font18" in_edit="0">
 				<span>Firstname:</span> <p><?php echo $basic_info["firstname"];?></p><br />
 				<span>Lastname:</span> <p><?php echo $basic_info["lastname"];?></p><br />
                 <span id="gender_select" is_special="select">Gender:</span> <p><?php echo $basic_info["gender"];?></p><br />
@@ -66,7 +66,7 @@
                     <a id="contact-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
                 <?php }?>
 			</div>
-			<div id="contect-form" class="pl20 pr20 form font18">
+			<div id="contect-form" class="pl20 pr20 form font18" in_edit="0">
 				<span>Mobile number country code:</span> <p><?php echo $contact_info["phone_number_country_code"];?></p><br />
 				<span>My mobile number:</span> <p><?php echo $contact_info["phone_number"];?></p><br />
 				<span>Street:</span> <p><?php echo $contact_info["street"];?></p><br />
@@ -85,7 +85,7 @@
                     <a id="organization-download" class="fr button-bg white r14 arial font18 b shadow cancel">Download</a>
                 <?php }?>
 			</div>
-			<div id="organization-form" class="pl20 pr20 form font18">
+			<div id="organization-form" class="pl20 pr20 form font18" in_edit="0">
 				<span>Organization name:</span> <p><?php echo $org_info["name"];?></p><br />
 				<span>Organization acronym:</span> <p><?php echo $org_info["acronym"];?></p><br />
 				<span id="form_date" is_special="date">Date organization formed:</span> <p><?php echo empty($org_info["formed_date"]) ? "" : date("Y-m-d", $org_info["formed_date"]);?></p><br />
@@ -166,11 +166,11 @@
     <script type="text/javascript" src="../script/jquery.ui.core.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/base/jquery.ui.all.css" media="all" />
     <script type="text/javascript">
-        in_edit = 0;
+        //in_edit = 0;
         $(document).ready(function(){
             $(".edit").click(function(){
-                if (in_edit == 0) {
-                    in_edit = 1;
+                if ($(this).parent().next('div').attr("in_edit") == "0") {
+                    $(this).parent().next('div').attr("in_edit", "1");
                     $(this).html('Save');
                     $(this).next().html('Cancel');
                     $(this).parent().next('div').children('span')
@@ -194,7 +194,7 @@
                     });
                 }
                 else {
-                    in_edit = 0;
+                    $(this).parent().next('div').attr("in_edit", "0");
                     $(this).html('Edit');
                     $(this).next().html('Download');
                     data = new Array();
@@ -213,8 +213,8 @@
             });
            
             $(".cancel").click(function(){
-                if (in_edit == 1) {
-                    in_edit = 0;
+                if ($(this).parent().next('div').attr("in_edit") == "1") {
+                    $(this).parent().next('div').attr("in_edit", "0");
                     $(this).prev('a').html('Edit');
                     $(this).html('Download');
                     $(this).parent().next('div').children('input, select')
