@@ -183,7 +183,7 @@ $(function(){
                 type = "offer";
                 break;
             case "need":
-                type = "needs";
+                type = "need";
                 break;
             case "event":
                 type = "event";
