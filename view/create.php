@@ -188,8 +188,7 @@ $(function(){
             "target_population": $.trim($("#targetPop").val())
         };
         if(type == "event"){
-            console.log(one_day);
-            console.log(data);
+            //console.log(data);
             data["start_date"] = Date.parse($("#from").val()) / 1000;
             if(!one_day){
                 data["end_date"] = Date.parse($("#to").val()) / 1000;
