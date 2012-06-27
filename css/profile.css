@@ -5,7 +5,7 @@
 	padding-right: 20px;
 }
 
-.form p {
+.form p, .form input {
 	float: left;
 }
 

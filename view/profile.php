@@ -58,7 +58,7 @@
                 <span>Target Population:</span> <p><?php echo $basic_info["target_population"];?></p><br />
 			</div>
 		</div>
-		<div id="contact">
+		<div id="contact" class="clear">
 			<div id="contact-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Contact Information</h3>
                 <?php if (is_me($id)) { ?>
@@ -77,7 +77,7 @@
 			</div>
 		</div>
         
-		<div id="organization">
+		<div id="organization" class="clear">
 			<div id="organization-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Organization Information</h3>
                 <?php if (is_me($id)) { ?>
