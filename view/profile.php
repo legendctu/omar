@@ -2,7 +2,7 @@
 	require_once("view_helper.php");
 	require_once("../controller/api_helper.php");
 
-	$type = isset($_GET["type"]) ? $_GET["type"] : "information";
+	$type = isset($_GET["type"]) ? $_GET["type"] : "activity";
 	$id = isset($_GET["id"]) ? $_GET["id"] : $_COOKIE['OH_id'];
 
 	render_header('Profile');
@@ -14,42 +14,6 @@
     $contact_info = json_decode($ret["content"], true);
     $ret = callapi("profile/organization_information", "GET");
     $org_info = json_decode($ret["content"], true);
-    
-    //Activity item 的生成函数
-    function render_item($item) { ?>
-		<div class="mt10 p10 border-t">
-			<a href="profile.php?id=<?= $item["publisher_id"] ?>">
-				<img class="avatar fl" src="<?= get_avatar_by_id($item["publisher_id"]) ?>" uid="<?php echo $item["publisher_id"];?>" />
-			</a>
-            
-            <?php
-                $get_follow = callapi("watch/".$item['item_id'], "GET", array());
-                $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
-            ?>
-            
-            <a name="watch_btn" action="<?php echo $action?>" iid="<?php echo $item['item_id']?>" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
-                <?php 
-                    if ($action == 'watch') {
-                        echo 'follow';
-                    } else {
-                        echo 'unfollow';
-                    }
-                ?>
-            </a>
-            <div class="intro w500 ml90">
-				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
-				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
-				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
-				<p class="black arial font18 mt15">
-					<span class="tag">IT<a>star</a></span>
-					<span class="tag">O<a>star</a></span>
-					<span class="tag">Medicine<a>star</a></span>
-					<span class="tag">Event<a>star</a></span>
-				</p>
-			</div>
-		</div><?php
-	}
-    
 ?>
 
 <link style="text/css" href="../css/profile.css" rel="stylesheet"/>
@@ -78,44 +42,44 @@
 <?php
 switch($type){
     case "activity": ?>
-        <div class="mt10 p10 border-t">
-			<a href="profile.php?id=8">
-				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
-			</a>
-            <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
-                follow            </a>
-            <div class="intro w500 ml90">
-				<span class="pl10 pr10 arial font24">Need</span>
-				<a href="show_item.php?id=4" class="arial blue font24 b">植树节</a>
-				<p class="pl10 verdana font18">需要10个人到香山做引导员。</p>
-				<p class="black arial font18 mt15">
-					<span class="tag">IT<a>star</a></span>
-					<span class="tag">O<a>star</a></span>
-					<span class="tag">Medicine<a>star</a></span>
-					<span class="tag">Event<a>star</a></span>
-				</p>
-			</div>
+        <input type="hidden" id="user_id" value="<?=$id;?>" />
+        <div id="activities_block">
+            <div class="mt10 p10 border-t">
+    			<a href="profile.php?id=8">
+    				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
+    			</a>
+                <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                    follow            </a>
+                <div class="intro w500 ml90">
+    				<span class="pl10 pr10 arial font24">User Activated</span>
+    				<a href="show_item.php?id=4" class="arial blue font24 b">Yach Liu</a>
+    				<p class="pl10 verdana font18">Yach Liu activated the account.</p>
+    			</div>
+    			<div class="clear"></div>
+    		</div>
+    		
+    		<div class="mt10 p10 border-t">
+    			<a href="profile.php?id=8">
+    				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
+    			</a>
+                <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                    follow            </a>
+                <div class="intro w500 ml90">
+    				<span class="pl10 pr10 arial font24">Need</span>
+    				<a href="show_item.php?id=4" class="arial blue font24 b">植树节</a>
+    				<p class="pl10 verdana font18">需要10个人到香山做引导员。</p>
+    				<p class="black arial font18 mt15">
+    					<span class="tag">IT<a>star</a></span>
+    					<span class="tag">O<a>star</a></span>
+    					<span class="tag">Medicine<a>star</a></span>
+    					<span class="tag">Event<a>star</a></span>
+    				</p>
+    			</div>
+    			<div class="clear"></div>
+    		</div>
 		</div>
-		
-		<div class="mt10 p10 border-t">
-			<a href="profile.php?id=8">
-				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
-			</a>
-            <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
-                follow            </a>
-            <div class="intro w500 ml90">
-				<span class="pl10 pr10 arial font24">Need</span>
-				<a href="show_item.php?id=4" class="arial blue font24 b">植树节</a>
-				<p class="pl10 verdana font18">需要10个人到香山做引导员。</p>
-				<p class="black arial font18 mt15">
-					<span class="tag">IT<a>star</a></span>
-					<span class="tag">O<a>star</a></span>
-					<span class="tag">Medicine<a>star</a></span>
-					<span class="tag">Event<a>star</a></span>
-				</p>
-			</div>
-		</div>
-		
+		<div class="center font18 b carmine mt20"><a id="show_more_activities">Show More Activities</a><span id="loading_activities" class="light-red none">Loading, please wait…</span></div>
+		<script src="../script/profile_activity.js"></script>
 <?php   break;//Activity block end
     case "information": ?>
         <div id="basic">
