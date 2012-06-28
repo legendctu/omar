@@ -69,6 +69,7 @@ function render_nav($current) {
 		<div id="search" class="fr pr20">
 			<input type="text">
 			<img src="../image/Find.png" width="35px" class="find">
+            <script type="text/javascript" src="../script/search.js"></script>
 		</div>
 		<div class="clear"></div>
 	</div>
