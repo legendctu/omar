@@ -5,31 +5,58 @@
 	$query = isset($_GET["query"]) ? $_GET["query"] : "test";
 	$type = isset($_GET["type"]) ? $_GET["type"] : "all";
     
-	render_header('People & Activity');
+	render_header('Search Result');
 	render_nav('people_activity');
 	
-	//$data = array('query' => $query);
-	//$ret = callapi("search", "GET", $data);
-    //print_r($ret);
-	//$items = json_decode($ret['result'], true);
-	//print_r($items);
+	$data = array('query' => $query);
+	$ret = callapi("search", "GET", $data);
+    $content = json_decode($ret['content'], true);
+    $items = $content["result"];
+    //print_r($items);
+    
+    for ($i = 0; $i < count($items); $i++) {
+        if ($items[$i]["result_type"] == "user") {
+            if (($type == 'user') ||($type == 'all')) {
+                $ret = callapi("profile/".$items[$i]["user_id"], "GET", array());
+                $content = json_decode($ret['content'], true);
+                $items[$i] = array_merge($items[$i], $content);
+            } else {
+                array_splice($items, $i, 1);
+            }
+        } else if ($items[$i]["result_type"] == "item") {
+            if ($type == 'user') {
+                array_splice($items, $i, 1);
+            } else {
+                $ret = callapi("items/".$items[$i]["item_id"], "GET", array());
+                $content = json_decode($ret['content'], true);
+                
+                if (($content['category'] == $type) || ($type == 'all')) {
+                    $items[$i] = array_merge($items[$i], $content);
+                } else {
+                    array_splice($items, $i, 1);
+                }
+            }
+        }
+    }
+    //print_r($items);
+    $items_count = count($items);
 	
-    //$ret = result_type
-	//$items_count = json_decode($ret['content'], true);
-	
-	function render_item($result_type, $id) { 
+	function render_item($result) { 
+        $result_type = $result["result_type"];
+        if ($result_type == "user") {
+            $id = $result["user_id"];
+        } else if ($result_type == "item") {
+            $id = $result["item_id"];
+        }
+            
         if ($result_type == "user") {
             $uid = $id;
-            $ret = callapi("profile/".$id, "GET", array());
-            $user = json_decode($ret['content'], true);
             $get_follow = callapi("friendships/".$uid, "GET", array());
             $action = ($get_follow['code'] == 404) ? 'follow' : 'unfollow';
         }
         else {
-            $ret = callapi("items/".$id, "GET", array());
-            $item = json_decode($ret['content'], true);
-            $uid = $item['publisher_id'];
-            $get_follow = callapi("watch/".$item['item_id'], "GET", array());
+            $uid = $result['publisher_id'];
+            $get_follow = callapi("watch/".$result['item_id'], "GET", array());
             $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
         }
         
@@ -54,13 +81,13 @@
             <div class="intro w500 ml90">
             <?php if ($result_type == "user") { ?>
 				<span class="pl10 pr10 arial font24"><?= "People" ?></span>
-				<a href="profile.php?id=<?= $uid ?>" class="arial blue font24 b"><?= $user["firstname"].' '.$user["lastname"] ?></a>
-				<p class="pl10 verdana font18"><?= 'Gender: '.ucfirst($user['gender']) ?></p>
-                <p class="black arial font18 mt15"></p>
+				<a href="profile.php?id=<?= $uid ?>" class="arial blue font24 b"><?= $result["firstname"].' '.$result["lastname"] ?></a>
+				<p class="pl10 verdana font18"><?= 'Email: '.ucfirst($result['email']) ?></p>
+                <p class="black arial font18 mt15"><?= 'Target Population: '.ucfirst($result['target_population']) ?></p>
             <?php } else { ?>
-                <span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
-				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
-				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
+                <span class="pl10 pr10 arial font24"><?= ucfirst($result["category"]) ?></span>
+				<a href="show_item.php?id=<?= $result["item_id"] ?>" class="arial blue font24 b"><?= $result["title"] ?></a>
+				<p class="pl10 verdana font18"><?= $result["description"] ?></p>
 				<p class="black arial font18 mt15">
 					<span class="tag">IT<a>star</a></span>
 					<span class="tag">O<a>star</a></span>
@@ -105,15 +132,15 @@
 	
 	<div id="r_side" class="ml300">
         <p id="r_side_navi" class="pl20 font24 freshcolor">
-            <span class="center mr15 b"><a href="<?= $type == "all" ? "#" : "search_result.php" ?>" class="<?= $type == "all" ? "carmine" : "light-red" ?>">All</a></span>
+            <span class="center mr15 b"><a href="<?= $type == "all" ? "#" : "search_result.php?query=".$query ?>" class="<?= $type == "all" ? "carmine" : "light-red" ?>">All</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "people" ? "#" : "search_result.php?type=people" ?>" class="<?= $type == "people" ? "carmine" : "light-red" ?>">People</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "user" ? "#" : "search_result.php?type=user&query=".$query ?>" class="<?= $type == "user" ? "carmine" : "light-red" ?>">People</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "offer" ? "#" : "search_result.php?type=offer" ?>" class="<?= $type == "offer" ? "carmine" : "light-red" ?>">Offers</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "offer" ? "#" : "search_result.php?type=offer&query=".$query ?>" class="<?= $type == "offer" ? "carmine" : "light-red" ?>">Offers</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "need" ? "#" : "search_result.php?type=need" ?>" class="<?= $type == "need" ? "carmine" : "light-red" ?>">Needs</a></span>
+            <span class="center ml15 mr15 b"><a href="<?= $type == "need" ? "#" : "search_result.php?type=need&query=".$query ?>" class="<?= $type == "need" ? "carmine" : "light-red" ?>">Needs</a></span>
             <span class="center">/</span>
-            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "search_result.php?type=event" ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Events</a></span>
+            <span class="center ml15 b"><a href="<?= $type == "event" ? "#" : "search_result.php?type=event&query=".$query ?>" class="<?= $type == "event" ? "carmine" : "light-red" ?>">Events</a></span>
         </p>
 
 		<div>
@@ -121,14 +148,20 @@
 			//$has_more = $items['has_more'];
 			//$items = $items['items'];
             //print_r($items);
-			//if (count($items) == 0)
-				//echo '<p class="center font18">Sorry, no result found.</p>';
-			//for ($i = 0; $i < count($items); $i++)
-			//	render_item($items[$i]);
-            render_item('user', 1);
-            render_item('item', 11);
-            render_item('item', 9);
-            render_item('item', 5);
+            if (!isset($_GET["query"]))
+                echo '<div class="mt10 p10 border-t">Sorry, no query word.</div>';
+			else if ($items_count == 0)
+				echo '<div class="mt10 p10 border-t">Sorry, no result found.</div>';
+			
+            //for ($i = 0; $i < $items_count; $i++) {
+            foreach($items as $value) {
+                //print_r($value);
+                render_item($value);
+            }
+            //render_item('user', 1);
+            //render_item('item', 11);
+            //render_item('item', 9);
+            //render_item('item', 5);
 		?>
 		</div>
 	</div>
