@@ -55,7 +55,7 @@
 <link style="text/css" href="../css/people_activity.css" rel="stylesheet"/>
 <input type="hidden" id="cookie_self_id" value="<?php echo $_COOKIE["OH_id"];?>" />
 <div id="content_wrap" class="wrap bg-white box-shadow">
-<div class="p20">
+<div class="p20 overflow">
 	<div id="l_side" class="fl w250">
 		<span class="font24 pink b ml20">Filter</span>
 		<hr />
