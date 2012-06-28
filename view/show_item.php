@@ -16,6 +16,24 @@
 		render_header("Error");
 	}
 	render_nav('people_activity');
+
+	function render_comment($comment, $publisher_id) {
+		$ret = callapi("profile/".$comment["author_id"], "GET");
+		$commenter = json_decode($ret["content"], true); ?>
+		<div class="m10 p10 border-b overflow">
+			<a href="profile.php?id=<?= $comment["author_id"] ?>">
+				<img class="small_avatar fl" src="<?= get_avatar($commenter["email"]) ?>" />
+			</a>
+			<p class="fl ml20 w430 font20">
+				<span class="fl blue mr20"><?= get_fullname($commenter) ?></span>
+				<?= $comment["text"] ?>
+			</p>
+			<?php if (is_me($publisher_id)) { ?>
+				<a name="comment-delete" cid="<?= $comment["comment_id"] ?>" class="fr ml20 button-bg white r14 arial font18 b shadow">Delete</a>
+				<span id="del-msgbox" class="ml30"></span>
+			<?php } ?>
+		</div><?php
+	}
 ?>
 <link rel="stylesheet" type="text/css" href="../css/show_item.css" media="all" />
 
@@ -63,6 +81,23 @@
 				<span class="value"><?= date("Y-m-d", $item["end_date"]) ?></span>
 			</div>
 		<?php } ?>
+		<div class="m10 p10 overflow">
+			<h1 class="pink font20 border-b"><?= "Comments" ?></h1>
+			<?php
+				$ret = callapi("items/".$id."/comments", "GET");
+				$comments = json_decode($ret["content"], true);
+				$comment = $comments["comments"];
+				for ($i = 0; $i < count($comment); $i++) {
+					render_comment($comment[$i], $item["publisher_id"]);
+				} ?>
+			<div class="m10 p10 box-shadow overflow">
+				<label>Add comment</label><br />
+				<textarea name="text" id="text" class="w600 h100"></textarea><br />
+				<input type="hidden" name="post_id" id="post_id" value="<?= $id ?>" /><br />
+				<a id="post-comment" class="button-bg white r14 arial font24 b shadow">Post</a>
+				<span id="msgbox" class="ml30"></span>
+			</div>
+		</div>
 	</div>
 	<div id="r_side" class="fr w300 font16">
 		<h1 class="pink m10 p10 border-b font24">Publisher</h1>
@@ -86,5 +121,59 @@
 <?php } ?>
 </div>
 </div>
+
+<script type="text/javascript">
+	$('#post-comment').click(function() {
+		var data = {
+			"text"    : $('#text').val(),
+			"post_id" : $('#post_id').val()
+		};
+		$.post(
+            "../controller/comment.php",
+            data,
+            function(d) {
+                switch(d.code) {
+                    case 0:
+                        $("#msgbox").addClass("red").html("* The connection is interrupted. Please try again");
+                        break;
+                    case 401:
+                        $("#msgbox").addClass("red").html("* Permission denied");
+                        break;
+                    case 200:
+                        $("#msgbox").html("Comment posted successfully!");
+                        window.location.navigate('show_item.php?id=' + $('#post_id').val());
+                        break;
+                }
+            }
+        );
+	});
+	
+	$('a[name="comment-delete"]').each(function() {
+		$(this).click(function() {
+			$.post(
+				"../controller/comment.php",
+				{
+					"delete"  : true,
+					"id"      : $(this).attr('cid'),
+					"post_id" : $('#post_id').val()
+				},
+				function(d) {
+				    switch(d.code) {
+	                    case 0:
+	                        $("#del-msgbox").addClass("red").html("* The connection is interrupted. Please try again");
+	                        break;
+	                    case 401:
+	                        $("#del-msgbox").addClass("red").html("* Permission denied");
+	                        break;
+	                    case 200:
+	                        $("#del-msgbox").html("Comment posted successfully!");
+	                        window.location.navigate('show_item.php?id=' + $('#post_id').val());
+	                        break;
+	                }
+				}
+			);
+		});
+	});
+</script>
 
 <?php include("footer.php");?>

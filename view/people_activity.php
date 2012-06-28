@@ -41,6 +41,7 @@
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
 				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
 				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
+				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="pl10 verdana blue font18"><?= "comment(".$item["comment_count"].")" ?></a>
 				<p class="black arial font18 mt15">
 					<span class="tag">IT<a>star</a></span>
 					<span class="tag">O<a>star</a></span>
