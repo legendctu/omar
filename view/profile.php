@@ -2,7 +2,7 @@
 	require_once("view_helper.php");
 	require_once("../controller/api_helper.php");
 
-	$type = isset($_GET["type"]) ? $_GET["type"] : "activity";
+	$type = isset($_GET["type"]) ? $_GET["type"] : "information";
 	$id = isset($_GET["id"]) ? $_GET["id"] : $_COOKIE['OH_id'];
 
 	render_header('Profile');
@@ -14,6 +14,42 @@
     $contact_info = json_decode($ret["content"], true);
     $ret = callapi("profile/organization_information", "GET");
     $org_info = json_decode($ret["content"], true);
+    
+    //Activity item 的生成函数
+    function render_item($item) { ?>
+		<div class="mt10 p10 border-t">
+			<a href="profile.php?id=<?= $item["publisher_id"] ?>">
+				<img class="avatar fl" src="<?= get_avatar_by_id($item["publisher_id"]) ?>" uid="<?php echo $item["publisher_id"];?>" />
+			</a>
+            
+            <?php
+                $get_follow = callapi("watch/".$item['item_id'], "GET", array());
+                $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
+            ?>
+            
+            <a name="watch_btn" action="<?php echo $action?>" iid="<?php echo $item['item_id']?>" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                <?php 
+                    if ($action == 'watch') {
+                        echo 'follow';
+                    } else {
+                        echo 'unfollow';
+                    }
+                ?>
+            </a>
+            <div class="intro w500 ml90">
+				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
+				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
+				<p class="pl10 verdana font18"><?= $item["description"] ?></p>
+				<p class="black arial font18 mt15">
+					<span class="tag">IT<a>star</a></span>
+					<span class="tag">O<a>star</a></span>
+					<span class="tag">Medicine<a>star</a></span>
+					<span class="tag">Event<a>star</a></span>
+				</p>
+			</div>
+		</div><?php
+	}
+    
 ?>
 
 <link style="text/css" href="../css/profile.css" rel="stylesheet"/>
@@ -31,12 +67,57 @@
 			</div>
 		<?php } ?>
 		<p id="l_side_navi" class="pl20 font24 freshcolor">
-            <span class="center mr15 b"><a href="<?= $type == "activity" ? "#" : "profile.php" ?>" class="<?= $type == "activity" ? "carmine" : "light-red" ?>">Activity</a></span>
+            <span class="center mr15 b"><a <?= $type == "activity" ? "" : 'href="profile.php?type=activity&id=' . $id . '"' ?> class="<?= $type == "activity" ? "carmine" : "light-red" ?>">Activity</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "information" ? "#" : "profile.php?type=information" ?>" class="<?= $type == "information" ? "carmine" : "light-red" ?>">Information</a></span>
+            <span class="center ml15 mr15 b"><a <?= $type == "information" ? "" : 'href="profile.php?type=information&id=' . $id . '"' ?> class="<?= $type == "information" ? "carmine" : "light-red" ?>">Information</a></span>
             <span class="center">/</span>
-            <span class="center ml15 mr15 b"><a href="<?= $type == "innovation" ? "#" : "profile.php?type=innovation" ?>" class="<?= $type == "innovation" ? "carmine" : "light-red" ?>">Innovation</a></span>
+            <span class="center ml15 mr15 b"><a <?= $type == "innovation" ? '' : 'href="profile.php?type=innovation&id=' . $id . '"' ?> class="<?= $type == "innovation" ? "carmine" : "light-red" ?>">Innovation</a></span>
         </p>
+        
+<!-- Activity / Information / Innovation block start -->
+<?php
+switch($type){
+    case "activity": ?>
+        <div class="mt10 p10 border-t">
+			<a href="profile.php?id=8">
+				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
+			</a>
+            <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                follow            </a>
+            <div class="intro w500 ml90">
+				<span class="pl10 pr10 arial font24">Need</span>
+				<a href="show_item.php?id=4" class="arial blue font24 b">植树节</a>
+				<p class="pl10 verdana font18">需要10个人到香山做引导员。</p>
+				<p class="black arial font18 mt15">
+					<span class="tag">IT<a>star</a></span>
+					<span class="tag">O<a>star</a></span>
+					<span class="tag">Medicine<a>star</a></span>
+					<span class="tag">Event<a>star</a></span>
+				</p>
+			</div>
+		</div>
+		
+		<div class="mt10 p10 border-t">
+			<a href="profile.php?id=8">
+				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
+			</a>
+            <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                follow            </a>
+            <div class="intro w500 ml90">
+				<span class="pl10 pr10 arial font24">Need</span>
+				<a href="show_item.php?id=4" class="arial blue font24 b">植树节</a>
+				<p class="pl10 verdana font18">需要10个人到香山做引导员。</p>
+				<p class="black arial font18 mt15">
+					<span class="tag">IT<a>star</a></span>
+					<span class="tag">O<a>star</a></span>
+					<span class="tag">Medicine<a>star</a></span>
+					<span class="tag">Event<a>star</a></span>
+				</p>
+			</div>
+		</div>
+		
+<?php   break;//Activity block end
+    case "information": ?>
         <div id="basic">
 			<div id="basic-header" class="overflow m10 p10 border-b">
 				<h3 class="fl font20 pink b ml20">Basic Information</h3>
@@ -97,6 +178,18 @@
 				<span>Organization phone number:</span> <p><?php echo $org_info["phone_number"];?></p><br />
 			</div>
 		</div>
+		
+        <script type="text/javascript" src="../script/jquery.ui.datepicker.js"></script>
+        <script type="text/javascript" src="../script/jquery.ui.core.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/base/jquery.ui.all.css" media="all" />
+        <script type="text/javascript" src="../script/profile_information.js"></script>
+        
+<?php   break;//Information block end
+    case "innovation":
+        break;//Innovation block end
+}?>
+    
+<!-- Activity / Information / Innovation block end -->
 	</div>
 	<div id="r_side" class="fr w300">
 		<div class="center border-blue">
@@ -162,154 +255,6 @@
 	</div>
 </div>
 </div>
-    <script type="text/javascript" src="../script/jquery.ui.datepicker.js"></script>
-    <script type="text/javascript" src="../script/jquery.ui.core.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/base/jquery.ui.all.css" media="all" />
-    <script type="text/javascript">
-        //in_edit = 0;
-        $(document).ready(function(){
-            $(".edit").click(function(){
-                if ($(this).parent().next('div').attr("in_edit") == "0") {
-                    $(this).parent().next('div').attr("in_edit", "1");
-                    $(this).html('Save');
-                    $(this).next().html('Cancel');
-                    $(this).parent().next('div').children('span')
-                            .each(function(){
-                                $(this).next().addClass('hidden');
-                                if (($(this).attr('is_special') != 'select') &&
-                                    ($(this).attr('is_special') != 'date')) {
-                                    v = $(this).next().html();
-                                    $(this).after("<input type='text' value='" + v + "'>");
-                                }
-                                else {
-                                    v = $(this).next().html();
-                                    console.log(v);
-                                    $(this).after(p_to_special($(this).attr('id')));
-                                    $(".datepicker").datepicker({ 
-                                        dateFormat: "yy-mm-dd", 
-                                        changeMonth: true,
-                                        changeYear: true});
-                                    $(this).next().val(v);
-                                }
-                    });
-                }
-                else {
-                    $(this).parent().next('div').attr("in_edit", "0");
-                    $(this).html('Edit');
-                    $(this).next().html('Download');
-                    data = new Array();
-                    $(this).parent().next('div').children('input, select')
-                        .each(function(){
-                            if ($(this).prev().attr('id') == 'form_date') {
-                                data.push(Date.parse($(this).val().replace(/-/g, '/'))/1000);
-                            }
-                            else
-                                data.push($(this).val());
-                            $(this).next().removeClass('hidden');
-                            $(this).remove();
-                        });
-                    post_info($(this).attr("id"), data);
-                }
-            });
-           
-            $(".cancel").click(function(){
-                if ($(this).parent().next('div').attr("in_edit") == "1") {
-                    $(this).parent().next('div').attr("in_edit", "0");
-                    $(this).prev('a').html('Edit');
-                    $(this).html('Download');
-                    $(this).parent().next('div').children('input, select')
-                            .each(function(){
-                                $(this).next().removeClass('hidden');
-                                $(this).remove();
-                    });
-                }
-            });
-        
-        });
-        
-        function p_to_special(id, obj)
-        {
-            var txt;
-            if (id == "gender_select"){
-                txt = "<select><option>male</option><option>female</option><option>unknown</option></select>";
-            }
-            else if (id == 'emp_select') {
-                txt = "<select><option>less than 10</option><option>11-25</option><option>26-40</option><option>41-60</option><option>61-80</option><option>81-100</option><option>101-150</option><option>151-200</option><option>more than 200</option></select>";
-            }
-            else if (id == 'bgt_select') {
-                txt = "<select><option>less than $50,000</option><option>$50,000- $100,000</option><option>$100,000-$200,000</option><option>$200,000-$500,000</option><option>$500,000- $1,000,000</option><option>$1,000,000- $5,000,000</option><option>$5,000,000- $10,000,000</option><option>more than $10,000,000</option></select>";
-            }
-            else if (id == 'form_date') {
-                txt = "<input type='text' class='datepicker' />";
-            }
-            return txt;
-        }
-        
-        function post_info(type, data)
-        {
-            if (type == 'basic-edit') 
-            {
-                info = {
-                        "type": "basic",
-                        "firstname": data[0],
-                        "lastname": data[1],
-                        "gender": data[2],
-                        "languages": data[3],
-                        "work_fields": data[4],
-                        "work_location": data[5],
-                        "target_population": data[6]
-                    };
-            }
-            else if (type == 'contact-edit')
-            {
-                info = {
-                        "type": "contact",
-                        "phone_number_country_code": data[0],
-                        "phone_number": data[1],
-                        "street": data[2],
-                        "city": data[3],
-                        "province": data[4],
-                        "zip_code": data[5],
-                        "country": data[6]
-                    };
-            }
-            else if(type == 'organization-edit')
-            {
-                info = {
-                        "type": "org",
-                        "name" : data[0],
-                        "acronym" : data[1],
-                        "formed_date" : data[2],
-                        "website" : data[3],
-                        "org_type" : data[4],
-                        "employee_number" : data[5],
-                        "annual_budget" : data[6],
-                        "phone_number_country_code" : data[7],
-                        "phone_number" : data[8]
-                    };
-            }
-            $.post(
-                    "../controller/profile.php",
-                    info,
-                    function(d){
-                        i = 0;
-                        $("#"+type).parent().next('div').children("p").each(function(){
-                            if ($(this).prev().attr('id') == 'form_date') {
-                                var date = new Date(data[i++]*1000);
-                                var y = date.getFullYear(),
-                                    m = date.getMonth() + 1,
-                                    d = date.getDate();
-                                $(this).html(y + '-' + m + '-' + d);
-                            }
-                            else {
-                                $(this).html(data[i++]);
-                            }
-                        });
-                    },
-                    "json"
-            );
-        }
-    </script>
 
 	<script type="text/javascript">
 		$("a[name='follow']").click(function() {
