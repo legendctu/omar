@@ -15,6 +15,7 @@ function render_header($title, $is_user = true) {
 		<meta http-equiv="Content-Type"content="text/html; charset=utf-8" />
 		<link style="text/css" href="../css/base.css" rel="stylesheet"/>
 		<script type="text/javascript" src="../script/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="../script/search.js"></script>
     </head>
     <body>
 		<?php if($is_user && !isset($_COOKIE["OH_user"])) echo "<script type='text/javascript'>window.location='login.php';</script>";?>
