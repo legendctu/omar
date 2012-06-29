@@ -7,7 +7,7 @@
 ?>
 <?php require_once("view_helper.php"); ?>
 <?php
-	render_header('People & Activity', false);
+	render_header('Login', false);
 ?>
 
 <link style="text/css" href="../css/login.css" rel="stylesheet"/>
