@@ -83,7 +83,7 @@ switch($type){
         break;
         
     case "get_activity":
-        $sort = isset($_POST["sort"]) ? $_POST["sort"] : "";
+        $sort = isset($_POST["sort"]) ? $_POST["sort"] : "time";
         $count = isset($_POST["count"]) ? $_POST["count"] : "";
         $page = isset($_POST["page"]) ? $_POST["page"] : "";
         $user_id = isset($_POST["user_id"]) ? $_POST["user_id"] : "";
@@ -94,7 +94,7 @@ switch($type){
             "page" => $page,
             "user_id" => $user_id
         );
-        
+
         $res = callapi("activities", "GET", $data);
         $r = array(
             "code" => $res["code"],
@@ -112,24 +112,29 @@ switch($type){
             $uid = $act["user_id"];
             if(!isset($profiles[$uid])){
                 $get_profile = callapi("profile/".$uid, "GET");
-                $profiles[$uid] = json_decode($get_avatar["content"], true);
+                $profiles[$uid] = json_decode($get_profile["content"], true);
                 $profiles[$uid]["avatar"] = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($profiles[$uid]["email"])));
+                $get_follow_status = callapi("friendships/{$uid}", "GET");
+                $profiles[$uid]["is_following"] = $get_follow_status["code"] == 200 ? true : false;
             }
             
             if(isset($act["target_user_id"]) && !isset($act["target_user_id"])){
                 $uid = $act["target_user_id"];
                 $get_profile = callapi("profile/".$uid, "GET");
-                $profiles[$uid] = json_decode($get_avatar["content"], true);
+                $profiles[$uid] = json_decode($get_profile["content"], true);
                 $profiles[$uid]["avatar"] = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($profiles[$uid]["email"])));
+                $profiles[$uid]["is_following"] = $get_follow_status["code"] == 200 ? true : false;
             }
             
             if(isset($act["item_id"]) && !isset($items[$act["item_id"]])){
                 $iid = $act["item_id"];
                 $get_item = callapi("items/{$iid}", "GET");
                 $items[$iid] = json_decode($get_item["content"], true);
+                $get_watch_status = callapi("watch/{$iid}", "GET");
+                $items[$iid]["is_watching"] = $get_watch_status["code"] == 200 ? true : false;
             }
         }
-        
+
         $d = array();
         foreach($r["content"]["activities"] as $act){
             $uid = $act["activities_type"] == "follow" || $act["activities_type"] == "unfollow" ? $act["target_user_id"] : $act["user_id"];
@@ -139,8 +144,14 @@ switch($type){
                 case "user_activate":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($profiles[$uid]["is_following"])
+                            $str .= '<a name="follow_btn" action="unfollow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">User Activated</span>' .
                             "<a href='profile.php?id={$uid}' class='arial blue font24 b'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}</a>" .
@@ -153,8 +164,14 @@ switch($type){
                 case "follow":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($profiles[$uid]["is_following"])
+                            $str .= '<a name="follow_btn" action="unfollow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .= 
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Follow</span>' .
                             "<a href='profile.php?id={$uid}' class='arial blue font24 b'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}</a>" .
@@ -167,8 +184,14 @@ switch($type){
                 case "unfollow":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($profiles[$uid]["is_following"])
+                            $str .= '<a name="follow_btn" action="unfollow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Unfollow</span>' .
                             "<a href='profile.php?id={$uid}' class='arial blue font24 b'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}</a>" .
@@ -181,8 +204,14 @@ switch($type){
                 case "watch":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($items[$iid]["is_watching"])
+                            $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Follow ' . $items[$iid]["category"] . '</span>' .
                             "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
@@ -195,8 +224,14 @@ switch($type){
                 case "unwatch":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($items[$iid]["is_watching"])
+                            $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Unfollow ' . $items[$iid]["category"] . '</span>' .
                             "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
@@ -209,8 +244,14 @@ switch($type){
                 case "post_item":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($items[$iid]["is_watching"])
+                            $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Publish ' . $items[$iid]["category"] . '</span>' .
                             "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
@@ -223,8 +264,14 @@ switch($type){
                 case "post_comment":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($items[$iid]["is_watching"])
+                            $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Post a comment</span>' .
                             "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
@@ -237,8 +284,14 @@ switch($type){
                 case "profile_modify":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($profiles[$uid]["is_following"])
+                            $str .= '<a name="follow_btn" action="unfollow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Profile</span>' .
                             "<a href='profile.php?id={$uid}' class='arial blue font24 b'>Basic information edited</a>" .
@@ -251,8 +304,14 @@ switch($type){
                 case "contact_information_modify":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($profiles[$uid]["is_following"])
+                            $str .= '<a name="follow_btn" action="unfollow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Profile</span>' .
                             "<a href='profile.php?id={$uid}' class='arial blue font24 b'>Contact information edited</a>" .
@@ -265,8 +324,14 @@ switch($type){
                 case "organization_information_modify":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
-                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
+                    if($_COOKIE["OH_id"] != $uid){
+                        if($profiles[$uid]["is_following"])
+                            $str .= '<a name="follow_btn" action="unfollow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
+                        else
+                            $str .= '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>';
+                    }
+                    $str .=
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">Profile</span>' .
                             "<a href='profile.php?id={$uid}' class='arial blue font24 b'>Organization information edited</a>" .
