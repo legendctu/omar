@@ -221,7 +221,6 @@
             $(this).hide();
         });
         
-        //$("a[name='watch_btn']").bind("click", { t: $(this) }, watch_btn_click);
         $("a[name='watch_btn']").each(function(){
             var pp = $(this);
             $(this).bind("click", { t: pp }, watch_btn_click);

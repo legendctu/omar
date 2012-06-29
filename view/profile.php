@@ -43,41 +43,7 @@
 switch($type){
     case "activity": ?>
         <input type="hidden" id="user_id" value="<?=$id;?>" />
-        <div id="activities_block">
-            <div class="mt10 p10 border-t">
-    			<a href="profile.php?id=8">
-    				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
-    			</a>
-                <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
-                    follow            </a>
-                <div class="intro w500 ml90">
-    				<span class="pl10 pr10 arial font24">Follow</span>
-    				<a href="show_item.php?id=4" class="arial blue font24 b">event 暑期工程实践</a>
-    				<p class="pl10 verdana font18">Yach Liu has followed the event 暑期工程实践.</p>
-    			</div>
-    			<div class="clear"></div>
-    		</div>
-    		
-    		<div class="mt10 p10 border-t">
-    			<a href="profile.php?id=8">
-    				<img class="avatar fl" src="http://www.gravatar.com/avatar/2e56650d65285819a2f19bef317a9def" uid="8">
-    			</a>
-                <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
-                    follow            </a>
-                <div class="intro w500 ml90">
-    				<span class="pl10 pr10 arial font24">Need</span>
-    				<a href="show_item.php?id=4" class="arial blue font24 b">植树节</a>
-    				<p class="pl10 verdana font18">需要10个人到香山做引导员。</p>
-    				<p class="black arial font18 mt15">
-    					<span class="tag">IT<a>star</a></span>
-    					<span class="tag">O<a>star</a></span>
-    					<span class="tag">Medicine<a>star</a></span>
-    					<span class="tag">Event<a>star</a></span>
-    				</p>
-    			</div>
-    			<div class="clear"></div>
-    		</div>
-		</div>
+        <div id="activities_block"></div>
 		<div class="center font18 b carmine mt20"><a id="show_more_activities">Show More Activities</a><span id="loading_activities" class="light-red none">Loading, please wait…</span></div>
 		<script src="../script/profile_activity.js"></script>
 <?php   break;//Activity block end

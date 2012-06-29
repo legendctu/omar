@@ -106,6 +106,13 @@ switch($type){
             return;
         }
         
+        $get_create = callapi("items", "GET", array("count" => 10000, "page" => 0, "author_id" => $_COOKIE["OH_id"]));
+        $get_create = json_decode($get_create["content"], true);
+        $create_ids = array();
+        foreach($get_create["items"] as $c){
+            $create_ids[] = $c["item_id"];
+        }
+        
         $profiles = array();
         $items = array();
         foreach($r["content"]["activities"] as $act){
@@ -118,11 +125,12 @@ switch($type){
                 $profiles[$uid]["is_following"] = $get_follow_status["code"] == 200 ? true : false;
             }
             
-            if(isset($act["target_user_id"]) && !isset($act["target_user_id"])){
+            if(isset($act["target_user_id"]) && !isset($profiles[$act["target_user_id"]])){
                 $uid = $act["target_user_id"];
                 $get_profile = callapi("profile/".$uid, "GET");
                 $profiles[$uid] = json_decode($get_profile["content"], true);
                 $profiles[$uid]["avatar"] = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($profiles[$uid]["email"])));
+                $get_follow_status = callapi("friendships/{$uid}", "GET");
                 $profiles[$uid]["is_following"] = $get_follow_status["code"] == 200 ? true : false;
             }
             
@@ -205,7 +213,7 @@ switch($type){
                     $str = 
                     '<div class="mt10 p10 border-t">' .
                         "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
-                    if($_COOKIE["OH_id"] != $uid){
+                    if(!in_array($iid, $create_ids)){
                         if($items[$iid]["is_watching"])
                             $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
                         else
@@ -225,7 +233,7 @@ switch($type){
                     $str = 
                     '<div class="mt10 p10 border-t">' .
                         "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
-                    if($_COOKIE["OH_id"] != $uid){
+                    if(!in_array($iid, $create_ids)){
                         if($items[$iid]["is_watching"])
                             $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
                         else
@@ -245,7 +253,7 @@ switch($type){
                     $str = 
                     '<div class="mt10 p10 border-t">' .
                         "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
-                    if($_COOKIE["OH_id"] != $uid){
+                    if(!in_array($iid, $create_ids)){
                         if($items[$iid]["is_watching"])
                             $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
                         else
@@ -265,7 +273,7 @@ switch($type){
                     $str = 
                     '<div class="mt10 p10 border-t">' .
                         "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>";
-                    if($_COOKIE["OH_id"] != $uid){
+                    if(!in_array($iid, $create_ids)){
                         if($items[$iid]["is_watching"])
                             $str .= '<a name="watch_btn" action="unwatch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">unfollow</a>';
                         else
