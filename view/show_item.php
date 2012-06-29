@@ -20,7 +20,7 @@
 	function render_comment($comment, $publisher_id) {
 		$ret = callapi("profile/".$comment["author_id"], "GET");
 		$commenter = json_decode($ret["content"], true); ?>
-		<div class="m10 p10 border-b overflow">
+		<div class="m10 p10 border-t overflow">
 			<a href="profile.php?id=<?= $comment["author_id"] ?>">
 				<img class="small_avatar fl" src="<?= get_avatar($commenter["email"]) ?>" />
 			</a>
@@ -28,7 +28,7 @@
 				<span class="fl blue mr20"><?= get_fullname($commenter) ?></span>
 				<?= $comment["text"] ?>
 			</p>
-			<?php if (is_me($publisher_id)) { ?>
+			<?php if (is_me($publisher_id) || is_me($comment["author_id"])) { ?>
 				<a name="comment-delete" cid="<?= $comment["comment_id"] ?>" class="fr ml20 button-bg white r14 arial font18 b shadow">Delete</a>
 				<span id="del-msgbox" class="ml30"></span>
 			<?php } ?>
@@ -82,7 +82,7 @@
 			</div>
 		<?php } ?>
 		<div class="m10 p10 overflow">
-			<h1 class="pink font20 border-b"><?= "Comments" ?></h1>
+			<h1 class="pink font20"><?= "Comments" ?></h1>
 			<?php
 				$ret = callapi("items/".$id."/comments", "GET");
 				$comments = json_decode($ret["content"], true);
@@ -90,11 +90,11 @@
 				for ($i = 0; $i < count($comment); $i++) {
 					render_comment($comment[$i], $item["publisher_id"]);
 				} ?>
-			<div class="m10 p10 box-shadow overflow">
-				<label>Add comment</label><br />
-				<textarea name="text" id="text" class="w600 h100"></textarea><br />
+			<div class="m10 p10 box-shadow overflow r7">
+				<label class="arial b m10 blue">Add comment</label><br />
+				<textarea name="text" id="text" class="m10 w550 h100"></textarea>
 				<input type="hidden" name="post_id" id="post_id" value="<?= $id ?>" /><br />
-				<a id="post-comment" class="button-bg white r14 arial font24 b shadow">Post</a>
+				<a id="post-comment" class="button-bg white r14 arial font24 b shadow m10">Post</a>
 				<span id="msgbox" class="ml30"></span>
 			</div>
 		</div>
