@@ -12,7 +12,6 @@
 	$ret = callapi("search", "GET", $data);
     $content = json_decode($ret['content'], true);
     $items = $content["result"];
-    //print_r($items);
     
     for ($i = 0; $i < count($items); $i++) {
         if ($items[$i]["result_type"] == "user") {
@@ -38,7 +37,6 @@
             }
         }
     }
-    //print_r($items);
     $items_count = count($items);
 	
 	function render_item($result) { 
@@ -82,8 +80,8 @@
             <?php if ($result_type == "user") { ?>
 				<span class="pl10 pr10 arial font24"><?= "People" ?></span>
 				<a href="profile.php?id=<?= $uid ?>" class="arial blue font24 b"><?= $result["firstname"].' '.$result["lastname"] ?></a>
-				<p class="pl10 verdana font18"><?= 'Email: '.ucfirst($result['email']) ?></p>
-                <p class="black arial font18 mt15"><?= 'Target Population: '.ucfirst($result['target_population']) ?></p>
+				<p class="pl10 verdana font18"><?= 'Email: '.$result['email'] ?></p>
+                <p class="black arial font18 mt15"></p>
             <?php } else { ?>
                 <span class="pl10 pr10 arial font24"><?= ucfirst($result["category"]) ?></span>
 				<a href="show_item.php?id=<?= $result["item_id"] ?>" class="arial blue font24 b"><?= $result["title"] ?></a>
@@ -145,23 +143,14 @@
 
 		<div>
 		<?php
-			//$has_more = $items['has_more'];
-			//$items = $items['items'];
-            //print_r($items);
             if (!isset($_GET["query"]))
                 echo '<div class="mt10 p10 border-t">Sorry, no query word.</div>';
 			else if ($items_count == 0)
 				echo '<div class="mt10 p10 border-t">Sorry, no result found.</div>';
 			
-            //for ($i = 0; $i < $items_count; $i++) {
             foreach($items as $value) {
-                //print_r($value);
                 render_item($value);
             }
-            //render_item('user', 1);
-            //render_item('item', 11);
-            //render_item('item', 9);
-            //render_item('item', 5);
 		?>
 		</div>
 	</div>
