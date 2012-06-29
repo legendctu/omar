@@ -24,19 +24,28 @@
 			</a>
             
             <?php
-                $get_follow = callapi("watch/".$item['item_id'], "GET", array());
-                $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
-            ?>
+                $get_create = callapi("items", "GET", array("count" => 10000, "page" => 0, "author_id" => $_COOKIE["OH_id"]));
+                $get_create = json_decode($get_create["content"], true);
+                $create_ids = array();
+                foreach($get_create["items"] as $c){
+                    $create_ids[] = $c["item_id"];
+                }
             
-            <a name="watch_btn" action="<?php echo $action?>" iid="<?php echo $item['item_id']?>" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
-                <?php 
-                    if ($action == 'watch') {
-                        echo 'follow';
-                    } else {
-                        echo 'unfollow';
-                    }
-                ?>
-            </a>
+                if(!in_array($item["item_id"], $create_ids)){
+                    $get_follow = callapi("watch/".$item['item_id'], "GET", array());
+                    $action = ($get_follow['code'] == 404) ? 'watch' : 'unwatch';
+            ?>
+                    <a name="watch_btn" action="<?php echo $action?>" iid="<?php echo $item['item_id']?>" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
+                        <?php 
+                            if ($action == 'watch') {
+                                echo 'follow';
+                            } else {
+                                echo 'unfollow';
+                            }
+                        ?>
+                    </a>
+            <?php }?>
+            
             <div class="intro w500 ml90">
 				<span class="pl10 pr10 arial font24"><?= ucfirst($item["category"]) ?></span>
 				<a href="show_item.php?id=<?= $item["item_id"] ?>" class="arial blue font24 b"><?= $item["title"] ?></a>
