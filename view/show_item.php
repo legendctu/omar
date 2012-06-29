@@ -28,7 +28,7 @@
 				<span class="fl blue mr20"><?= get_fullname($commenter) ?></span>
 				<?= $comment["text"] ?>
 			</p>
-			<?php if (is_me($publisher_id)) { ?>
+			<?php if (is_me($publisher_id) || is_me($comment["author_id"])) { ?>
 				<a name="comment-delete" cid="<?= $comment["comment_id"] ?>" class="fr ml20 button-bg white r14 arial font18 b shadow">Delete</a>
 				<span id="del-msgbox" class="ml30"></span>
 			<?php } ?>
