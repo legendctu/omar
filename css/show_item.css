@@ -41,6 +41,16 @@
 	width: 430px;
 }
 
+.w550 {
+        width: 550px;
+}
+
 .h100 {
 	height: 100px;
+}
+
+.r7{
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
 }
