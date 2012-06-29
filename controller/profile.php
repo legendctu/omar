@@ -106,59 +106,176 @@ switch($type){
             return;
         }
         
-        $d = array();
-        $avatars = array();
+        $profiles = array();
+        $items = array();
+        foreach($r["content"]["activities"] as $act){
+            $uid = $act["user_id"];
+            if(!isset($profiles[$uid])){
+                $get_profile = callapi("profile/".$uid, "GET");
+                $profiles[$uid] = json_decode($get_avatar["content"], true);
+                $profiles[$uid]["avatar"] = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($profiles[$uid]["email"])));
+            }
+            
+            if(isset($act["target_user_id"]) && !isset($act["target_user_id"])){
+                $uid = $act["target_user_id"];
+                $get_profile = callapi("profile/".$uid, "GET");
+                $profiles[$uid] = json_decode($get_avatar["content"], true);
+                $profiles[$uid]["avatar"] = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($profiles[$uid]["email"])));
+            }
+            
+            if(isset($act["item_id"]) && !isset($items[$act["item_id"]])){
+                $iid = $act["item_id"];
+                $get_item = callapi("items/{$iid}", "GET");
+                $items[$iid] = json_decode($get_item["content"], true);
+            }
+        }
         
+        $d = array();
         foreach($r["content"]["activities"] as $act){
             $uid = $act["activities_type"] == "follow" || $act["activities_type"] == "unfollow" ? $act["target_user_id"] : $act["user_id"];
-            if(!isset($avatars[$uid])){
-                $get_avatar = callapi("profile/".$uid, "GET");
-                $get_avatar = json_decode($get_avatar["content"], true);
-                $get_avatar = md5(strtolower(trim($get_avatar["email"])));
-                $avatars[$uid] = "http://www.gravatar.com/avatar/" . $get_avatar;
-            }
+            $iid = isset($act["item_id"]) ? $act["item_id"] : "";
             
             switch($act["activities_type"]){
                 case "user_activate":
                     $str = 
                     '<div class="mt10 p10 border-t">' .
-                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$avatars[$uid]}' uid='{$uid}'></a>" .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
                         '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
                         '<div class="intro w500 ml90">' .
                             '<span class="pl10 pr10 arial font24">User Activated</span>' .
-                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>YachLiu====</a>" .
-                            "<p class='pl10 verdana font18'>YachLiu==== activated the account.</p>" .
+                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has activated the account.</p>" .
                         '</div>' .
                         '<div class="clear"></div>' .
                     '</div>';
-                    break;//====
+                    $d[] = $str;
+                    break;//user_activate end
                 case "follow":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Follow</span>' .
+                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$act["user_id"]]["firstname"]} {$profiles[$act["user_id"]]["lastname"]} has followed {$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//follow end
                 case "unfollow":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Unfollow</span>' .
+                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$act["user_id"]]["firstname"]} {$profiles[$act["user_id"]]["lastname"]} has unfollowed {$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]}.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//unfollow end
                 case "watch":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Follow ' . $items[$iid]["category"] . '</span>' .
+                            "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has followed the {$items[$iid]["category"]} {$items[$iid]["title"]}.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//watch end
                 case "unwatch":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Unfollow ' . $items[$iid]["category"] . '</span>' .
+                            "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has unfollowed the {$items[$iid]["category"]} {$items[$iid]["title"]}.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//unwatch end
                 case "post_item":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Publish ' . $items[$iid]["category"] . '</span>' .
+                            "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has published the {$items[$iid]["category"]} {$items[$iid]["title"]}.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//post_item end
                 case "post_comment":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="watch_btn" action="watch" iid="' . $iid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Post a comment</span>' .
+                            "<a href='show_item.php?id={$iid}' class='arial blue font24 b'>{$items[$iid]["title"]}</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has post a comment in the {$items[$iid]["category"]} {$items[$iid]["title"]}.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//post_comment end
                 case "profile_modify":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Profile</span>' .
+                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>Basic information edited</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has edited the basic information.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//profile_modify end
                 case "contact_information_modify":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Profile</span>' .
+                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>Contact information edited</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has edited the contact information.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//contact_information_modify end
                 case "organization_information_modify":
-                    
-                    break;
+                    $str = 
+                    '<div class="mt10 p10 border-t">' .
+                        "<a href='profile.php?id={$uid}'><img class='avatar fl' src='{$profiles[$uid]["avatar"]}' uid='{$uid}'></a>" .
+                        '<a name="follow_btn" action="follow" uid="' . $uid . '" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">follow</a>' .
+                        '<div class="intro w500 ml90">' .
+                            '<span class="pl10 pr10 arial font24">Profile</span>' .
+                            "<a href='profile.php?id={$uid}' class='arial blue font24 b'>Organization information edited</a>" .
+                            "<p class='pl10 verdana font18'>{$profiles[$uid]["firstname"]} {$profiles[$uid]["lastname"]} has edited the organization information.</p>" .
+                        '</div>' .
+                        '<div class="clear"></div>' .
+                    '</div>';
+                    $d[] = $str;
+                    break;//organization_information_modify end
             }
         }
         

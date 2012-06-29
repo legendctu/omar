@@ -51,9 +51,9 @@ switch($type){
                 <a name="watch_btn" action="watch" iid="4" class="fr white font24 arial r14 button-bg pl20 pr20 b shadow follow">
                     follow            </a>
                 <div class="intro w500 ml90">
-    				<span class="pl10 pr10 arial font24">User Activated</span>
-    				<a href="show_item.php?id=4" class="arial blue font24 b">Yach Liu</a>
-    				<p class="pl10 verdana font18">Yach Liu activated the account.</p>
+    				<span class="pl10 pr10 arial font24">Follow</span>
+    				<a href="show_item.php?id=4" class="arial blue font24 b">event 暑期工程实践</a>
+    				<p class="pl10 verdana font18">Yach Liu has followed the event 暑期工程实践.</p>
     			</div>
     			<div class="clear"></div>
     		</div>
